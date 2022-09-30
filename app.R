@@ -41,7 +41,6 @@ area_chart <- function(glacier_name){
   user_input <- glacier_name #readline(prompt = "Enter the Glacier Name you would like to see a graph for: ")
   plot_data <- sub_data[, c(1,4,5)]
   plot_data <- subset(plot_data, NAME == user_input)
-  #write.csv(plot_data, "C:\\Users\\Benjamin#2\\Box Sync\\Documents\\Glacier\\Glacier_Project\\test_with.csv")
   p <- plot(plot_data$YEAR, plot_data$AREA_CHANGE, main = "Deez Nut", xlab = "Year", ylab = "Area Change", xlim = c(1950, 2020), ylim = c(-10000, 10000))
   b <- barplot(plot_data$AREA_CHANGE, names.arg = plot_data$YEAR,
                main = user_input,
