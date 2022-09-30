@@ -3,7 +3,15 @@ library(rgdal)
 library(ggplot2)
 
 # Set working directory
-setwd(file.choose())
+##############################################
+##############################################
+# To set working directory, you can either do:
+# 1) setwd("<your_directory_here>")
+# 2) 
+#  a) right click on file in RStudio Window
+#  b) select "set as working directory"
+##############################################
+##############################################
 
 data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
 lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
