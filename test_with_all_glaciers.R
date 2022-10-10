@@ -3,7 +3,7 @@ library(rgdal)
 library(ggplot2)
 
 # Set working directory
-setwd(file.choose())
+# setwd(file.choose())
 
 data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
 lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
