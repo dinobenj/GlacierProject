@@ -22,6 +22,12 @@ class CountryGlaciers(Resource):
             data = df.query(f"POLITICAL_UNIT == {country_code} and NAME == {glacier_name}").to_dict()
             return data, 200
 
+# 
+class GlaciersByYear(Resource):
+    def get(self):
+        df = pd.read_csv("dda.csv")
+        
+
 
 api.add_resource(test_USA, '/test') #glaciers is our entry point
 api.add_resource(CountryGlaciers, '/countryglaciers') #countryglaciers is our entry point
