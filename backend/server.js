@@ -1,14 +1,17 @@
+require('dotenv').config();
 const express = require('express');
 const app = express();
-const port = 3000;
-const { MongoClient, ServerApiVersion, ConnectionClosedEvent } = require('mongodb');
-require('dotenv').config();
-
-
 app.use(express.json());
+const { MongoClient, ServerApiVersion, ConnectionClosedEvent } = require('mongodb');
+const port = 3000;
 
 // Get connection string from environment variable
 const uri = process.env.mongoURI;
+if (uri == null) {
+  console.log("Error: No connection string found in .env file.\nPlease add a mongoURI variable to the .env file.");
+  process.exit(1);
+}
+
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
 // Get all the games from my DB
@@ -26,7 +29,7 @@ app.get('/documents/:collection', async function (req, res) {
 });
 
 app.listen(port, () => {
-  console.log('Listening on *:3000');
+  console.log('Server started. Listening on *:' + port + '...');
 });
 
 // // GET
