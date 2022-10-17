@@ -1,3 +1,6 @@
+# Enviroment variables
+.env
+
 # Data files
 data
 DOI-WGMS-FoG-2021-05
