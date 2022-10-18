@@ -1,6 +1,7 @@
 #library(elevatr)
 library(rgdal)
 library(ggplot2)
+library(httr)
 
 # Set working directory
 ##############################################
@@ -13,8 +14,10 @@ library(ggplot2)
 ##############################################
 ##############################################
 
-data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
-lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
+test <- GET("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER")
+
+data <- read.json(GET("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
+lon_lat_data <- read.json(GET("http://localhost:3000/documents/WGMS-FoG-2021-05-D-CHANGE"))
 
 only_location <- lon_lat_data[, c(1,3, 2,5, 6, 7)]
 only_location_sub <- subset(only_location, LATITUDE != "NA" & LONGITUDE != "NA")

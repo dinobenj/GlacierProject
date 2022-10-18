@@ -20,13 +20,17 @@ app.get('/documents/:collection', async function (req, res) {
   const collection = client.db("glac_db").collection(req.params.collection);
 
   console.log("Getting all documents from collection: " + req.params.collection);
-
+  
   let data = await collection.find().toArray();
-
+  
   res.send(data);
+  
+  console.log("Sent all documents.");
 
   client.close();
 });
+
+
 
 app.listen(port, () => {
   console.log('Server started. Listening on *:' + port + '...');
