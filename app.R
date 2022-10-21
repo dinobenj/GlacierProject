@@ -18,6 +18,7 @@
   library(leaflet)
   library(RColorBrewer)
   library(rgl)
+  library(bmp)
   library(elevatr)
   
   
