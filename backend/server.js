@@ -5,6 +5,10 @@ app.use(express.json());
 const { MongoClient, ServerApiVersion, ConnectionClosedEvent } = require('mongodb');
 const port = 3000;
 
+function getTimestamp() {
+  return new Date().toLocaleTimeString('en-US');
+}
+
 // Get connection string from environment variable
 const uri = process.env.mongoURI;
 if (uri == null) {
@@ -19,18 +23,16 @@ app.get('/documents/:collection', async function (req, res) {
   await client.connect();
   const collection = client.db("glac_db").collection(req.params.collection);
 
-  console.log("Getting all documents from collection: " + req.params.collection);
+  console.log(getTimestamp() + " | Getting all documents from collection: " + req.params.collection);
   
   let data = await collection.find().toArray();
   
   res.send(data);
   
-  console.log("Sent all documents.");
+  console.log(getTimestamp() + " |  Sent all documents.");
 
   client.close();
 });
-
-
 
 app.listen(port, () => {
   console.log('Server started. Listening on *:' + port + '...');
