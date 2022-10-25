@@ -7,7 +7,6 @@ import Home from './components/Home';
 import Map from "./components/Map";
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
-import backgroundImage from './assets/background.jpg'
 import 'antd/dist/antd.min.css';
 import {Layout} from 'antd';
 
@@ -29,9 +28,12 @@ const root = ReactDOM.createRoot(
 );
 root.render(
     <React.StrictMode>
-        <Layout style={{height: "100vh"}}>
+        <Layout style={{
+            backgroundImage: "url(/background.jpg)",
+            backgroundSize: "cover"
+        }}>
             <SiteHeader/>
-            <Content style={{backgroundImage: `url${backgroundImage}`}}>
+            <Content>
                 <RouterProvider router={router}/>
             </Content>
             <SiteFooter/>
