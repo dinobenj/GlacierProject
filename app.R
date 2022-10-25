@@ -19,7 +19,6 @@
   library(RColorBrewer)
   library(rgl)
   library(bmp)
-  library(elevatr)
   
   
   get_country_data <- function(political_unit) {
