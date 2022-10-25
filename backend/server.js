@@ -14,7 +14,7 @@ if (uri == null) {
 
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
-// Get all the games from my DB
+// Get all the documents from a given collection
 app.get('/documents/:collection', async function (req, res) {
   await client.connect();
   const collection = client.db("glac_db").collection(req.params.collection);
