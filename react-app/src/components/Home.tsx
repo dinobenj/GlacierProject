@@ -48,7 +48,7 @@ const Home: React.FC = () => {
                 </Row>
                 <Row justify="space-around" align="middle">
                     <Col>
-                        <Button type="text" size="large" shape="round" href="/map">
+                        <Button ghost size="large" shape="round" href="/map">
                             <Text strong style={{color: "white"}}>
                                 {buttonText}
                             </Text>
