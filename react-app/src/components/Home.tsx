@@ -35,7 +35,14 @@ const Home: React.FC = () => {
                             color: "white",
                             fontSize: "20px"
                         }}>
-                            {appIntroductionText} <Text strong style={{color: "white"}}>{welcomeText.toUpperCase()}</Text>
+                            {appIntroductionText}
+                        </Paragraph>
+                        <Paragraph strong style={{
+                            color: "white",
+                            fontSize: "20px",
+                            textAlign: "center"
+                        }}>
+                            {welcomeText.toUpperCase()}
                         </Paragraph>
                     </Col>
                 </Row>
