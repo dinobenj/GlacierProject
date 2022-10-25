@@ -31,21 +31,25 @@ def traverse_glacier_image(imgfile):
         if determine_color(*last_pixel) != determine_color(*this_pixel):
             # change region num to reflect len of list within regions
             # determine what direction we need to explore in
-            get_regions(regions[determine_color(*this_pixel)], this_pixel, (this_pixel[0] + 1, this_pixel[1]), region+1)
+            
+            current_region_number = len(regions[determine_color(*this_pixel)])
+            regions[determine_color(*this_pixel)].append([])
+            get_regions(regions[determine_color(*this_pixel)], this_pixel, (this_pixel[0] + 1, this_pixel[1]), current_region_number)
 
         x = this_pixel[0]
         y = this_pixel[1]
 
-        get_regions(regions[determine_color(*this_pixel)], this_pixel, (this_pixel[0] + 1, this_pixel[1]), region+1)
-        get_regions(regions[determine_color(*this_pixel)], this_pixel, (this_pixel[0] - 1, this_pixel[1]), region+1)
-        get_regions(regions[determine_color(*this_pixel)], this_pixel, (this_pixel[0] + 1, this_pixel[1]), region+1)
-        get_regions(regions[determine_color(*this_pixel)], this_pixel, (this_pixel[0] + 1, this_pixel[1]), region+1)
+        neighbors = get_adjacent(x, y)
 
-
+        for n in neighbors:
+            get_regions(regions[determine_color(*this_pixel)], this_pixel, (n[0], n[1]), region)
         
-        pass
+    region = 0
+    first_pixel = (0, 0)
+    # start the search
+    get_regions(regions[determine_color(*first_pixel)], first_pixel, (0, 1), region)
+    get_regions(regions[determine_color(*first_pixel)], first_pixel, (1, 0), region)
 
-    # get_regions(re)
     return regions
 
 
