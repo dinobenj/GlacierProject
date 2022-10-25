@@ -6,7 +6,7 @@ const {Header} = Layout;
 const SiteHeader: React.FC = () => {
     return (
         <Header>
-            <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["home"]}>
+            <Menu theme="dark" mode="horizontal">
                 <Menu.Item key="home">
                     <a href="/">Home</a>
                 </Menu.Item>
