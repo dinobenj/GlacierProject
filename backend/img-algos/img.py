@@ -1,22 +1,31 @@
 import PIL
 
 
+def determine_color(r: int, g: int, b: int) -> str:
+
+    if g > r and g > b:
+        pass
+
+
+
+    pass
+
+
 def traverse_glacier_image(imgfile):
 
-    types = { 
-        "glacier": [],
-        "river": [],
-        "...": []
+    regions = { 
+        "green": [],
+        "yellow": [],
+        "orange": [],
+        "white": []
     }
 
-    def glacier_pixels(pixels: list):
+    def get_region(pixels: list):
 
         pass
 
-    def river_pixels(pixels: list):
-        pass
 
-    return types
+    return regions
 
 
 if __name__ == "__main__":
