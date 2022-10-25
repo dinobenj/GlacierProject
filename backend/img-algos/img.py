@@ -17,3 +17,7 @@ def traverse_glacier_image(imgfile):
         pass
 
     return types
+
+
+if __name__ == "__main__":
+    traverse_glacier_image("./test2.png")

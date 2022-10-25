@@ -12,6 +12,14 @@ library(RColorBrewer)
 library(jsonlite)
 library(rgdal)
 library(ggplot2)
+library(raster)
+library(elevatr)
+library(rgeos)
+library(leaflet)
+library(RColorBrewer)
+library(rgl)
+library(bmp)
+library(elevatr)
 
 
 get_country_data <- function(political_unit) {
@@ -50,6 +58,20 @@ area_chart <- function(glacier_name) {
   return(plot_data)
 }
 
+# download the satellite image to filepath
+display_raster <- function(p) {
+  tmp_south <- p$lat - 0.1
+  tmp_north <- p$lat + 0.1
+  tmp_west  <- p$lng - 0.1
+  tmp_east  <- p$lng + 0.1
+  tmp1 <- data.frame(x = tmp_west, y = tmp_south)
+  tmp2 <- data.frame(x = tmp_east, y = tmp_north)
+  tmp <- rbind(tmp1, tmp2)
+  elevation <- get_elev_raster(location = tmp, prj = "EPSG:4326", z = 9)
+  plot(elevation, main = p$id, xlab = "Longitude", ylab = "Latitude")
+  return(elevation)
+}
+
 
 #map %>%
 #  add_markers(lat = "LATITUDE", lon = "LONGITUDE", mouse_over = "NAME")
@@ -58,12 +80,12 @@ ui <- bootstrapPage(
   titlePanel("The Glacier Project"),
   tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
   leafletOutput("mymap", width = "100%", height = "100%"),
-  absolutePanel(top = 10, right = 10,
+  absolutePanel(top = 5, right = 5,
                 selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT)),
                 selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
-                downloadLink("downloadData", "Click to dowload CSV"),
-                downloadLink("downloadSatelliteImage", "Click to download satellite image"),
-                plotOutput("plotxy", click = "plot_click")
+                downloadButton("downloadData", "Click to dowload CSV"),
+                plotOutput("plotxy", click = "plot_click"),
+                actionButton("plot_sat", "Click to display raster of selected Glacier")
   )
 )
 
@@ -78,22 +100,22 @@ server <- function(input, output, session) {
   data <- reactive({
     dd
   })
-
+  
   observeEvent(input$Input_Country_Code, {
     dd <- get_country_data(input$Input_Country_Code)
   })
-
+  
   output$mymap = renderUI({
     leafletOutput('mymap', width = "20%", height = "20%")
   })
-
+  
   output$mymap <- renderLeaflet({
     leaflet() %>%
       addProviderTiles(providers$Esri.NatGeoWorldMap,
                        options = providerTileOptions(noWrap = TRUE)
       ) %>%
       setView(0, 0, 2) %>%
-
+      
       addMarkers(data = country_map_data <- subset(dd, POLITICAL_UNIT == input$Input_Country_Code),
                  label = ~NAME,
                  #popup = area_chart(input$Input_Glaccier_Name),
@@ -101,27 +123,37 @@ server <- function(input, output, session) {
       )
   })
   dwnld_data <- NULL
+  
   output$plotxy <- renderPlot({
     area <- area_chart(input$Input_Glacier_Name)
     dwnld_data = area
     write.csv(dwnld_data, "tmp.csv")
     read.csv("tmp.csv")
   })
-
+  
+  
+  
   observeEvent(input$mymap_marker_click, {
-
+    
     p <- input$mymap_marker_click
     print(p)
-
     updateSelectInput(session,
                       "Input_Glacier_Name",
                       label = paste("Select Glacier:"),
                       choices = p$id,
                       selected = p$id)
-
+    
     # TODO: update selected glacier
   })
-
+  observeEvent(input$plot_sat, {
+    print(input$mymap_marker_click)
+    if(is.null(input$mymap_marker_click)){
+      print("NO")
+    }
+    else{
+      display_raster(input$mymap_marker_click)
+    }
+  })
   output$downloadData <- downloadHandler(
     filename = function() {
       paste("data-", Sys.Date(), ".csv", sep = "")
@@ -131,30 +163,9 @@ server <- function(input, output, session) {
       write.csv(dwnld_data, file)
     }
   )
-
-  # download the satellite image to filepath
-  download_satellite_image <- function(p, tmp_filepath) {
-    base <- 'https://portal.opentopography.org/API/globaldem?demtype=AW3D30'
-    api_key <- '25747927abfb0a12754cbd91f7430743'
-    tmp_south <- p$lat - 0.1
-    tmp_north <- p$lat + 0.1
-    tmp_west <- p$lng - 0.1
-    tmp_east <- p$lng + 0.1
-    url <- paste0(base, '&south=', tmp_south, '&north=', tmp_north, '&west=', tmp_west, '&east=', tmp_east, '&API_Key=', api_key)
-    download.file(url, tmp_filepath)
-  }
-
-  output$downloadSatelliteImage <- downloadHandler(
-    filename = function() {
-      paste("satellite-image.tif")
-    },
-    content = function(file) {
-      p <- input$mymap_marker_click
-      download_satellite_image(p, file)
-    }
-  )
+  
+  
+  
 }
 
 shinyApp(ui = ui, server = server)
-
-
