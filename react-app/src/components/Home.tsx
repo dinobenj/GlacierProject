@@ -3,7 +3,7 @@ import {Button, Col, Row} from "antd";
 
 const Home: React.FC = () => {
     return (
-        <Row justify="center" align="middle">
+        <Row justify="center" align="middle" style={{height: "100vh"}}>
             <Col>
                 <Row justify="space-around" align="middle">
                     <Col>
