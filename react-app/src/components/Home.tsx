@@ -4,7 +4,12 @@ import {Button, Col, Row, Typography} from "antd";
 const {Title, Paragraph, Text} = Typography;
 
 const Home: React.FC = () => {
-    const introduction = "Glaciers are masses of snow that has been compressed into giant sheets of ice. Most glaciers were formed during the last ice age.";
+    const titleText = "Do you know?";
+    const glacierIntroductionText = "Glaciers are masses of snow that has been compressed into giant sheets of ice. Most glaciers were formed during the last ice age.";
+    const appIntroductionText = "We built an app to let you see glaciers all over the world, and their detailed data.";
+    const welcomeText = "Welcome to the world of ice!";
+    const buttonText = "GO TO MAP";
+
 
     return (
         <Row justify="center" align="middle" style={{height: "100vh"}}>
@@ -14,9 +19,23 @@ const Home: React.FC = () => {
                 backgroundColor: "rgba(128, 128, 128, 0.3)"
             }}>
                 <Row justify="space-around" align="middle">
+                    <Col>
+                        <Title style={{color: "white"}}>{titleText}</Title>
+                    </Col>
+                </Row>
+                <Row justify="space-around" align="middle">
                     <Col span={24}>
-                        <Paragraph strong style={{color: "white"}}>
-                            {introduction}
+                        <Paragraph strong style={{
+                            color: "white",
+                            fontSize: "20px"
+                        }}>
+                            {glacierIntroductionText}
+                        </Paragraph>
+                        <Paragraph strong style={{
+                            color: "white",
+                            fontSize: "20px"
+                        }}>
+                            {appIntroductionText} <Text strong style={{color: "white"}}>{welcomeText.toUpperCase()}</Text>
                         </Paragraph>
                     </Col>
                 </Row>
@@ -24,7 +43,7 @@ const Home: React.FC = () => {
                     <Col>
                         <Button type="text" size="large" shape="round" href="/map">
                             <Text strong style={{color: "white"}}>
-                                Explore in map
+                                {buttonText}
                             </Text>
                         </Button>
                     </Col>
