@@ -1,4 +1,4 @@
-#library(elevatr)
+library(elevatr)
 library(rgdal)
 library(ggplot2)
 
@@ -13,8 +13,8 @@ library(ggplot2)
 ##############################################
 ##############################################
 
-data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
-lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
+data <- read.csv("DOI-WGMS-FoG-2021-05/WGMS-FoG-2021-05-D-CHANGE.csv")
+lon_lat_data <-read.csv("DOI-WGMS-FoG-2021-05/WGMS-FoG-2021-05-A-GLACIER.csv")
 
 only_location <- lon_lat_data[, c(1,3, 2,5, 6, 7)]
 only_location_sub <- subset(only_location, LATITUDE != "NA" & LONGITUDE != "NA")
