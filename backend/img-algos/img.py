@@ -1,11 +1,15 @@
 import PIL
 
-def get_adjacent(x, y):
-    pass
-
-
 def is_in_bounds(x, y, width, height):
-    return x < width and y < height
+    return x >= 0 and x < width and y >= 0 and y < height
+
+def get_adjacent(x, y, width, height):
+
+    return list(filter(lambda point: is_in_bounds(*point, width, height), 
+    [(x + 1, y), (x, y + 1), (x - 1, y), (x, y - 1)]))
+
+
+
 
 
 def determine_color(r: int, g: int, b: int) -> str:
@@ -54,4 +58,5 @@ def traverse_glacier_image(imgfile):
 
 
 if __name__ == "__main__":
-    traverse_glacier_image("./test2.png")
+    #traverse_glacier_image("./test2.png")
+    print(get_adjacent(0, 0, 5, 5))
