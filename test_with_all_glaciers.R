@@ -20,15 +20,17 @@ data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-F
 lon_lat_data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
 
 only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
-only_location_sub <- subset(only_location, LATITUDE != "NA" & LONGITUDE != "NA")
+only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
+only_location$LONGITUDE <- type.convert(only_location$LONGITUDE, as.is = T)
+only_location$WGMS_ID <- type.convert(only_location$WGMS_ID, as.is = T)
 
-# Still getting typing error. Following solutions don't work.
-# only_location_sub2 <- type.convert(only_location_sub)
-# only_location$LATITUDE <- as.numeric(only_location$LATITUDE)
-# only_location$LONGITUDE <- as.numeric(only_location$LONGITUDE)
+only_location_sub <- subset(only_location, LATITUDE != "NA" & LONGITUDE != "NA")
 
 change_data <- data[, c("NAME", "WGMS_ID", "POLITICAL_UNIT", "YEAR", "AREA_CHANGE", "THICKNESS_CHG")]
 sub_data <- subset(change_data, AREA_CHANGE != "NA")
+sub_data$YEAR <- type.convert(sub_data$YEAR, as.is = T)
+sub_data$AREA_CHANGE <- type.convert(sub_data$AREA_CHANGE, as.is = T)
+sub_data$WGMS_ID <- type.convert(sub_data$WGMS_ID, as.is = T)
 
 sub_data[, 'LATITUDE'] <- 0
 sub_data[, 'LONGITUDE'] <- 0
