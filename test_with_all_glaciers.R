@@ -1,6 +1,8 @@
 #library(elevatr)
 library(rgdal)
 library(ggplot2)
+library(httr)
+library(jsonlite)
 
 # Set working directory
 ##############################################
@@ -13,16 +15,22 @@ library(ggplot2)
 ##############################################
 ##############################################
 
-data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
-lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
+# Pull data from API
+data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-D-CHANGE"))
+lon_lat_data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
 
-only_location <- lon_lat_data[, c(1,3, 2,5, 6, 7)]
+only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
+only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
+only_location$LONGITUDE <- type.convert(only_location$LONGITUDE, as.is = T)
+only_location$WGMS_ID <- type.convert(only_location$WGMS_ID, as.is = T)
+
 only_location_sub <- subset(only_location, LATITUDE != "NA" & LONGITUDE != "NA")
-only_location_sub[!duplicated(only_location_sub[c(5)]), ]
 
-data[!duplicated(data[c(5)]), ]
-change_data <- data[, c(2, 4, 1, 5, 9, 11)]
+change_data <- data[, c("NAME", "WGMS_ID", "POLITICAL_UNIT", "YEAR", "AREA_CHANGE", "THICKNESS_CHG")]
 sub_data <- subset(change_data, AREA_CHANGE != "NA")
+sub_data$YEAR <- type.convert(sub_data$YEAR, as.is = T)
+sub_data$AREA_CHANGE <- type.convert(sub_data$AREA_CHANGE, as.is = T)
+sub_data$WGMS_ID <- type.convert(sub_data$WGMS_ID, as.is = T)
 
 sub_data[, 'LATITUDE'] <- 0
 sub_data[, 'LONGITUDE'] <- 0
@@ -51,3 +59,4 @@ US_data <- subset(gmap_data, gmap_data$POLITICAL_UNIT == "US")
 
 
 write.csv(US_data, "test_with.csv")
+
