@@ -5,6 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from './components/Home';
 import Map from "./components/Map";
+import About from "./components/About";
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
     {
         path: "/map",
         element: <Map/>
+    },
+    {
+        path: "/about",
+        element: <About/>
     }
 ]);
 

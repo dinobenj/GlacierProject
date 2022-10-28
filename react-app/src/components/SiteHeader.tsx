@@ -6,12 +6,15 @@ const {Header} = Layout;
 const SiteHeader: React.FC = () => {
     return (
         <Header>
-            <Menu theme="dark" mode="horizontal">
+            <Menu theme="dark" mode="horizontal" style={{textTransform: "uppercase"}}>
                 <Menu.Item key="home">
                     <a href="/">Home</a>
                 </Menu.Item>
                 <Menu.Item key="map">
                     <a href="/map">Map</a>
+                </Menu.Item>
+                <Menu.Item key="about">
+                    <a href="/about">About</a>
                 </Menu.Item>
             </Menu>
         </Header>
