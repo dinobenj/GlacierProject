@@ -8,6 +8,7 @@
 #
 library(leaflet)
 library(shiny)
+library(shinydashboard)
 library(RColorBrewer)
 library(jsonlite)
 library(rgdal)
@@ -75,18 +76,30 @@ display_raster <- function(p) {
 #map %>%
 #  add_markers(lat = "LATITUDE", lon = "LONGITUDE", mouse_over = "NAME")
 
-ui <- bootstrapPage(
-  titlePanel("The Glacier Project"),
-  tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-  leafletOutput("mymap", width = "100%", height = "100%"),
-  absolutePanel(top = 5, right = 5,
-                selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT)),
-                selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
-                downloadButton("downloadData", "Click to dowload CSV"),
-                plotOutput("plotxy", click = "plot_click"),
-                actionButton("plot_sat", "Click to display raster of selected Glacier")
+ui <- dashboardPage(
+  dashboardHeader(title = "The Glacier Project"),
+  dashboardSidebar(
+    menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT))),
+    selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
+    downloadButton("downloadData", "Click to dowload CSV"),
+    actionButton("plot_sat", "Click to display raster of selected Glacier")
+  ),
+  dashboardBody(
+    fluidRow(column(width = 12, leafletOutput(outputId = "mymap")))
   )
 )
+#   bootstrapPage(
+#   titlePanel("The Glacier Project"),
+#   tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
+#   leafletOutput("mymap", width = "100%", height = "100%"),
+#   absolutePanel(top = 5, right = 5,
+#                 selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT)),
+#                 selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
+#                 downloadButton("downloadData", "Click to dowload CSV"),
+#                 plotOutput("plotxy", click = "plot_click"),
+#                 actionButton("plot_sat", "Click to display raster of selected Glacier")
+#   ) 
+# )
 
 dd$INFO <- paste0(
   dd$NAME,
