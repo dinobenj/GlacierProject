@@ -1,6 +1,7 @@
 import {Col, Row} from "antd";
+import React from "react";
 
-function Map() {
+const Map: React.FC = () => {
 //    const url = "https://theglacierproject.shinyapps.io/GlacierProject/"; // Production use
     const PORT = 5671; // Dev use. Specific the PORT of a local Shiny App when developing
     const url = `http://localhost:${PORT}`;

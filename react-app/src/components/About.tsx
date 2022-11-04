@@ -1,8 +1,9 @@
-import {Col, Row, Typography } from "antd";
+import React from "react";
+import {Col, Row, Typography} from "antd";
 
-const {Title, Paragraph, Text} = Typography;
+const {Title, Paragraph} = Typography;
 
-function About() {
+const About: React.FC = () => {
     const projectIntroductinTitle = "What is the glacier project?"
     const projectIntroductionText = "The Glacier Project is a web application that visualizes data, satellite images, and predictions of our planet's glaciers.";
     const teamIntroductionTitle = "Who we are?"
