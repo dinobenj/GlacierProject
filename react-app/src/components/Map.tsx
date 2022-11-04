@@ -1,4 +1,4 @@
-import { Col, Row } from "antd";
+import {Col, Row} from "antd";
 
 function Map() {
 //    const url = "https://theglacierproject.shinyapps.io/GlacierProject/"; // Production use
@@ -7,10 +7,7 @@ function Map() {
     return (
         <Row justify="center" align="middle" style={{height: "100vh"}}>
             <Col span={24} style={{height: "100vh", width: "100vw"}}>
-
-                <object data={url} type="text/html" id="appObject" style={{height: "100vh", width: "100vw"}}>
-                    Alternate Content
-                </object>
+                <object data={url} type="text/html" id="appObject" aria-label="Glacier Map" style={{height: "100vh", width: "100vw"}}/>
             </Col>
         </Row>
     );
