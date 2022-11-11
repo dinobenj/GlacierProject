@@ -2,6 +2,7 @@ import requests
 import urllib
 import pandas as pd
 
+GLACIER_DATA = pd.read_csv("../../DOI-WGMS-FoG-2021-05/WGMS-FoG-2021-05-A-GLACIER.csv", encoding="latin1")
 # USGS Elevation Point Query Service
 url = r'https://nationalmap.gov/epqs/pqs.php?'
 
@@ -14,6 +15,10 @@ df = pd.DataFrame({
     'lat': lat,
     'lon': lon
 })
+
+def get_lat_long(name: str) -> tuple:
+    gd = GLACIER_DATA[GLACIER_DATA["NAME"] == name]
+    return gd["LATITUDE"], gd["LONGITUDE"]
 
 def elevation_function(df, lat_column, lon_column):
     """Query service using lat, lon. add the elevation values as a new column."""
@@ -36,7 +41,8 @@ def elevation_function(df, lat_column, lon_column):
 
 if __name__ == "__main__":
 
-    elevation_function(df, 'lat', 'lon')
+    #elevation_function(df, 'lat', 'lon')
+    print(get_lat_long("NO 4"))
 
 
-    print(df)
+    # print(df)
