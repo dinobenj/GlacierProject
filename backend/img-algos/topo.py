@@ -5,7 +5,7 @@ import pandas as pd
 GLACIER_DATA = pd.read_csv("../../DOI-WGMS-FoG-2021-05/WGMS-FoG-2021-05-A-GLACIER.csv", encoding="latin1")
 # USGS Elevation Point Query Service
 url = r'https://nationalmap.gov/epqs/pqs.php?'
-
+# just for commit link to show up
 # coordinates with known elevation 
 lat = [48.633, 48.733, 45.1947, 45.1962]
 lon = [-93.9667, -94.6167, -93.3257, -93.2755]
