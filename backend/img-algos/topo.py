@@ -1,48 +1,32 @@
 import requests
+import urllib3
 import urllib
 import pandas as pd
+import numpy as np
+import elevation
 
-GLACIER_DATA = pd.read_csv("../../DOI-WGMS-FoG-2021-05/WGMS-FoG-2021-05-A-GLACIER.csv", encoding="latin1")
-# USGS Elevation Point Query Service
-url = r'https://nationalmap.gov/epqs/pqs.php?'
-# just for commit link to show up
-# coordinates with known elevation 
-lat = [48.633, 48.733, 45.1947, 45.1962]
-lon = [-93.9667, -94.6167, -93.3257, -93.2755]
+GLACIER_DATA = pd.read_csv("test.csv", usecols=["NAME", "LATITUDE", "LONGITUDE"], encoding="latin1")
 
-# create data frame
-df = pd.DataFrame({
-    'lat': lat,
-    'lon': lon
-})
+# GLACIER_DATA = GLACIER_DATA[["NAME", "LATITUDE", "LONGITUDE"]]
+# print(GLACIER_DATA)
 
 def get_lat_long(name: str) -> tuple:
-    gd = GLACIER_DATA[GLACIER_DATA["NAME"] == name]
-    return gd["LATITUDE"], gd["LONGITUDE"]
-
-def elevation_function(df, lat_column, lon_column):
-    """Query service using lat, lon. add the elevation values as a new column."""
-    elevations = []
-    for lat, lon in zip(df[lat_column], df[lon_column]):
-
-        # define rest query params
-        params = {
-            'output': 'json',
-            'x': lon,
-            'y': lat,
-            'units': 'Meters'
-        }
-
-        # format query string and return query value
-        result = requests.get((url + urllib.parse.urlencode(params)))
-        elevations.append(result.json()['USGS_Elevation_Point_Query_Service']['Elevation_Query']['Elevation'])
-
-    df['elev_meters'] = elevations
+    # gd = GLACIER_DATA.query(f"NAME == {name}")
+    gd = GLACIER_DATA.loc[GLACIER_DATA["NAME"] == name]
+    return gd.iloc[0]["LATITUDE"], gd.iloc[0]["LONGITUDE"]
 
 if __name__ == "__main__":
+    # print(GLACIER_DATA)
+    thunder = get_lat_long("THUNDER")
+    print(thunder)
 
-    #elevation_function(df, 'lat', 'lon')
-    print(get_lat_long("NO 4"))
+    # for col in GLACIER_DATA.columns:
+    #     print(len(col))
+    elevation.clip(bounds=(thunder[0] - 0.1, thunder[1] - 0.1, thunder[0] + 0.1, thunder[1] + 0.1), output='test.tif')
+
+    elevation.clean()
+    # elevation_function(get_lat_long("THUNDER"))
+    # print(get_lat_long("NO 4"))
 
 
     # print(df)
