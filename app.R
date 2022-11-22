@@ -81,11 +81,15 @@ ui <- dashboardPage(
   dashboardSidebar(
     menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT))),
     selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
-    downloadButton("downloadData", "Click to dowload CSV"),
-    actionButton("plot_sat", "Click to display raster of selected Glacier")
+    div(style = "display:inline-block; float:center", actionButton("downloadData", "Click to dowload CSV")),
+    div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
   ),
   dashboardBody(
-    fluidRow(column(width = 12, leafletOutput(outputId = "mymap")))
+    fluidColumn(
+      box(leafletOutput("mymap"), width = 6),
+      box(plotOutput("plotxy", click = "plot_click"), width = 6)
+    )
+    
   )
 )
 #   bootstrapPage(
