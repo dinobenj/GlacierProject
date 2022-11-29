@@ -1,5 +1,6 @@
 import React from "react";
 import {Col, Row, Typography} from "antd";
+import MemberIntroduction from "./ MemberIntroduction";
 
 const {Title, Paragraph} = Typography;
 
@@ -36,6 +37,7 @@ const About: React.FC = () => {
                         }}>
                             {teamIntroductionText}
                         </Paragraph>
+                        <MemberIntroduction/>
                     </Col>
                 </Row>
             </Col>
