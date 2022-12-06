@@ -3,6 +3,7 @@ library(rgdal)
 library(ggplot2)
 library(httr)
 library(jsonlite)
+library(countrycode)
 
 # Set working directory
 ##############################################
@@ -35,6 +36,10 @@ sub_data$WGMS_ID <- type.convert(sub_data$WGMS_ID, as.is = T)
 sub_data[, 'LATITUDE'] <- 0
 sub_data[, 'LONGITUDE'] <- 0
 
+# Convert country codes to names
+only_location_sub$POLITICAL_UNIT <- countrycode(only_location_sub$POLITICAL_UNIT, "iso2c", "country.name")
+sub_data$POLITICAL_UNIT <- countrycode(sub_data$POLITICAL_UNIT, "iso2c", "country.name")
+
 for(x in sub_data$WGMS_ID){
   tmp <- which(only_location_sub$WGMS_ID == x)
   tmp_index <- which(sub_data$WGMS_ID == x)
@@ -55,8 +60,8 @@ gmap_data <- unique(gmap_data)
 
 #-------------------------------
 #Elevation Data
-US_data <- subset(gmap_data, gmap_data$POLITICAL_UNIT == "US")
+# US_data <- subset(gmap_data, gmap_data$POLITICAL_UNIT == "US")
 
 
-write.csv(US_data, "test_with.csv")
+# write.csv(US_data, "test_with.csv")
 
