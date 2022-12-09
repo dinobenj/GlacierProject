@@ -22,6 +22,10 @@ library(rgl)
 library(bmp)
 
 
+source("./test_with_all_glaciers.R")#only run for first startup to load data
+
+
+
 get_country_data <- function(political_unit) {
   country_map_data <- subset(dd, POLITICAL_UNIT == political_unit)
   return(country_map_data)
@@ -68,8 +72,8 @@ display_raster <- function(p) {
   tmp2 <- data.frame(x = tmp_east, y = tmp_north)
   tmp <- rbind(tmp1, tmp2)
   elevation <- get_elev_raster(location = tmp, prj = "EPSG:4326", z = 9)
-  plot(elevation, main = p$id, xlab = "Longitude", ylab = "Latitude")
-  return(elevation)
+  pl <- plot(elevation, main = p$id, xlab = "Longitude", ylab = "Latitude")
+  return(pl)
 }
 
 
@@ -85,9 +89,12 @@ ui <- dashboardPage(
     div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
   ),
   dashboardBody(
-    fluidColumn(
-      box(leafletOutput("mymap"), width = 6),
-      box(plotOutput("plotxy", click = "plot_click"), width = 6)
+    fluidRow(
+      box(leafletOutput("mymap"), width = 14)
+    ),
+    fluidRow(
+      box(plotOutput("plotxy", click = "plot_click")),
+      box(plotOutput("ip"))
     )
     
   )
@@ -125,6 +132,13 @@ server <- function(input, output, session) {
     leafletOutput('mymap', width = "20%", height = "20%")
   })
   
+  ice <- makeAwesomeIcon(
+    icon = "snowflake",
+    iconColor = "black",
+    markerColor = "blue",
+    library = "fa"
+  )
+  
   output$mymap <- renderLeaflet({
     leaflet() %>%
       addProviderTiles(providers$Esri.NatGeoWorldMap,
@@ -132,14 +146,14 @@ server <- function(input, output, session) {
       ) %>%
       setView(0, 0, 2) %>%
       
-      addMarkers(data = country_map_data <- subset(dd, POLITICAL_UNIT == input$Input_Country_Code),
+      addAwesomeMarkers(data = country_map_data <- subset(dd, POLITICAL_UNIT == input$Input_Country_Code),
+                 icon = ice,
                  label = ~NAME,
                  #popup = area_chart(input$Input_Glaccier_Name),
                  layerId = ~NAME
       )
   })
   dwnld_data <- NULL
-  
   output$plotxy <- renderPlot({
     area <- area_chart(input$Input_Glacier_Name)
     dwnld_data = area
@@ -150,7 +164,6 @@ server <- function(input, output, session) {
   
   
   observeEvent(input$mymap_marker_click, {
-    
     p <- input$mymap_marker_click
     print(p)
     updateSelectInput(session,
@@ -159,16 +172,13 @@ server <- function(input, output, session) {
                       choices = p$id,
                       selected = p$id)
     
-    # TODO: update selected glacier
   })
-  observeEvent(input$plot_sat, {
-    print(input$mymap_marker_click)
-    if(is.null(input$mymap_marker_click)){
-      print("NO")
-    }
-    else{
-      display_raster(input$mymap_marker_click)
-    }
+  p1 <- eventReactive(input$plot_sat, {
+        a <- display_raster(input$mymap_marker_click)
+  })
+  
+  output$ip <- renderPlot({
+    display_raster(input$mymap_marker_click)
   })
   output$downloadData <- downloadHandler(
     filename = function() {

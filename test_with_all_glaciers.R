@@ -1,6 +1,8 @@
 #library(elevatr)
 library(rgdal)
 library(ggplot2)
+library(httr)
+library(jsonlite)
 
 # Set working directory
 ##############################################
@@ -13,6 +15,9 @@ library(ggplot2)
 ##############################################
 ##############################################
 
+# Pull data from API
+# data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-D-CHANGE"))
+# lon_lat_data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
 data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
 lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
 
