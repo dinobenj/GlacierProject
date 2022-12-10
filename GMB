@@ -1,0 +1,28 @@
+Links for data:
+	PPS website: https://arthurhou.pps.eosdis.nasa.gov/
+	GPM FAQ: https://gpm.nasa.gov/resources/faq
+	HTTPS access: https://arthurhou.pps.eosdis.nasa.gov/Documents/arthurhouhttps_retrieval.pdf
+	Accessing data: https://arthurhou.pps.eosdis.nasa.gov/Documents/nrtInstructions.pdf
+	STORM: https://storm.pps.eosdis.nasa.gov/storm/
+	Crazy long STORM user guide: https://storm.pps.eosdis.nasa.gov/storm/STORMUserGuide.pdf
+	Database repository: https://www.re3data.org/repository/r3d100011681
+	Iceland / Greenland ice sheet: https://nsidc.org/greenland-today/
+	Giovanni: https://giovanni.gsfc.nasa.gov/giovanni/#service=TmAvMp&starttime=&endtime=&dataKeyword=IMERG%20Final
+	Earthdata: https://worldview.earthdata.nasa.gov/?v=-169.07688861964925,-48.4242592613127,98.27146493321038,72.0913657386873&l=Reference_Labels_15m,Reference_Features_15m,Coastlines_15m,IMERG_Precipitation_Rate,VIIRS_SNPP_CorrectedReflectance_TrueColor,MODIS_Aqua_CorrectedReflectance_TrueColor(hidden),MODIS_Terra_CorrectedReflectance_TrueColor(hidden)&lg=false&abt=on&t=2020-09-07-T15%3A00%3A00Z
+	PMM API documentation: https://pmmpublisher.pps.eosdis.nasa.gov/swagger/index.html#/opensearch
+	Guide to raster plot formatting for precipitation data:
+	https://arthurhou.pps.eosdis.nasa.gov/Documents/README.GIS.pdf
+	GeoTIFF files: https://arthurhou.pps.eosdis.nasa.gov/Documents/README.GIS.pdf
+	HE5 files: https://filext.com/file-extension/HE5
+	National Data: https://nsidc.org/home
+
+General Notes:
+	About a dozen satellites mainly contribute to precipitation data, though many others with different purposes send small amounts of data
+	GPM (Global Precipitation Measure) can provide data every 30 minutes
+	Main satellite is the GPM core observatory, which can detect the difference between rain & snow using a DPR (Dual-frequency Precipitation Radar), and is compared against other satellites to ensure accuracy
+	TRMM (Tropical Rainfall Measuring Mission) - satellite operating from 1997 to 2015, historical data has been added to GPM’s
+	IMERG (Integrated Multi-satellitE Retrievals for GPM) - algorithm fuses TRMM + GPM
+	JAXA (Japan Aerospace Exploration Agency) - working with NASA
+	Let It Snow! Accessing and Analyzing Snow Data at the NSIDC DAAC Very long video explaining how to access, understand and analyze data from satellites
+	IMERG Final Run data is not available after Sept. 2021. Production of IMERG Final will resume after IMERG V07 has been deployed, which is currently scheduled for early 2023. For dates after Sept. 2021 we recommend using IMERG Late Run data. 
+	The PMM Publisher API returns precipitation data in the form of a JSON file. Parameters include latitude, longitude, start date, and end date. From there, we can download data in the form of a vector or a raster plot (geotiff file). 
