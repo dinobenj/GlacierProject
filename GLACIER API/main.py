@@ -28,7 +28,7 @@ class GlaciersByYear(Resource):
         df = pd.read_csv("dda.csv")
         
 
-
+# test
 api.add_resource(test_USA, '/test') #glaciers is our entry point
 api.add_resource(CountryGlaciers, '/countryglaciers') #countryglaciers is our entry point
 
