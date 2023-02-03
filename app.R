@@ -178,6 +178,7 @@ server <- function(input, output, session) {
   })
   
   output$ip <- renderPlot({
+    req(input$mymap_marker_click) #checks req of var to run display raster
     display_raster(input$mymap_marker_click)
   })
   output$downloadData <- downloadHandler(
