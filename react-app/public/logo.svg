@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="198.02634mm"
+   height="111.03387mm"
+   viewBox="0 0 198.02633 111.03387"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.1 (9c6d41e410, 2022-07-14)"
+   sodipodi:docname="drawing.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="382.89832"
+     inkscape:cy="170.05918"
+     inkscape:window-width="1920"
+     inkscape:window-height="986"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect12182"
+       is_visible="true"
+       lpeversion="1"
+       offset_points="1.4086887,0.043848906"
+       not_jump="true"
+       sort_points="true"
+       interpolator_type="CentripetalCatmullRom"
+       interpolator_beta="0.75"
+       start_linecap_type="round"
+       linejoin_type="spiro"
+       miter_limit="4"
+       scale_width="1"
+       end_linecap_type="round" />
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect12180"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.0047745358"
+       smooth_angles="0"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false"
+       step="1" />
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect12175"
+       is_visible="true"
+       lpeversion="1"
+       offset_points="1.0600831,0.12402343"
+       not_jump="true"
+       sort_points="true"
+       interpolator_type="CentripetalCatmullRom"
+       interpolator_beta="0.75"
+       start_linecap_type="round"
+       linejoin_type="spiro"
+       miter_limit="4"
+       scale_width="1"
+       end_linecap_type="round" />
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect12173"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.0047745358"
+       smooth_angles="0"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false"
+       step="1" />
+    <rect
+       x="264.96024"
+       y="361.82742"
+       width="45.940685"
+       height="59.473602"
+       id="rect1772" />
+    <rect
+       x="119.30333"
+       y="331.55643"
+       width="61.610378"
+       height="62.678764"
+       id="rect1766" />
+    <rect
+       x="261.89432"
+       y="358.09012"
+       width="40.795078"
+       height="57.415295"
+       id="rect3051" />
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="154.95656 : 53.208076 : 1"
+       inkscape:vp_y="6.1753626 : -799.33039 : 0"
+       inkscape:vp_z="-9.7162347 : 51.886146 : 1"
+       inkscape:persp3d-origin="72.314482 : 92.113949 : 1"
+       id="perspective2387" />
+    <filter
+       style="color-interpolation-filters:sRGB"
+       x="-0.68406761"
+       width="2.3681352"
+       y="-0.39819965"
+       height="1.7963994"
+       inkscape:menu="Non-Realistic 3D Shaders"
+       inkscape:menu-tooltip="Satiny glass effect"
+       inkscape:label="Frosted Glass"
+       id="filter1084">
+      <feGaussianBlur
+         in="SourceGraphic"
+         result="result8"
+         stdDeviation="5"
+         id="feGaussianBlur1064" />
+      <feComposite
+         result="result18"
+         operator="xor"
+         in2="result8"
+         in="SourceGraphic"
+         id="feComposite1066" />
+      <feComposite
+         in2="result18"
+         result="result16"
+         operator="arithmetic"
+         k2="0.5"
+         k1="1"
+         in="result8"
+         id="feComposite1068"
+         k3="0"
+         k4="0" />
+      <feComposite
+         in="result16"
+         operator="atop"
+         result="result6"
+         in2="result8"
+         id="feComposite1070" />
+      <feOffset
+         in="result6"
+         result="result17"
+         id="feOffset1072" />
+      <feDisplacementMap
+         result="result4"
+         scale="100"
+         yChannelSelector="A"
+         xChannelSelector="A"
+         in="result17"
+         in2="result16"
+         id="feDisplacementMap1074" />
+      <feComposite
+         k3="1"
+         in="result17"
+         operator="arithmetic"
+         result="result2"
+         in2="result4"
+         id="feComposite1076"
+         k1="0"
+         k2="0"
+         k4="0" />
+      <feComposite
+         operator="out"
+         in="result2"
+         result="fbSourceGraphic"
+         in2="result17"
+         id="feComposite1078" />
+      <feComposite
+         result="result14"
+         operator="over"
+         in2="fbSourceGraphic"
+         in="fbSourceGraphic"
+         id="feComposite1080" />
+      <feComposite
+         in="result14"
+         operator="in"
+         in2="SourceGraphic"
+         result="result15"
+         id="feComposite1082" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       x="-0.72951549"
+       width="2.4590311"
+       y="-0.37341776"
+       height="1.7468355"
+       inkscape:menu="Non-Realistic 3D Shaders"
+       inkscape:menu-tooltip="Satiny glass effect"
+       inkscape:label="Frosted Glass"
+       id="filter1128">
+      <feGaussianBlur
+         in="SourceGraphic"
+         result="result8"
+         stdDeviation="5"
+         id="feGaussianBlur1108" />
+      <feComposite
+         result="result18"
+         operator="xor"
+         in2="result8"
+         in="SourceGraphic"
+         id="feComposite1110" />
+      <feComposite
+         in2="result18"
+         result="result16"
+         operator="arithmetic"
+         k2="0.5"
+         k1="1"
+         in="result8"
+         id="feComposite1112"
+         k3="0"
+         k4="0" />
+      <feComposite
+         in="result16"
+         operator="atop"
+         result="result6"
+         in2="result8"
+         id="feComposite1114" />
+      <feOffset
+         in="result6"
+         result="result17"
+         id="feOffset1116" />
+      <feDisplacementMap
+         result="result4"
+         scale="100"
+         yChannelSelector="A"
+         xChannelSelector="A"
+         in="result17"
+         in2="result16"
+         id="feDisplacementMap1118" />
+      <feComposite
+         k3="1"
+         in="result17"
+         operator="arithmetic"
+         result="result2"
+         in2="result4"
+         id="feComposite1120"
+         k1="0"
+         k2="0"
+         k4="0" />
+      <feComposite
+         operator="out"
+         in="result2"
+         result="fbSourceGraphic"
+         in2="result17"
+         id="feComposite1122" />
+      <feComposite
+         result="result14"
+         operator="over"
+         in2="fbSourceGraphic"
+         in="fbSourceGraphic"
+         id="feComposite1124" />
+      <feComposite
+         in="result14"
+         operator="in"
+         in2="SourceGraphic"
+         result="result15"
+         id="feComposite1126" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       x="-0.35638222"
+       width="1.7127644"
+       y="-0.93271178"
+       height="2.8654237"
+       inkscape:menu="Non-Realistic 3D Shaders"
+       inkscape:menu-tooltip="Satiny glass effect"
+       inkscape:label="Frosted Glass"
+       id="filter1150">
+      <feGaussianBlur
+         in="SourceGraphic"
+         result="result8"
+         stdDeviation="5"
+         id="feGaussianBlur1130" />
+      <feComposite
+         result="result18"
+         operator="xor"
+         in2="result8"
+         in="SourceGraphic"
+         id="feComposite1132" />
+      <feComposite
+         in2="result18"
+         result="result16"
+         operator="arithmetic"
+         k2="0.5"
+         k1="1"
+         in="result8"
+         id="feComposite1134"
+         k3="0"
+         k4="0" />
+      <feComposite
+         in="result16"
+         operator="atop"
+         result="result6"
+         in2="result8"
+         id="feComposite1136" />
+      <feOffset
+         in="result6"
+         result="result17"
+         id="feOffset1138" />
+      <feDisplacementMap
+         result="result4"
+         scale="100"
+         yChannelSelector="A"
+         xChannelSelector="A"
+         in="result17"
+         in2="result16"
+         id="feDisplacementMap1140" />
+      <feComposite
+         k3="1"
+         in="result17"
+         operator="arithmetic"
+         result="result2"
+         in2="result4"
+         id="feComposite1142"
+         k1="0"
+         k2="0"
+         k4="0" />
+      <feComposite
+         operator="out"
+         in="result2"
+         result="fbSourceGraphic"
+         in2="result17"
+         id="feComposite1144" />
+      <feComposite
+         result="result14"
+         operator="over"
+         in2="fbSourceGraphic"
+         in="fbSourceGraphic"
+         id="feComposite1146" />
+      <feComposite
+         in="result14"
+         operator="in"
+         in2="SourceGraphic"
+         result="result15"
+         id="feComposite1148" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Lightness-Contrast"
+       id="filter1154"
+       x="-0.35491738"
+       y="-0.33097264"
+       width="1.7098348"
+       height="1.6619453">
+      <feColorMatrix
+         values="0.21 0.30303 0.072 0 0 0.21 0.30303 0.072 0 0 0.21 0.30303 0.072 0 0 0 0 0 1 0 "
+         id="feColorMatrix1152"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix1156" />
+      <feColorMatrix
+         id="feColorMatrix1158"
+         values="0.21 0.30303 0.072 0 0 0.21 0.30303 0.072 0 0 0.21 0.30303 0.072 0 0 0 0 0 1 0 "
+         in="fbSourceGraphic"
+         result="fbSourceGraphic" />
+      <feColorMatrix
+         result="fbSourceGraphicAlpha"
+         in="fbSourceGraphic"
+         values="0 0 0 -1 0 0 0 0 -1 0 0 0 0 -1 0 0 0 0 1 0"
+         id="feColorMatrix1318" />
+      <feColorMatrix
+         id="feColorMatrix1320"
+         values="2.14983 0 0 0.554238 -0.574913 0 2.14983 0 0.554238 -0.574913 0 0 2.14983 0.554238 -0.574913 0 0 0 1 0"
+         in="fbSourceGraphic" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       inkscape:label="Greyscale"
+       id="filter1462"
+       x="0"
+       y="0"
+       width="1"
+       height="1">
+      <feColorMatrix
+         values="0.37037 0.30303 0.23569 -0.03367 0 0.37037 0.30303 0.23569 -0.03367 0 0.37037 0.30303 0.23569 -0.03367 0 0 0 0 1 0 "
+         id="feColorMatrix1460" />
+    </filter>
+    <rect
+       x="264.96024"
+       y="361.82742"
+       width="45.940685"
+       height="59.473602"
+       id="rect1772-9" />
+    <rect
+       x="264.96024"
+       y="361.82742"
+       width="45.940685"
+       height="59.473602"
+       id="rect1772-90" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-15.902537)">
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text3049"
+       style="white-space:pre;shape-inside:url(#rect3051);display:inline;fill:#ffffff" />
+    <text
+       xml:space="preserve"
+       transform="scale(0.26458333)"
+       id="text1764"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.4091px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1766);display:inline;fill:#cccccc;fill-rule:evenodd" />
+    <text
+       xml:space="preserve"
+       transform="matrix(0.29245678,0,0,0.31630293,85.372574,69.414112)"
+       id="text1770"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.4091px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1772);display:inline;fill:#ffffff;fill-rule:evenodd"><tspan
+         x="264.96094"
+         y="394.10731"
+         id="tspan12552">G</tspan></text>
+    <text
+       xml:space="preserve"
+       transform="matrix(0.29245678,0,0,0.31630293,103.20559,69.224112)"
+       id="text1770-4"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:38.4091px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect1772-90);display:inline;fill:#ffffff;fill-rule:evenodd"><tspan
+         x="264.96094"
+         y="394.10731"
+         id="tspan12554">P</tspan></text>
+    <ellipse
+       style="fill:#ffffff;fill-rule:evenodd;stroke-width:0.264583"
+       id="path2171"
+       cx="221.28252"
+       cy="176.92938"
+       rx="4.4757295"
+       ry="1.2720494" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke-width:0.264583"
+       d="M 130.03173,53.897209 149.25381,24.121827"
+       id="path11647" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke-width:1.7847"
+       d="m 16.112371,89.186309 165.995079,0.720377 -1.12157,-0.720377 z"
+       id="path11711" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke-width:1.64811"
+       d="m 14.348896,89.948859 45.441641,-48.314671 41.296693,47.301081 38.29372,-46.984847 43.50353,48.090171 -0.13133,-0.08659 z"
+       id="path11713"
+       sodipodi:nodetypes="ccccccc" />
+    <path
+       style="fill:#000000;fill-rule:evenodd;stroke-width:1.64811"
+       d="M 70.716137,53.152024 100.96951,22.658673 129.0508,53.46123 101.08182,88.25489 Z"
+       id="path11715"
+       sodipodi:nodetypes="ccccc" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:21.1864px;font-family:'Bell MT';-inkscape-font-specification:'Bell MT, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#1a1a1a;fill-rule:evenodd;stroke-width:0.551597"
+       x="12.525289"
+       y="109.12346"
+       id="text11875"
+       transform="scale(0.99984694,1.0001531)"><tspan
+         sodipodi:role="line"
+         id="tspan11873"
+         style="stroke-width:0.551597"
+         x="12.525289"
+         y="109.12346">The Glacier Project</tspan></text>
+  </g>
+</svg>
