@@ -17,21 +17,23 @@ library(countrycode)
 ##############################################
 
 # Pull data from API
-data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-D-CHANGE"))
-lon_lat_data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
+# data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-D-CHANGE"))
+# lon_lat_data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
+data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
+lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
 
 only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
-only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
-only_location$LONGITUDE <- type.convert(only_location$LONGITUDE, as.is = T)
-only_location$WGMS_ID <- type.convert(only_location$WGMS_ID, as.is = T)
-
 only_location_sub <- subset(only_location, LATITUDE != "NA" & LONGITUDE != "NA")
 
 change_data <- data[, c("NAME", "WGMS_ID", "POLITICAL_UNIT", "YEAR", "AREA_CHANGE", "THICKNESS_CHG")]
 sub_data <- subset(change_data, AREA_CHANGE != "NA")
+
 sub_data$YEAR <- type.convert(sub_data$YEAR, as.is = T)
 sub_data$AREA_CHANGE <- type.convert(sub_data$AREA_CHANGE, as.is = T)
 sub_data$WGMS_ID <- type.convert(sub_data$WGMS_ID, as.is = T)
+only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
+only_location$LONGITUDE <- type.convert(only_location$LONGITUDE, as.is = T)
+only_location$WGMS_ID <- type.convert(only_location$WGMS_ID, as.is = T)
 
 sub_data[, 'LATITUDE'] <- 0
 sub_data[, 'LONGITUDE'] <- 0
