@@ -22,7 +22,7 @@ const MemberIntroduction: React.FC = () => {
                         color: "white",
                         fontSize: "20px"
                     }}>
-                        Frontend: Ji Wang, Russell Harter, Kaylin Rackley
+                        Frontend: Ji Wang, Russell Harter, Kaylin Rackley, William Lin
                     </Paragraph>
                 </Col>
             </Row>
