@@ -20,6 +20,7 @@ library(leaflet)
 library(RColorBrewer)
 library(rgl)
 library(bmp)
+library(turtle)
 
 
 source("./test_with_all_glaciers.R")#only run for first startup to load data
@@ -76,6 +77,33 @@ display_raster <- function(p) {
   return(pl)
 }
 
+size <- 200
+turtle_start()
+turtle_penup()
+turtle_goto(0, size + 50)
+turtle_pendown()
+turtle_circle(size)
+turtle_penup()
+turtle_goto(0, size)
+turtle_pendown()
+turtle_right(90)
+turtle_forward(size)
+turtle_write("N", font = "Arial", size = 20, align = "center")
+turtle_penup()
+turtle_goto(0, -size)
+turtle_pendown()
+turtle_write("S", font = "Arial", size = 20, align = "center")
+turtle_penup()
+turtle_goto(size, 0)
+turtle_pendown()
+turtle_right(90)
+turtle_write("E", font = "Arial", size = 20, align = "center")
+turtle_penup()
+turtle_goto(-size, 0)
+turtle_pendown()
+turtle_write("W", font = "Arial", size = 20, align = "center")
+turtle_done()
+
 
 #map %>%
 #  add_markers(lat = "LATITUDE", lon = "LONGITUDE", mouse_over = "NAME")
@@ -99,18 +127,6 @@ ui <- dashboardPage(
     
   )
 )
-#   bootstrapPage(
-#   titlePanel("The Glacier Project"),
-#   tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-#   leafletOutput("mymap", width = "100%", height = "100%"),
-#   absolutePanel(top = 5, right = 5,
-#                 selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT)),
-#                 selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
-#                 downloadButton("downloadData", "Click to dowload CSV"),
-#                 plotOutput("plotxy", click = "plot_click"),
-#                 actionButton("plot_sat", "Click to display raster of selected Glacier")
-#   ) 
-# )
 
 dd$INFO <- paste0(
   dd$NAME,
