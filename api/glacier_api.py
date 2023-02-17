@@ -16,12 +16,14 @@ class Glacier(Resource):
         args = request.args
         if len(args) > 1:
             return "Too many args", 400
-        if not (self.name_arg in args.keys() or self.list_all_arg in args.keys()):
-            return "Invalid arg: require only 'name' or 'list_all' as arguments to URL", 400
+        elif self.list_all_arg in args.keys():
+            return jsonify({"listing all": f"hello world {args[self.list_all_arg]}"})
+        elif self.name_arg in args.keys():
+            return jsonify({"name": f"hello world {args[self.name_arg]}"})
         else:
-            return jsonify({"message": f"hello world {args}"})
+            return "Invalid arg: require only 'name' or 'list_all' as arguments to URL", 400
 
 api.add_resource(Glacier, "/glacier")
 
 if __name__ == "__main__":
-    app.run(port=80, debug = True)
+    app.run(host="0.0.0.0", port=80, debug = True)
