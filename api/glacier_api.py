@@ -8,16 +8,6 @@ api = Api(app)
 con = sqlite3.connect("glacier.db")
 cur = con.cursor()
 
-class Test(Resource):
-    def __init__(self):
-        Test.args = []
-    def get(self):
-        args = request.args
-        print(len(args))
-        print(args.keys())
-        return jsonify({"message": f"hello world {args}"})
-    
-
 class Glacier(Resource):
     def __init__(self):
         self.name_arg = "name"
@@ -31,9 +21,6 @@ class Glacier(Resource):
         else:
             return jsonify({"message": f"hello world {args}"})
 
-
-
-api.add_resource(Test, "/test") 
 api.add_resource(Glacier, "/glacier")
 
 if __name__ == "__main__":
