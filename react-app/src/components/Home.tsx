@@ -16,7 +16,7 @@ const Home: React.FC = () => {
             <Col span={12} style={{
                 padding: "20px",
                 borderRadius: "20px",
-                backgroundColor: "rgba(128, 128, 128, 0.3)"
+                backgroundColor: "rgba(128, 128, 128, 0.6)"
             }}>
                 <Row justify="space-around" align="middle">
                     <Col>

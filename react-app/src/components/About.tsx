@@ -12,10 +12,10 @@ const About: React.FC = () => {
 
     return (
         <Row justify="center" align="middle" style={{height: "100vh"}}>
-            <Col span={20} style={{
+            <Col span={14} style={{
                 padding: "20px",
                 borderRadius: "20px",
-                backgroundColor: "rgba(128, 128, 128, 0.3)"
+                backgroundColor: "rgba(128, 128, 128, 0.6)"
             }}>
                 <Row justify="space-around" align="middle">
                     <Col>
