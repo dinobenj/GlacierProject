@@ -17,7 +17,7 @@ class Glacier(Resource):
         if len(args) > 1:
             return "Too many args", 400
         if not (self.name_arg in args.keys() or self.list_all_arg in args.keys()):
-            return "Invalid arg: require 'name' or 'list_all'", 400
+            return "Invalid arg: require only 'name' or 'list_all' as arguments to URL", 400
         else:
             return jsonify({"message": f"hello world {args}"})
 
