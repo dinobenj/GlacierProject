@@ -23,6 +23,7 @@ if __name__ == "__main__":
                                         min_elev INTEGER, \
                                         max_elev INTEGER, \
                                         UNIQUE (glacier_name, source_time));")
+    con.commit()
 
     for i, record in enumerate(DBF("data/glims_polygons.dbf", char_decode_errors="ignore")):
         glacier_name = record["glac_name"].replace("'", "").strip()
@@ -34,7 +35,7 @@ if __name__ == "__main__":
         
         if glacier_name == "None":
             continue
-        print(glacier_name)
+        print(i, glacier_name)
 
         cur.execute(f"INSERT OR REPLACE INTO glaciers (glacier_name, \
                                                        source_time, \
@@ -48,5 +49,7 @@ if __name__ == "__main__":
                                                     {min_elev}, \
                                                     {max_elev}, \
                                                     {mean_elev});")
-
+        
+    con.commit()
+        
     print(pd.read_sql_query("SELECT * FROM glaciers", con))
