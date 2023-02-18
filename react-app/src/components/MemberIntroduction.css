@@ -1,0 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+.member-intro-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 18px;
+  color: white;
+  letter-spacing: 0.5px;
+  line-height: 1.5;
+}
