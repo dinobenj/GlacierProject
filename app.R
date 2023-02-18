@@ -107,6 +107,19 @@ turtle_done()
 
 #map %>%
 #  add_markers(lat = "LATITUDE", lon = "LONGITUDE", mouse_over = "NAME")
+#x-axis
+x <- rnorm(100)
+
+plot(x, type = "p", xaxt = "n", main = "Scatter Plot with Custom X-Axis Scale")
+
+ticks_miles <- seq(-2, 2, by = 0.5)
+ticks_km <- ticks_miles * 1.60934
+#miles
+labels_miles <- paste0(ticks_miles, " mi")
+#kilometers
+labels_km <- paste0(ticks_km, " km")
+axis(side = 1, at = ticks_miles, labels = labels_miles, tick = TRUE)
+axis(side = 1, at = ticks_km, labels = labels_km, tick = FALSE, line = 2.5)
 
 ui <- dashboardPage(
   dashboardHeader(title = "The Glacier Project"),
