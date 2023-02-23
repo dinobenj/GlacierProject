@@ -23,7 +23,8 @@ class Glacier(Resource):
             else:
                 return jsonify({"glaciers": ""})
         elif self.name_arg in args.keys():
-            return jsonify({"name": f"hello world {args[self.name_arg]}"})
+            print(args[self.name_arg])
+            return jsonify({"name": cur.execute(f"SELECT glacier_name FROM glaciers WHERE glacier_name=\"{args[self.name_arg]}\"").fetchall()})
         else:
             return "Invalid arg: require only 'name' or 'list_all' as arguments to URL", 400
 
