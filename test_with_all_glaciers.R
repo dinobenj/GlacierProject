@@ -17,10 +17,12 @@ library(countrycode)
 ##############################################
 
 # Pull data from API
-# data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-D-CHANGE"))
-# lon_lat_data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
 data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
 lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
+area_data <- read.csv("data/WGMS-FoG-2021-05-B-STATE.csv")
+
+#area_data <- which(area_data$YEAR != 0)
+area_data <- subset(area_data, YEAR != 0)
 
 only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
 only_location_sub <- subset(only_location, LATITUDE != "NA" & LONGITUDE != "NA")
@@ -41,6 +43,7 @@ sub_data[, 'LONGITUDE'] <- 0
 # Convert country codes to names
 only_location_sub$POLITICAL_UNIT <- countrycode(only_location_sub$POLITICAL_UNIT, "iso2c", "country.name")
 sub_data$POLITICAL_UNIT <- countrycode(sub_data$POLITICAL_UNIT, "iso2c", "country.name")
+area_data$POLITICAL_UNIT <- countrycode(area_data$POLITICAL_UNIT, "iso2c", "country.name")
 
 for(x in sub_data$WGMS_ID){
   tmp <- which(only_location_sub$WGMS_ID == x)
