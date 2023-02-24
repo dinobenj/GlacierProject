@@ -5,9 +5,10 @@ import MemberIntroduction from "./ MemberIntroduction";
 const {Title, Paragraph} = Typography;
 
 const SignUp: React.FC = () => {
+    const loginText = "Already signed up?";
+    const loginButton = "Log in";
     const signupText = "Don't have an account yet?";
     const signupButton = "Sign up";
-    const teamIntroductionTitle = "Who we are?"
     const teamIntroductionText = "We are students at Rensselaer Polytechnic Institue (RPI) and members of Rensselaer Center for Open Source (RCOS).";
 
     return (
@@ -21,14 +22,13 @@ const SignUp: React.FC = () => {
                 </Row>
                 <Row justify="space-around" align="middle">
                     <Col>
-                        <Title style={{color: "white"}}>{teamIntroductionTitle}</Title>
+                        <Title style={{color: "white", textAlign: "center"}}>Sign Up</Title>
                         <Paragraph strong style={{
                             color: "white",
                             fontSize: "20px"
                         }}>
-                            {teamIntroductionText}
+                            <Paragraph style={{color: "white", textAlign: "center"}}>{loginText} <a href="/login">{loginButton}</a></Paragraph>
                         </Paragraph>
-                        <MemberIntroduction/>
                     </Col>
                 </Row>
             </Col>
