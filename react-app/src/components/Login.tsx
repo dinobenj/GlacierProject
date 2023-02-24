@@ -74,7 +74,7 @@ const Login: React.FC = () => {
                                     required
                                     />
                                 <br></br>
-                                <button type='submit'>Login</button>
+                                <button type='submit'>Sign Up</button>
                             </div>
                         </form>
                         <br></br>
