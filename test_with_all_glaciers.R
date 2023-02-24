@@ -1,4 +1,9 @@
-#library(elevatr)
+# library(elevatr)
+install.packages("rgdal")
+install.packages("ggplot2")
+install.packages("httr")
+install.packages("jsonlite")
+
 library(rgdal)
 library(ggplot2)
 library(httr)
@@ -17,8 +22,8 @@ library(countrycode)
 ##############################################
 
 # Pull data from API
-data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-D-CHANGE"))
-lon_lat_data <- as.data.frame(jsonlite::fromJSON("http://localhost:3000/documents/WGMS-FoG-2021-05-A-GLACIER"))
+data <- read.csv("data/WGMS-FoG-2021-05-D-CHANGE.csv")
+lon_lat_data <-read.csv("data/WGMS-FoG-2021-05-A-GLACIER.csv")
 
 only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
 only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
