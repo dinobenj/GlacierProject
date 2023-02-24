@@ -16,6 +16,9 @@ const SiteHeader: React.FC = () => {
                 <Menu.Item key="about">
                     <a href="/about">About</a>
                 </Menu.Item>
+                <Menu.Item key="login">
+                    <a href="/login">Login</a>
+                </Menu.Item>
             </Menu>
         </Header>
     );
