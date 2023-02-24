@@ -30,7 +30,6 @@ class Glacier(Resource):
                      "max_elev": entry[3],
                      "mean_elev": entry[4]   
                     } for entry in data]
-            print(data)
             if len(data) == 0:
                 return f"No data for glacier: \"{args[self.name_arg]}\"", 400
             else:
