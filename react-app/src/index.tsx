@@ -7,6 +7,7 @@ import Home from './components/Home';
 import Map from "./components/Map";
 import About from "./components/About";
 import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
     {
         path: "/login",
         element: <Login/>
+    },
+    {
+        path: "/signup",
+        element: <SignUp/>
     }
 ]);
 
