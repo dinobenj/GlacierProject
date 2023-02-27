@@ -104,23 +104,40 @@ turtle_pendown()
 turtle_write("W", font = "Arial", size = 20, align = "center")
 turtle_done()
 
+# Define color palette
+colors <- colorNumeric(palette = "Blues", domain = c(0, 100))
+
+# Create leaflet map
+leaflet() %>%
+  addTiles() %>%
+  addCircleMarkers(
+    data = my_data, # Replace with your own data
+    lng = ~longitude,
+    lat = ~latitude,
+    radius = ~population / 10000,
+    color = ~colors(population),
+    opacity = 1,
+    fillOpacity = 0.8,
+    stroke = FALSE,
+    label = ~paste(name, population),
+    labelOptions = labelOptions(noHide = TRUE, textOnly = TRUE, style = list("font-weight" = "normal", padding = "3px 8px"), textsize = "15px", direction = "auto")) %>%
+  addLegend(position = "bottomright", colors = colors, labels = c("0", "20", "40", "60", "80", "100"), title = "Population", opacity = 0.8)
 
 #map %>%
 #  add_markers(lat = "LATITUDE", lon = "LONGITUDE", mouse_over = "NAME")
 #x-axis
-x <- rnorm(100)
-
-plot(x, type = "p", xaxt = "n", main = "Scatter Plot with Custom X-Axis Scale")
-
-ticks_miles <- seq(-2, 2, by = 0.5)
-ticks_km <- ticks_miles * 1.60934
-#miles
-labels_miles <- paste0(ticks_miles, " mi")
-#kilometers
-labels_km <- paste0(ticks_km, " km")
-axis(side = 1, at = ticks_miles, labels = labels_miles, tick = TRUE)
-axis(side = 1, at = ticks_km, labels = labels_km, tick = FALSE, line = 2.5)
-
+output$plotxy <- renderPlot({
+  x <- rnorm(100)
+  plot(x, type = "p", xaxt = "n", main = "Scatter Plot with Custom X-Axis Scale")
+  ticks_miles <- seq(-2, 2, by = 0.5)
+  ticks_km <- ticks_miles * 1.60934
+  #miles
+  labels_miles <- paste0(ticks_miles, " mi")
+  #kilometers
+  labels_km <- paste0(ticks_km, " km")
+  axis(side = 1, at = ticks_miles, labels = labels_miles, tick = TRUE)
+  axis(side = 1, at = ticks_km, labels = labels_km, tick = FALSE, line = 2.5)
+})
 ui <- dashboardPage(
   dashboardHeader(title = "The Glacier Project"),
   dashboardSidebar(
