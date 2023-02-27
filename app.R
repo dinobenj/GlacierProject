@@ -1,11 +1,3 @@
-#
-# This is a Shiny web application. You can run the application by clicking
-# the 'Run App' button above.
-#
-# Find out more about building applications with Shiny here:
-#
-#    http://shiny.rstudio.com/
-#
 library(leaflet)
 library(shiny)
 library(shinydashboard)
@@ -22,10 +14,7 @@ library(rgl)
 library(bmp)
 library(turtle)
 
-
-source("./test_with_all_glaciers.R")#only run for first startup to load data
-
-
+source("./test_with_all_glaciers.R") # Load data from file
 
 get_country_data <- function(political_unit) {
   country_map_data <- subset(dd, POLITICAL_UNIT == political_unit)
@@ -44,7 +33,7 @@ round_df <- function(x, digits) {
   # digits: number of digits to round
   for (i in 1:ncol(x)) {
     if (class(x[, i]) == "numeric") {
-      x[i] <- round(x[i], digits)
+      x[,i] <- round(x[,i], digits) # fix the index to access all rows of the column
     }
   }
   return(x)
@@ -97,7 +86,7 @@ turtle_penup()
 turtle_goto(size, 0)
 turtle_pendown()
 turtle_right(90)
-turtle_write("E", font = "Arial", size = 20, align = "center")
+turtle_write("E", font = "Arial", size = 20, align = "
 turtle_penup()
 turtle_goto(-size, 0)
 turtle_pendown()
