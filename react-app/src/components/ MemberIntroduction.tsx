@@ -32,7 +32,7 @@ const MemberIntroduction: React.FC = () => {
                         color: "white",
                         fontSize: "20px"
                     }}>
-                        Frontend: Tevin Zhuo, Owen Witkos, Will Lin
+                        Frontend: Tevin Zhuo, Owen Witkos, Will Lin, Hayeon Oh
                     </Paragraph>
                 </Col>
             </Row>
@@ -63,7 +63,7 @@ const MemberIntroduction: React.FC = () => {
                         color: "white",
                         fontSize: "20px"
                     }}>
-                        RShiny: Ben Dennison, Audrey Kling, Tevin Zhuo, Hayeon Oh, Will Lin
+                        RShiny: Ben Dennison, Audrey Kling, Tevin Zhuo, Will Lin
                     </Paragraph>
                 </Col>
             </Row>

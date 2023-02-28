@@ -1,14 +1,29 @@
 import React from "react";
 import {Col, Row, Typography} from "antd";
 import MemberIntroduction from "./ MemberIntroduction";
+import { useForm } from "../useForm";
 
 const {Title, Paragraph} = Typography;
 
 const SignUp: React.FC = () => {
-    const signupText = "Don't have an account yet?";
-    const signupButton = "Sign up";
-    const teamIntroductionTitle = "Who we are?"
-    const teamIntroductionText = "We are students at Rensselaer Polytechnic Institue (RPI) and members of Rensselaer Center for Open Source (RCOS).";
+    const loginText = "Already signed up?";
+    const loginButton = "Log in";
+
+    const initialState = {
+        email: "",
+        password: "",
+    };
+
+    // getting the event handlers from our custom hook
+    const { onChange, onSubmit, values } = useForm(
+        loginUserCallback,
+        initialState
+    );
+
+    // a submit function that will execute upon form submission
+    async function loginUserCallback() {
+        // send "values" to database
+    }
 
     return (
         <Row justify="center" align="middle" style={{height: "100vh"}}>
@@ -21,14 +36,47 @@ const SignUp: React.FC = () => {
                 </Row>
                 <Row justify="space-around" align="middle">
                     <Col>
-                        <Title style={{color: "white"}}>{teamIntroductionTitle}</Title>
+                        <Title style={{color: "white", textAlign: "center"}}>Sign Up</Title>
                         <Paragraph strong style={{
                             color: "white",
                             fontSize: "20px"
                         }}>
-                            {teamIntroductionText}
+                            <Paragraph style={{color: "white", textAlign: "center"}}>{loginText} <a href="/login">{loginButton}</a></Paragraph>
                         </Paragraph>
-                        <MemberIntroduction/>
+                    </Col>
+                </Row>
+                <Row justify="space-around" align="middle">
+                    <Col>
+                        <form onSubmit={onSubmit}>
+                            <div style={{ 
+                                display: "flex",
+                                flexDirection: "column",
+                                justifyContent: "center",
+                                alignItems: "center"
+                            }}>
+                                <br></br>
+                                <input
+                                    name='email'
+                                    id='email'
+                                    type='email'
+                                    placeholder='Email'
+                                    onChange={onChange}
+                                    required
+                                    />
+                                
+                                <input
+                                    name='password'
+                                    id='password'
+                                    type='password'
+                                    placeholder='Password'
+                                    onChange={onChange}
+                                    required
+                                    />
+                                <br></br>
+                                <button type='submit'>Sign Up</button>
+                            </div>
+                        </form>
+                        <br></br>
                     </Col>
                 </Row>
             </Col>
