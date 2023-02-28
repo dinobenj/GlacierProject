@@ -13,6 +13,7 @@ class Glacier(Resource):
     def __init__(self):
         self.name_arg = "name"
         self.list_all_arg = "list_all"
+    
     def get(self):
         args = request.args
         if len(args) > 1:
@@ -36,6 +37,11 @@ class Glacier(Resource):
                 return jsonify({f"{args[self.name_arg]}": data})
         else:
             return "Invalid arg: require only 'name' or 'list_all' as arguments to URL", 400
+    
+    def post(self):
+        print("here")
+        data = dict(request.get_json())
+        print(data)
 
 api.add_resource(Glacier, "/glacier")
 
