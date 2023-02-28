@@ -43,6 +43,8 @@ sub_data$WGMS_ID <- type.convert(sub_data$WGMS_ID, as.is = T)
 only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
 only_location$LONGITUDE <- type.convert(only_location$LONGITUDE, as.is = T)
 only_location$WGMS_ID <- type.convert(only_location$WGMS_ID, as.is = T)
+only_location_sub$POLITICAL_UNIT <- countrycode(only_location_sub$POLITICAL_UNIT, "iso2c", "country.name")	
+sub_data$POLITICAL_UNIT <- countrycode(sub_data$POLITICAL_UNIT, "iso2c", "country.name")
 only_lon_lat <- only_location_sub[, c(3, 5, 6)]
 sub_data <- merge(sub_data, only_lon_lat, by = c("NAME"))
 
