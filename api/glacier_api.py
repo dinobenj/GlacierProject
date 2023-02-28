@@ -13,7 +13,8 @@ class Glacier(Resource):
     def __init__(self):
         self.name_arg = "name"
         self.list_all_arg = "list_all"
-    
+        self.post_arg = "glaciers"
+
     def get(self):
         args = request.args
         if len(args) > 1:
@@ -32,16 +33,31 @@ class Glacier(Resource):
                      "mean_elev": entry[4]   
                     } for entry in data]
             if len(data) == 0:
-                return f"No data for glacier: \"{args[self.name_arg]}\"", 400
+                return f"No data for glacier: '{args[self.name_arg]}'", 400
             else:
                 return jsonify({f"{args[self.name_arg]}": data})
         else:
             return "Invalid arg: require only 'name' or 'list_all' as arguments to URL", 400
-    
+
     def post(self):
-        print("here")
         data = dict(request.get_json())
-        print(data)
+        if len(data) != 1 or not self.post_arg in data.keys():
+            return f"Only one key required with name '{self.post_arg}'.", 400
+        else:
+            glacier_list = data[self.post_arg]
+            return_data = {}
+            for glacier in glacier_list:
+                data = cur.execute(f"SELECT source_time, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_name=\"{glacier}\"").fetchall()
+                data = [{"source_time": entry[0],
+                        "area": entry[1],
+                        "min_elev": entry[2],
+                        "max_elev": entry[3],
+                        "mean_elev": entry[4]   
+                        } for entry in data]
+                if len(data) != 0:
+                    return_data[glacier] = data
+            
+            return jsonify(return_data)
 
 api.add_resource(Glacier, "/glacier")
 
