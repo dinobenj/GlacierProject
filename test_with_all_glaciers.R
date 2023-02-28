@@ -40,21 +40,9 @@ sub_data <- subset(change_data)
 sub_data$YEAR <- type.convert(sub_data$YEAR, as.is = T)
 sub_data$AREA_CHANGE <- type.convert(sub_data$AREA_CHANGE, as.is = T)
 sub_data$WGMS_ID <- type.convert(sub_data$WGMS_ID, as.is = T)
-
-# sub_data[, 'LATITUDE'] <- 0
-# sub_data[, 'LONGITUDE'] <- 0
-
-# Convert country codes to names
-only_location_sub$POLITICAL_UNIT <- countrycode(only_location_sub$POLITICAL_UNIT, "iso2c", "country.name")
-sub_data$POLITICAL_UNIT <- countrycode(sub_data$POLITICAL_UNIT, "iso2c", "country.name")
-# 
-# for(x in sub_data$WGMS_ID){
-#   tmp <- which(only_location_sub$WGMS_ID == x)
-#   tmp_index <- which(sub_data$WGMS_ID == x)
-#   tmp_sub <- only_location_sub[tmp, ]
-#   sub_data[tmp_index,]$LATITUDE = tmp_sub$LATITUDE
-#   sub_data[tmp_index,]$LONGITUDE = tmp_sub$LONGITUDE
-# }
+only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
+only_location$LONGITUDE <- type.convert(only_location$LONGITUDE, as.is = T)
+only_location$WGMS_ID <- type.convert(only_location$WGMS_ID, as.is = T)
 only_lon_lat <- only_location_sub[, c(3, 5, 6)]
 sub_data <- merge(sub_data, only_lon_lat, by = c("NAME"))
 
