@@ -58,14 +58,14 @@ plot_data <- sub_data[, c(1,4,5)]
 plot_data <- subset(plot_data, NAME == user_input)
 write.csv(plot_data, "test_with.csv")
 
-gmap_data <- sub_data[, c(1, 7, 8, 3)]
+map_data <- sub_data[, c(1, 7, 8, 3)]
 
-gmap_data <- unique(gmap_data)
+map_data <- unique(map_data)
 
 
 #-------------------------------
 #Elevation Data
-# US_data <- subset(gmap_data, gmap_data$POLITICAL_UNIT == "US")
+# US_data <- subset(map_data, map_data$POLITICAL_UNIT == "US")
 
 
 # write.csv(US_data, "test_with.csv")
