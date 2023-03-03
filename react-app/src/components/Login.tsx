@@ -26,6 +26,11 @@ const Login: React.FC = () => {
     // a submit function that will execute upon form submission
     async function loginUserCallback() {
         // send "values" to database
+        const response = await fetch("/api/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(values),
+        });
     }
 
     return (
