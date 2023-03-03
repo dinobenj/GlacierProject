@@ -1,6 +1,6 @@
 import { Col, Row, Typography } from "antd";
 import React from "react";
-import "./MemberIntroduction.css"; // Import custom CSS file
+const css = require("./MemberIntroduction.css");
 
 const { Paragraph } = Typography;
 
