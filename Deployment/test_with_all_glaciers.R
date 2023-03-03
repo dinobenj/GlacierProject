@@ -23,6 +23,9 @@ data <- read_parquet("../WGMS-FoG-2021-05-D-CHANGE.parquet")
 lon_lat_data <- read_parquet("../WGMS-FoG-2021-05-A-GLACIER.parquet")
 only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
 
+area_data <- read.csv("../data/WGMS-FoG-2021-05-B-STATE.csv")
+area_data <- subset(area_data, YEAR != 0)
+
 only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
 only_location$LONGITUDE <- type.convert(only_location$LONGITUDE, as.is = T)
 only_location$WGMS_ID <- type.convert(only_location$WGMS_ID, as.is = T)
@@ -48,9 +51,9 @@ sub_data$POLITICAL_UNIT <- countrycode(sub_data$POLITICAL_UNIT, "iso2c", "countr
 only_lon_lat <- only_location_sub[, c(3, 5, 6)]
 sub_data <- merge(sub_data, only_lon_lat, by = c("NAME"))
 
-gmap_data <- sub_data[, c(1, 7, 8, 3)]
+map_data <- sub_data[, c(1, 7, 8, 3)]
 
-gmap_data <- unique(gmap_data)
+map_data <- unique(map_data)
 
 
 #-------------------------------

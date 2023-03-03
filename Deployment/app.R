@@ -25,19 +25,13 @@ library(bmp)
 source("./test_with_all_glaciers.R")#only run for first startup to load data
 
 
-
-get_country_data <- function(political_unit) {
-  country_map_data <- subset(dd, POLITICAL_UNIT == political_unit)
+#returns the map data for the given country
+get_country_map_data <- function(political_unit) {
+  country_map_data <- subset(map_data, POLITICAL_UNIT == political_unit)
   return(country_map_data)
 }
 
-return_graph_data <- function(data) {
-  return(data)
-}
-
-dd <- gmap_data
-
-round_df <- function(x, digits) {
+round_dataframe <- function(x, digits) {
   # round all numeric variables
   # x: data frame 
   # digits: number of digits to round
@@ -49,15 +43,13 @@ round_df <- function(x, digits) {
   return(x)
 }
 
-area_chart <- function(glacier_name) {
-  user_input <- glacier_name #readline(prompt = "Enter the Glacier Name you would like to see a graph for: ")
+get_area_chart <- function(glacier_name) {
   plot_data <- area_data
-  plot_data <- subset(plot_data, NAME == user_input)
-  #p <- plot(plot_data$YEAR, plot_data$AREA_CHANGE, main = "Deez Nut", xlab = "Year", ylab = "Area Change", xlim = c(1950, 2020), ylim = c(-10000, 10000))
+  plot_data <- subset(plot_data, NAME == glacier_name)
   b <- plot(plot_data$YEAR,
             plot_data$AREA,
             type = "o",
-            main = user_input,
+            main = glacier_name,
             xlab = "Years",
             ylab = "AREA (1000m^2)",
             col = "blue")
@@ -65,29 +57,27 @@ area_chart <- function(glacier_name) {
   return(plot_data)
 }
 
-# download the satellite image to filepath
-display_raster <- function(p) {
-  tmp_south <- p$lat - 0.1
-  tmp_north <- p$lat + 0.1
-  tmp_west  <- p$lng - 0.1
-  tmp_east  <- p$lng + 0.1
-  tmp1 <- data.frame(x = tmp_west, y = tmp_south)
-  tmp2 <- data.frame(x = tmp_east, y = tmp_north)
-  tmp <- rbind(tmp1, tmp2)
-  elevation <- get_elev_raster(location = tmp, prj = "EPSG:4326", z = 9)
-  pl <- plot(elevation, main = p$id, xlab = "Longitude", ylab = "Latitude")
-  return(pl)
+
+display_raster <- function(glacier) {
+  #Take the glacier's position and create a box to
+  #put the elevation data into
+  southPoint <- glacier$lat - 0.1
+  northPoint <- glacier$lat + 0.1
+  westPoint <- glacier$lng - 0.1
+  eastPoint <- glacier$lng + 0.1
+  southwestBound <- data.frame(x = westPoint, y = southPoint)
+  northeastBound <- data.frame(x = eastPoint, y = northPoint)
+  boundingBox <- rbind(southwestBound, northeastBound)
+  elevation_data <- get_elev_raster(location = boundingBox, prj = "EPSG:4326", z = 9)
+  elevation_plot <- plot(elevation_data, main = glacier$id, xlab = "Longitude", ylab = "Latitude")
+  return(elevation_plot)
 }
-
-
-#map %>%
-#  add_markers(lat = "LATITUDE", lon = "LONGITUDE", mouse_over = "NAME")
 
 ui <- dashboardPage(
   dashboardHeader(title = "The Glacier Project"),
   dashboardSidebar(
-    menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT))),
-    selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
+    menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(map_data$POLITICAL_UNIT))),
+    selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(map_data$NAME)),
     div(style = "display:inline-block; float:center", actionButton("downloadData", "Click to dowload CSV")),
     div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
   ),
@@ -102,33 +92,22 @@ ui <- dashboardPage(
     
   )
 )
-#   bootstrapPage(
-#   titlePanel("The Glacier Project"),
-#   tags$style(type = "text/css", "html, body {width:100%;height:100%}"),
-#   leafletOutput("mymap", width = "100%", height = "100%"),
-#   absolutePanel(top = 5, right = 5,
-#                 selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(dd$POLITICAL_UNIT)),
-#                 selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(dd$NAME)),
-#                 downloadButton("downloadData", "Click to dowload CSV"),
-#                 plotOutput("plotxy", click = "plot_click"),
-#                 actionButton("plot_sat", "Click to display raster of selected Glacier")
-#   ) 
-# )
 
-dd$INFO <- paste0(
-  dd$NAME,
+
+map_data$INFO <- paste0(
+  map_data$NAME,
   ", ",
-  dd$POLITICAL_UNIT
+  map_data$POLITICAL_UNIT
 )
 
 
 server <- function(input, output, session) {
   data <- reactive({
-    dd
+    map_data
   })
   
   observeEvent(input$Input_Country_Code, {
-    dd <- get_country_data(input$Input_Country_Code)
+    map_data <- get_country_map_data(input$Input_Country_Code)
   })
   
   output$mymap = renderUI({
@@ -149,16 +128,15 @@ server <- function(input, output, session) {
       ) %>%
       setView(0, 0, 2) %>%
       
-      addAwesomeMarkers(data = country_map_data <- subset(dd, POLITICAL_UNIT == input$Input_Country_Code),
+      addAwesomeMarkers(data = country_map_data <- subset(map_data, POLITICAL_UNIT == input$Input_Country_Code),
                  icon = ice,
                  label = ~NAME,
-                 #popup = area_chart(input$Input_Glaccier_Name),
                  layerId = ~NAME
       )
   })
   dwnld_data <- NULL
   output$plotxy <- renderPlot({
-    area <- area_chart(input$Input_Glacier_Name)
+    area <- get_area_chart(input$Input_Glacier_Name)
     dwnld_data = area
     write.csv(dwnld_data, "tmp.csv")
     read.csv("tmp.csv")
