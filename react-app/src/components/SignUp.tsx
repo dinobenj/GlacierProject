@@ -56,6 +56,14 @@ const SignUp: React.FC = () => {
                             }}>
                                 <br></br>
                                 <input
+                                    name="name"
+                                    id="name"
+                                    type="name"
+                                    placeholder="Name"
+                                    onChange={onChange}
+                                    required
+                                    />
+                                <input
                                     name='email'
                                     id='email'
                                     type='email'
@@ -69,6 +77,13 @@ const SignUp: React.FC = () => {
                                     id='password'
                                     type='password'
                                     placeholder='Password'
+                                    onChange={onChange}
+                                    required
+                                    />
+                                <input
+                                    name="confirmPassword"
+                                    id="confirmPassword"
+                                    placeholder="Confirm Password"
                                     onChange={onChange}
                                     required
                                     />
