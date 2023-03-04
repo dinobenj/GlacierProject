@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Col, Form, Input, Row, Typography } from "antd";
 import MemberIntroduction from "./MemberIntroduction";
 import { useForm } from "../useForm";
 
 const { Title, Paragraph } = Typography;
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 
 const Login: React.FC = () => {
   const signupText = "Don't have an account yet?";
@@ -13,7 +18,7 @@ const Login: React.FC = () => {
     "We are students at Rensselaer Polytechnic Institue (RPI) and members of Rensselaer Center for Open Source (RCOS).";
 
   // defining the initial state for the form
-  const initialState = {
+  const initialState: LoginFormData = {
     email: "",
     password: "",
   };
@@ -21,9 +26,24 @@ const Login: React.FC = () => {
   // getting the event handlers from our custom hook
   const { onChange, onSubmit, values } = useForm(loginUserCallback, initialState);
 
+  // state to keep track of login status
+  const [loginError, setLoginError] = useState<string>("");
+
   // a submit function that will execute upon form submission
   async function loginUserCallback() {
-    // send "values" to database
+    // send "values" to database or API for authentication
+    try {
+      // simulate authentication check
+      if (values.email === "user@example.com" && values.password === "password") {
+        setLoginError("");
+        console.log("Login successful");
+      } else {
+        setLoginError("Invalid email or password");
+      }
+    } catch (error) {
+      console.error(error);
+      setLoginError("Something went wrong. Please try again later.");
+    }
   }
 
   return (
@@ -46,6 +66,8 @@ const Login: React.FC = () => {
           >
             <Input.Password value={values.password} onChange={onChange} />
           </Form.Item>
+
+          {loginError && <p style={{ color: "red" }}>{loginError}</p>}
 
           <Form.Item>
             <Button type="primary" htmlType="submit">
