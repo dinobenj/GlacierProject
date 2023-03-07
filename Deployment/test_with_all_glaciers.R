@@ -19,11 +19,11 @@ library(arrow)
 ##############################################
 
 # Pull data from API
-data <- read_parquet("../WGMS-FoG-2021-05-D-CHANGE.parquet")
-lon_lat_data <- read_parquet("../WGMS-FoG-2021-05-A-GLACIER.parquet")
+data <- read_parquet("./WGMS-FoG-2021-05-D-CHANGE.parquet")
+lon_lat_data <- read_parquet("./WGMS-FoG-2021-05-A-GLACIER.parquet")
 only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
 
-area_data <- read.csv("../data/WGMS-FoG-2021-05-B-STATE.csv")
+area_data <- read.csv("./deploy_data/WGMS-FoG-2021-05-B-STATE.csv")
 area_data <- subset(area_data, YEAR != 0)
 
 only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
