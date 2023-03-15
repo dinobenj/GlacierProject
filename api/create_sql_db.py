@@ -13,8 +13,11 @@ if __name__ == "__main__":
     if not choice in {"yes", "y", "ye", ""}:
         quit()
 
+    # The data base file will be created if it does not already exist.
     con = sqlite3.connect("glacier.db")
     cur = con.cursor()
+    
+    # If the glacier table exists, it will be dropped.
     cur.execute("DROP TABLE IF EXISTS glaciers;")
     cur.execute("CREATE TABLE glaciers (glacier_name TEXT, \
                                         source_time TEXT, \
@@ -26,6 +29,9 @@ if __name__ == "__main__":
     con.commit()
 
     for i, record in enumerate(DBF("data/glims_polygons.dbf", char_decode_errors="ignore")):
+        
+        # Here we iterate through all the records in the glim file.
+        # Only the parameters below are stored in the sql db.
         glacier_name = record["glac_name"].replace("'", "").strip()
         source_time = record["src_date"]
         area = record["db_area"]
@@ -33,6 +39,7 @@ if __name__ == "__main__":
         min_elev = record["min_elev"]
         max_elev = record["max_elev"]
         
+        # Any empty glacier name will be ignored.
         if glacier_name == "None":
             continue
         print(i, glacier_name)
