@@ -28,6 +28,7 @@ if __name__ == "__main__":
                                         UNIQUE (glacier_name, source_time));")
     con.commit()
 
+    # If you want to read from a different glims data base, the file name below must be changed.
     for i, record in enumerate(DBF("data/glims_polygons.dbf", char_decode_errors="ignore")):
         
         # Here we iterate through all the records in the glim file.
