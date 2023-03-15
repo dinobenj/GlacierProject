@@ -7,6 +7,7 @@ The data used for this script is from this website: https://www.glims.org/.
 You got to make an account to download it and there are glims_polygons.dbf files.
 """
 
+
 if __name__ == "__main__":
     print("NOTE: running the program will create/overwrite glacier.db. press y to continue.")
     choice = input().lower()
