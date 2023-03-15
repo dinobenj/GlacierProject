@@ -82,8 +82,17 @@ class Glacier(Resource):
                     return_data[glacier] = data
             
             return jsonify(return_data)
+        
+class Precipitation(Resource):
+    
+    def __init__(self):
+        pass
+    
+    def get(self):
+        pass
 
 api.add_resource(Glacier, "/glacier")
+api.add_resource(Precipitation, "/precip")
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=80, debug = True)
