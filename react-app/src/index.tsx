@@ -8,6 +8,7 @@ import Map from "./components/Map";
 import About from "./components/About";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
+import Dashboard from "./components/Dashboard";
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
@@ -36,7 +37,11 @@ const router = createBrowserRouter([
     {
         path: "/signup",
         element: <SignUp/>
-    }
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard/>
+    },
 ]);
 
 const root = ReactDOM.createRoot(

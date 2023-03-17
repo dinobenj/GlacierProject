@@ -8,8 +8,7 @@ const {Title, Paragraph} = Typography;
 const Login: React.FC = () => {
     const signupText = "Don't have an account yet?";
     const signupButton = "Sign up";
-    const teamIntroductionTitle = "Who we are?"
-    const teamIntroductionText = "We are students at Rensselaer Polytechnic Institue (RPI) and members of Rensselaer Center for Open Source (RCOS).";
+
 
     // defining the initial state for the form
     const initialState = {

@@ -13,6 +13,9 @@ const SiteHeader: React.FC = () => {
                 <Menu.Item key="map">
                     <a href="/map">Map</a>
                 </Menu.Item>
+                <Menu.Item key="dashboard">
+                    <a href="/dashboard">Dashboard</a>
+                </Menu.Item>
                 <Menu.Item key="about">
                     <a href="/about">About</a>
                 </Menu.Item>
