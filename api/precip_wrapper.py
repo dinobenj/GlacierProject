@@ -32,13 +32,13 @@ class Precip:
         self.limit = limit
         
         # The start time must be at most 60 days from the current day.
-        if start_time <= (date.today() - timedelta(days=60)):
+        if start_time <= (date.today() - timedelta(days=60)) or start_time is None:
             self.start_time = date.today()
         else:
             self.start_time = start_time
         
         # If the end time is at or before the start time, set the end time to be a day after.
-        if end_time <= self.start_time:
+        if end_time <= self.start_time or start_time is None:
             self.end_time = self.start_time + timedelta(days=1)
         else:
             self.end_time = end_time
