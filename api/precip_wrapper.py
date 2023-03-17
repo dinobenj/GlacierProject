@@ -19,6 +19,11 @@ accum = {
             }
 
 class Precip:
+    '''
+    This class is the wrapper for the api. The constructor takes in args used
+    for the api. Accumulation type and location data are required parameters,
+    the rest are optional and have default initializations. 
+    '''
     def __init__(self, q, lat, lon, limit, start_time, end_time):
         
         # The type of accumulation query
