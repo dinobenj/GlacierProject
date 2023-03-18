@@ -23,3 +23,22 @@ const LoginPage: React.FC = () => {
           fullWidth
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          />
+        <TextField
+          label="Password"
+          variant="outlined"
+          margin="normal"
+          fullWidth
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Button type="submit" variant="contained" color="primary" fullWidth>
+          Login
+        </Button>
+      </form>
+    </Paper>
+  );
+};
+
+export default LoginPage;
