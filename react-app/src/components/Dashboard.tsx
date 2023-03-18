@@ -1,43 +1,49 @@
-import React, { useState } from 'react';
-import { TextField, Button, Typography, Paper } from '@material-ui/core';
+import React, { useState } from "react";
 
-const LoginPage: React.FC = () => {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+const LoginPage = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    // add code to submit login information to your backend API
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    // Code to handle form submission
   };
 
   return (
-    <Paper style={{ padding: 16, maxWidth: 400 }}>
-      <Typography variant="h4" gutterBottom>
-        Login
-      </Typography>
+    <div>
+      <h1>Login Page</h1>
       <form onSubmit={handleSubmit}>
-        <TextField
-          label="Email"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+        <div>
+          <label htmlFor="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
           />
-        <TextField
-          label="Password"
-          variant="outlined"
-          margin="normal"
-          fullWidth
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <Button type="submit" variant="contained" color="primary" fullWidth>
-          Login
-        </Button>
+        </div>
+        <div>
+          <label htmlFor="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="rememberMe">Remember Me:</label>
+          <input
+            type="checkbox"
+            id="rememberMe"
+            checked={rememberMe}
+            onChange={(event) => setRememberMe(event.target.checked)}
+          />
+        </div>
+        <button type="submit">Login</button>
       </form>
-    </Paper>
+    </div>
   );
 };
 
