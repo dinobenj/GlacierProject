@@ -10,20 +10,22 @@ const SignUp: React.FC = () => {
     const loginButton = "Log in";
 
     const initialState = {
+        name: "",
         email: "",
         password: "",
+        confirmPassword: "",
     };
 
     // getting the event handlers from our custom hook
     const { onChange, onSubmit, values } = useForm(
-        loginUserCallback,
+        signUpUserCallback,
         initialState
     );
 
     // a submit function that will execute upon form submission
-    async function loginUserCallback() {
+    async function signUpUserCallback() {
         // send "values" to database
-        const response = await fetch("/api/login", {
+        const response = await fetch("/api/signup", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -46,7 +48,7 @@ const SignUp: React.FC = () => {
                         <Title style={{color: "white", textAlign: "center"}}>Sign Up</Title>
                         <Paragraph strong style={{
                             color: "white",
-                            fontSize: "20px"
+                            fontSize: "15px"
                         }}>
                             <Paragraph style={{color: "white", textAlign: "center"}}>{loginText} <a href="/login">{loginButton}</a></Paragraph>
                         </Paragraph>
