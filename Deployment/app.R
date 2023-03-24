@@ -79,6 +79,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(map_data$POLITICAL_UNIT))),
     selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(map_data$NAME)),
+    selectInput(inputId = "data_select", label = "Select Graph Data", multiple = FALSE, choices = list("Mass Balance", "Area Change")),
     div(style = "display:inline-block; float:center", actionButton("downloadData", "Click to dowload CSV")),
     div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
   ),
