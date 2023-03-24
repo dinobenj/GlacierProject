@@ -64,7 +64,21 @@ class Precip:
     def send_request(self):
         pass
 
-a = Precip(accum["30min"], 100, 100, None, date.today(), date.today(), FileType.TIFF)
-print(a.start_time, a.end_time)
+def precip_test():
+    test1 = Precip(accum["30min"], -100,     -100,     None, date.today(), date.today(), FileType.PNG)
+    test2 = Precip(accum["3hr"],   -129.3432, 33.5,    None, date.today(), date.today(), FileType.TIFF)
+    test3 = Precip(accum["1d_3hr"], 38.2098, -3.309,   2,    date.today(), date.today(), FileType.JSON)
+    test4 = Precip(accum["3d"],     103.399, -150.093, 5,    date.today(), date.today(), FileType.PNG)
+    test5 = Precip(accum["30min"],  0,        0,       1,    date.today(), date.today(), FileType.TIFF)
+    test6 = Precip(accum["30min"],  180,     -180,     None, date.today(), date.today(), FileType.TIFF)
+    print(test1.start_time, test1.end_time)
+
+if __name__ == "__main__":
+    precip_test()
+
+
+
+
+
 
 
