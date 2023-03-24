@@ -37,8 +37,8 @@ class Precip:
                  file_type: FileType):
         
         # The type of accumulation query
-        self.q = q
-        
+        self.q  = q
+
         # Location data
         self.lat = lat
         self.lon = lon
@@ -57,6 +57,12 @@ class Precip:
             self.end_time = self.start_time + timedelta(days=1)
         else:
             self.end_time = end_time
+        
+        # File type to save
+        self.file_type = file_type
+        
+    def send_request(self):
+        pass
 
 a = Precip(accum["30min"], 100, 100, None, date.today(), date.today(), FileType.TIFF)
 print(a.start_time, a.end_time)
