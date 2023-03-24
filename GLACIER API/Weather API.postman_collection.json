@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "2d5ddd24-bb45-490d-82ee-84201c29b73e",
+		"name": "Weather API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25548648"
+	},
+	"item": [
+		{
+			"name": "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch?q=precip_30mn_frozen&startTime=2023-01-20&endTime=2023-01-21&limit=2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch?q=precip_30mn_frozen&startTime=2023-01-20&endTime=2023-01-21&limit=2",
+					"protocol": "https",
+					"host": [
+						"pmmpublisher",
+						"pps",
+						"eosdis",
+						"nasa",
+						"gov"
+					],
+					"path": [
+						"opensearch"
+					],
+					"query": [
+						{
+							"key": "q",
+							"value": "precip_30mn_frozen"
+						},
+						{
+							"key": "startTime",
+							"value": "2023-01-20"
+						},
+						{
+							"key": "endTime",
+							"value": "2023-01-21"
+						},
+						{
+							"key": "limit",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
