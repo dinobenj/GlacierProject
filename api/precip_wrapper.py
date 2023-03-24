@@ -1,7 +1,7 @@
 import requests
 from datetime import date
 from datetime import timedelta
-import typing
+from enum import Enum
 from typing import Union
 
 ''' 
@@ -17,7 +17,9 @@ accum = {
             "1d_3hr": "precip_3hr_1d",
             "3d": "precip_3d",
             "7d": "precip_7d"
-            }   
+            }
+
+FileType = Enum('File', ['PNG', 'TIFF', 'JSON'])
 
 class Precip:
     '''
@@ -31,7 +33,8 @@ class Precip:
                  lon: float,
                  limit: Union[int, None],
                  start_time: Union[date, None],
-                 end_time: Union[date, None]):
+                 end_time: Union[date, None],
+                 file_type: FileType):
         
         # The type of accumulation query
         self.q = q
@@ -44,17 +47,18 @@ class Precip:
         self.limit = limit
         
         # The start time must be at most 60 days from the current day.
-        if start_time <= (date.today() - timedelta(days=60)) or start_time is None:
+        if start_time is None or start_time <= (date.today() - timedelta(days=60)):
             self.start_time = date.today()
         else:
             self.start_time = start_time
         
         # If the end time is at or before the start time, set the end time to be a day after.
-        if end_time <= self.start_time or start_time is None:
+        if end_time is None or end_time <= self.start_time:
             self.end_time = self.start_time + timedelta(days=1)
         else:
             self.end_time = end_time
 
-a = Precip(accum["30min"], 100, 100, None, date.today(), date.today())
+a = Precip(accum["30min"], 100, 100, None, date.today(), date.today(), FileType.TIFF)
 print(a.start_time, a.end_time)
+
 
