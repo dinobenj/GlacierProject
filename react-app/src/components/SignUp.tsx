@@ -4,11 +4,9 @@ import { useForm } from "../useForm";
 const {Title, Paragraph} = Typography;
 
 const Login: React.FC = () => {
-    const signupText = "Don't have an account yet?";
-    const signupButton = "Sign up";
-    const teamIntroductionTitle = "Who we are?"
-    const teamIntroductionText = "We are students at Rensselaer Polytechnic Institue (RPI) and members of Rensselaer Center for Open Source (RCOS).";
-
+    const loginText = "Already have an account?";
+    const loginButton = "Log In";
+    
     // defining the initial state for the form
     const initialState = {
         email: "",
@@ -35,12 +33,12 @@ const Login: React.FC = () => {
             }}>
                 <Row justify="space-around" align="middle">
                     <Col>
-                        <Title style={{color: "white", textAlign: "center"}}>Login</Title>
+                        <Title style={{color: "white", textAlign: "center"}}>Sign Up</Title>
                         <Paragraph strong style={{
                             color: "white",
                             fontSize: "15px"
                         }}>
-                            {signupText} <a href="/signup">{signupButton}</a>
+                            {loginText} <a href="/login">{loginButton}</a>
                         </Paragraph>
                     </Col>
                 </Row>
@@ -71,8 +69,16 @@ const Login: React.FC = () => {
                                     onChange={onChange}
                                     required
                                     />
+                                <input
+                                    name='confpassword'
+                                    id='confpassword'
+                                    type='password'
+                                    placeholder='Confirm Password'
+                                    onChange={onChange}
+                                    required
+                                    />
                                 <br></br>
-                                <button type='submit'>Login</button>
+                                <button type='submit'>Sign Up</button>
                             </div>
                         </form>
                         <br></br>

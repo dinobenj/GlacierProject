@@ -1,0 +1,14 @@
+{
+  "name": "glacierproject",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "."
+  },
+  "author": "",
+  "license": "ISC"
+}
