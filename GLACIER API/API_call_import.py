@@ -3,16 +3,18 @@
 Created on Tue Feb 28 17:07:34 2023
 
 @author: klinga
+
+This file contains the get_geotiff function 
+which handles the precipitation data API request
 """
 
+# module for API requesting
 import requests
-import random
 
+# parameters: latitude and longitude values
+# returns a link to download a geotiff file
 def get_geotiff(lat, long):
 
-    # current lat = 59.58985
-    # current long = -138.6278
-    
     # queries are the parameters we are asking the API fore
     query = {'q': 'precip_30mn', 'lat': lat, 'lon': long, 'startTime': '2023-03-14', 'endTime': '2023-03-16'}
     
@@ -36,16 +38,7 @@ def get_geotiff(lat, long):
 
     # geotiff file 
     file = geotiff_info['url']
-    #parse_file = requests.get(file, allow_redirects=True)
         
-   # file_parts = file.split("/")
-    
-    #tiff = str(random.random())
-    
-   # print(tiff)
-    
-   # open("gpm_30mn.20230316.235959.tif", 'w').write(parse_file.content)
-    
     return file
   
    

@@ -1,3 +1,5 @@
+# This file contains a function that makes the API request in R
+# and then plots the resulting geotiff
 
 library(raster)
 #library(Rtools)

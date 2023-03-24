@@ -1,3 +1,8 @@
+# This file calls the python get_geotiff function that I wrote in 
+# the API_call_import.py file
+# It takes the geotiff, converts it to a raster and plots 
+# the precipitation data 
+
 library(raster)
 #library(Rtools)
 library(rgdal)
@@ -6,15 +11,15 @@ library(rjson)
 library(jsonlite)
 library(reticulate)
 
+# install the requests library from python
 py_install('requests')
 
+# find the python source file
 source_python('API_call_import.py')
 
-#precip_data <- raster(x = get_geotiff(3.4653, 62.2159))
-
+# create a raster data from the return value from 
+# the python function get_geotiff(lat, long)
 precip_data  <- raster(x = get_geotiff(25.2975, 91.5826))
-
-#precip_data <- raster(x = get_geotiff(76.7000, 41.2000)) doens't work?
 
 # plot raster data
 par(mar = c(1, 1, 1, 1))

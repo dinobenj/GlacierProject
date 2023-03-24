@@ -7,6 +7,8 @@ Created on Wed Mar 22 23:46:33 2023
 This file uses my API Call function and geotiff plotting code
 written by the National Snow and Ice Data Center. 
 
+Plots precipitation data from the NASA API geotiff file.
+
 """
 
 # module for making API data calls
