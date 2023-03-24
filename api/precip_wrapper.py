@@ -2,6 +2,7 @@ import requests
 from datetime import date
 from datetime import timedelta
 import typing
+from typing import Union
 
 ''' 
 This is a wrapper for the NASA Global Precipitation Measurement, which can be
@@ -24,7 +25,13 @@ class Precip:
     for the api. Accumulation type and location data are required parameters,
     the rest are optional and have default initializations. 
     '''
-    def __init__(self, q: str, lat: float, lon: float, limit: int, start_time: date, end_time: date):
+    def __init__(self, 
+                 q: str,
+                 lat: float,
+                 lon: float,
+                 limit: Union[int, None],
+                 start_time: Union[date, None],
+                 end_time: Union[date, None]):
         
         # The type of accumulation query
         self.q = q
