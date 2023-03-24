@@ -1,5 +1,5 @@
-SHINY_ACC_NAME= theglacierproject
+SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
 TOKEN=${{secrets.SHINY_APP_TOKEN}} 
-SECRET=  hfQKROztHNjcmTV7Qz+MFqG3GDiB2Wwfs799xwtG
-MASTERNAME=${{secrets.SHINY_APP_SECRET}} 
+SECRET=${{secrets.SHINY_APP_SECRET}} 
+MASTERNAME=Production
 TESTNAME=Testing
