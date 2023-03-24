@@ -1,6 +1,7 @@
 import requests
 from datetime import date
 from datetime import timedelta
+import typing
 
 ''' 
 This is a wrapper for the NASA Global Precipitation Measurement, which can be
@@ -8,8 +9,6 @@ found here https://gpm.nasa.gov/data/directory. The documentation for the
 source api can be found here https://pmmpublisher.pps.eosdis.nasa.gov/docs. The
 wrapper is used in glacier_api.py to serve plots.
 '''
-
-# test
 
 accum = {
             "30min": "precip_30mn",
@@ -25,7 +24,7 @@ class Precip:
     for the api. Accumulation type and location data are required parameters,
     the rest are optional and have default initializations. 
     '''
-    def __init__(self, q, lat, lon, limit, start_time, end_time):
+    def __init__(self, q: str, lat: float, lon: float, limit: int, start_time: date, end_time: date):
         
         # The type of accumulation query
         self.q = q
