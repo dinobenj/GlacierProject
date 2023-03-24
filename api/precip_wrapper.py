@@ -9,6 +9,7 @@ source api can be found here https://pmmpublisher.pps.eosdis.nasa.gov/docs. The
 wrapper is used in glacier_api.py to serve plots.
 '''
 
+# test
 
 accum = {
             "30min": "precip_30mn",
@@ -16,7 +17,7 @@ accum = {
             "1d_3hr": "precip_3hr_1d",
             "3d": "precip_3d",
             "7d": "precip_7d"
-            }
+            }   
 
 class Precip:
     '''
