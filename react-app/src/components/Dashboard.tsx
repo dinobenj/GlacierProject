@@ -20,3 +20,17 @@ const Dashboard: React.FC = () => {
     { name: 'Vatnajökull Glacier', area: 8100, length: 135, elevation: 2110 },
   ];
 
+  const renderGlacierCards = () => {
+    return glacierData.map(glacier => (
+      <Col xs={24} sm={12} md={8} lg={6} xl={4} key={glacier.name}>
+        <Card hoverable style={{ marginBottom: '20px' }}>
+          <Title level={4}>{glacier.name}</Title>
+          <Paragraph><b>Area:</b> {glacier.area} km²</Paragraph>
+          <Paragraph><b>Length:</b> {glacier.length} km</Paragraph>
+          <Paragraph><b>Elevation:</b> {glacier.elevation} m</Paragraph>
+        </Card>
+      </Col>
+    ))
+  }
+
+
