@@ -33,4 +33,20 @@ const Dashboard: React.FC = () => {
     ))
   }
 
+  return (
+    <Row justify="center" align="middle" style={{ height: "100vh" }}>
+      <Col span={20} style={{
+        padding: "20px",
+        borderRadius: "20px",
+        backgroundColor: "#001529"
+      }}>
+        <Title level={2} style={{ color: "white", marginBottom: '30px' }}>Glacier Dashboard</Title>
+        <Row gutter={[16, 16]}>
+          {renderGlacierCards()}
+        </Row>
+      </Col>
+    </Row>
+  );
+}
 
+export default Dashboard;
