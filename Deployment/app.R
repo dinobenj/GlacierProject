@@ -62,15 +62,15 @@ get_area_chart <- function(glacier_name) {
 display_raster <- function(glacier) {
   #Take the glacier's position and create a box to
   #put the elevation data into
-  southPoint <- glacier$lat - 0.1
-  northPoint <- glacier$lat + 0.1
-  westPoint <- glacier$lng - 0.1
-  eastPoint <- glacier$lng + 0.1
+  southPoint <- glacier$lng - 0.1
+  northPoint <- glacier$lng + 0.1
+  westPoint <- glacier$lat - 0.1
+  eastPoint <- glacier$lat + 0.1
   southwestBound <- data.frame(x = westPoint, y = southPoint)
   northeastBound <- data.frame(x = eastPoint, y = northPoint)
   boundingBox <- rbind(southwestBound, northeastBound)
   elevation_data <- get_elev_raster(location = boundingBox, prj = "EPSG:4326", z = 9)
-  elevation_plot <- plot(elevation_data, main = glacier$id, xlab = "Longitude", ylab = "Latitude")
+  elevation_plot <- plot(elevation_data, main = glacier$id, xlab = "Latitude", ylab = "Longitude")
   return(elevation_plot)
 }
 
