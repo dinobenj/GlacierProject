@@ -19,18 +19,12 @@ const SiteHeader: React.FC = () => {
                 <Menu.Item key="about">
                     <a href="/about">About</a>
                 </Menu.Item>
-<<<<<<< Updated upstream
-                <Menu.Item key="login">
-                    <a href="/login">Login</a>
-                </Menu.Item>
-=======
                 <Menu.Item key="login" style={{marginLeft: 'auto', marginRight: '0px'}}>
                     <a href="/login">Login</a>
                 </Menu.Item>
                 <Menu.Item key="profile" style={{marginLeft: '0px'}}>
                     <a href="/profile">Profile</a>
                 </Menu.Item>
->>>>>>> Stashed changes
             </Menu>
         </Header>
     );

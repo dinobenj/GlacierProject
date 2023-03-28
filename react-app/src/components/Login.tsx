@@ -1,7 +1,4 @@
 import React from "react";
-<<<<<<< Updated upstream
-import {Button, Col, Row, Typography} from "antd";
-=======
 import {Col, Row, Typography} from "antd";
 import MemberIntroduction from "./ MemberIntroduction";
 import { useForm } from "../useForm";
@@ -93,4 +90,3 @@ const Login: React.FC = () => {
 }
 
 export default Login;
->>>>>>> Stashed changes

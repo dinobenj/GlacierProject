@@ -12,11 +12,7 @@ const About: React.FC = () => {
 
     return (
         <Row justify="center" align="middle" style={{height: "100vh"}}>
-<<<<<<< Updated upstream
-            <Col span={14} style={{
-=======
             <Col span={15} style={{
->>>>>>> Stashed changes
                 padding: "20px",
                 borderRadius: "20px",
                 backgroundColor: "rgba(128, 128, 128, 0.6)"
