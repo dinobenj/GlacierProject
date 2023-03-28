@@ -1,38 +1,37 @@
 import React from "react";
-<<<<<<< Updated upstream
-import {Button, Col, Row, Typography} from "antd";
-=======
 import {Col, Row, Typography} from "antd";
 import MemberIntroduction from "./ MemberIntroduction";
 import { useForm } from "../useForm";
 
 const {Title, Paragraph} = Typography;
 
-const Login: React.FC = () => {
-    const signupText = "Don't have an account yet?";
-    const signupButton = "Sign up";
+const SignUp: React.FC = () => {
+    const loginText = "Already signed up?";
+    const loginButton = "Log in";
 
-
-    // defining the initial state for the form
     const initialState = {
+        name: "",
         email: "",
         password: "",
+        confirmPassword: "",
     };
 
     // getting the event handlers from our custom hook
     const { onChange, onSubmit, values } = useForm(
-        loginUserCallback,
+        signUpUserCallback,
         initialState
     );
 
     // a submit function that will execute upon form submission
-    async function loginUserCallback() {
+    async function signUpUserCallback() {
         // send "values" to database
-        const response = await fetch("/api/login", {
+        const response = await fetch("/api/signup", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: {
+                "Content-Type": "application/json",
+            },
             body: JSON.stringify(values),
-        });
+        }); 
     }
 
     return (
@@ -43,13 +42,15 @@ const Login: React.FC = () => {
                 backgroundColor: "#001529"
             }}>
                 <Row justify="space-around" align="middle">
+                </Row>
+                <Row justify="space-around" align="middle">
                     <Col>
-                        <Title style={{color: "white", textAlign: "center"}}>Login</Title>
+                        <Title style={{color: "white", textAlign: "center"}}>Sign Up</Title>
                         <Paragraph strong style={{
                             color: "white",
                             fontSize: "15px"
                         }}>
-                            {signupText} <a href="/signup">{signupButton}</a>
+                            <Paragraph style={{color: "white", textAlign: "center"}}>{loginText} <a href="/login">{loginButton}</a></Paragraph>
                         </Paragraph>
                     </Col>
                 </Row>
@@ -63,6 +64,14 @@ const Login: React.FC = () => {
                                 alignItems: "center"
                             }}>
                                 <br></br>
+                                <input
+                                    name="name"
+                                    id="name"
+                                    type="name"
+                                    placeholder="Name"
+                                    onChange={onChange}
+                                    required
+                                    />
                                 <input
                                     name='email'
                                     id='email'
@@ -80,8 +89,15 @@ const Login: React.FC = () => {
                                     onChange={onChange}
                                     required
                                     />
+                                <input
+                                    name="confirmPassword"
+                                    id="confirmPassword"
+                                    placeholder="Confirm Password"
+                                    onChange={onChange}
+                                    required
+                                    />
                                 <br></br>
-                                <button type='submit'>Login</button>
+                                <button type='submit'>Sign Up</button>
                             </div>
                         </form>
                         <br></br>
@@ -92,5 +108,4 @@ const Login: React.FC = () => {
     )
 }
 
-export default Login;
->>>>>>> Stashed changes
+export default SignUp;

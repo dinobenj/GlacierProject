@@ -7,6 +7,12 @@ import Home from './components/Home';
 import Map from "./components/Map";
 import About from "./components/About";
 import Login from "./components/Login";
+<<<<<<< Updated upstream
+=======
+import SignUp from "./components/SignUp";
+import Dashboard from "./components/Dashboard";
+import Profile from "./components/Profile";
+>>>>>>> Stashed changes
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
@@ -29,8 +35,25 @@ const router = createBrowserRouter([
         element: <About/>
     },
     {
+<<<<<<< Updated upstream
         path: "/",
         element: <Login/>
+=======
+        path: "/login",
+        element: <Login/>
+    },
+    {
+        path: "/signup",
+        element: <SignUp/>
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard/>
+    },
+    {
+        path: "/profile",
+        element: <Profile/>
+>>>>>>> Stashed changes
     }
 ]);
 
