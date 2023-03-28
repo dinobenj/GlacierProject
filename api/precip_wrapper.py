@@ -62,32 +62,35 @@ class Precip:
         # File type to save
         self.file_type = file_type
         
+        # urllib manager
+        self._http = urllib3.PoolManager()
+        
     def get_data(self):
         # r = requests.get()
-        print(self.__build_url())
+        print(self._build_url())
 
-    def __send_request(self):
+    def _send_request(self):
         pass
     
-    def __build_url(self) -> str:
-        base = "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch?q=precip_1d&lat=38&lon=100&limit=1&startTime=2016-11-12&endTime=2016-11-12"
+    def _build_url(self) -> str:
+        base = "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch"
         fields = {"q": self.q,
                   "lat": self.lat,
                   "lon": self.lon,
                   "limit": self.limit,
                   "startTime": self.start_time,
-                  "endTime", self.end_time}
-        
-        return ""
+                  "endTime": self.end_time}
+        r = self._http.request("GET", base, fields=fields)
+        return r.data
 
 
 def precip_test():
-    test1 = Precip(accum["30min"], -100,     -100,     None, date.today(), date.today(), FileType.PNG)
-    test2 = Precip(accum["3hr"],   -129.3432, 33.5,    None, date.today(), date.today(), FileType.TIFF)
-    test3 = Precip(accum["1d_3hr"], 38.2098, -3.309,   2,    date.today(), date.today(), FileType.JSON)
-    test4 = Precip(accum["3d"],     103.399, -150.093, 5,    date.today(), date.today(), FileType.PNG)
-    test5 = Precip(accum["30min"],  0,        0,       1,    date.today(), date.today(), FileType.TIFF)
-    test6 = Precip(accum["30min"],  180,     -180,     None, date.today(), date.today(), FileType.TIFF)
+    test1 = Precip(accum["30min"],  30,     -100,      1, date.today(), date.today(), FileType.PNG)
+    test2 = Precip(accum["3hr"],   -129.3432, 33.5,    1, date.today(), date.today(), FileType.TIFF)
+    test3 = Precip(accum["1d_3hr"], 38.2098, -3.309,   2, date.today(), date.today(), FileType.JSON)
+    test4 = Precip(accum["3d"],     103.399, -150.093, 5, date.today(), date.today(), FileType.PNG)
+    test5 = Precip(accum["30min"],  0,        0,       1, date.today(), date.today(), FileType.TIFF)
+    test6 = Precip(accum["30min"],  180,     -180,     1, date.today(), date.today(), FileType.TIFF)
     print(test1.start_time, test1.end_time)
     test1.get_data()
 
