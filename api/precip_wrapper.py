@@ -3,6 +3,7 @@ from datetime import date
 from datetime import timedelta
 from enum import Enum
 from typing import Union
+import urllib3
 
 ''' 
 This is a wrapper for the NASA Global Precipitation Measurement, which can be
@@ -31,7 +32,7 @@ class Precip:
                  q: str,
                  lat: float,
                  lon: float,
-                 limit: Union[int, None],
+                 limit: int,
                  start_time: Union[date, None],
                  end_time: Union[date, None],
                  file_type: FileType):
@@ -61,8 +62,24 @@ class Precip:
         # File type to save
         self.file_type = file_type
         
-    def send_request(self):
+    def get_data(self):
+        # r = requests.get()
+        print(self.__build_url())
+
+    def __send_request(self):
         pass
+    
+    def __build_url(self) -> str:
+        base = "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch?q=precip_1d&lat=38&lon=100&limit=1&startTime=2016-11-12&endTime=2016-11-12"
+        fields = {"q": self.q,
+                  "lat": self.lat,
+                  "lon": self.lon,
+                  "limit": self.limit,
+                  "startTime": self.start_time,
+                  "endTime", self.end_time}
+        
+        return ""
+
 
 def precip_test():
     test1 = Precip(accum["30min"], -100,     -100,     None, date.today(), date.today(), FileType.PNG)
@@ -72,6 +89,7 @@ def precip_test():
     test5 = Precip(accum["30min"],  0,        0,       1,    date.today(), date.today(), FileType.TIFF)
     test6 = Precip(accum["30min"],  180,     -180,     None, date.today(), date.today(), FileType.TIFF)
     print(test1.start_time, test1.end_time)
+    test1.get_data()
 
 if __name__ == "__main__":
     precip_test()
