@@ -27,4 +27,5 @@ jobs:
         MASTERNAME= ${{ secrets.MASTER_NAME }}
         run: 
           docker run 
+          
           main
