@@ -15,7 +15,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository so your job can access it
-      name: Checkout
       - uses: actions/checkout@v2
 
       # build the docker image and give it the name main
@@ -28,5 +27,5 @@ jobs:
           -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
           -e TOKEN=${{secrets.TOKEN}} 
           -e SECRET=${{secrets.SECRET}} 
-          -e MASTERNAME=${{ secrets.MASTER_NAME }} 
+          -e MASTERNAME=production
           main
