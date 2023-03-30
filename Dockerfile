@@ -7,7 +7,6 @@ FROM rocker/shiny:4.2.3
 #          "progress")) 
 RUN install2.r rsconnect leaflet shiny shinydashboard RColorBrewer jsonlite rgdal \
      ggplot2 raster elevatr rgeos leaflet rgl bmp httr countrycode sqldf arrow progress
-RUN R 
 WORKDIR /home/shinyusr
 COPY Deployment .
 
