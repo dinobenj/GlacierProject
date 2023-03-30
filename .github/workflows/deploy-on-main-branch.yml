@@ -26,14 +26,14 @@ jobs:
        # TOKEN=${{ secrets.SHINY_APP_TOKEN }} 
        # SECRET=${{ secrets.SHINY_APP_SECRET }} 
        # MASTERNAME= ${{ secrets.MASTER_NAME }}
-        run: docker run main
-        env:
-          SHINY_ACC_NAME: ${{ secrests.SHINY_ACC_NAME }}
-          TOKEN: ${{ secrets.SHINY_APP_TOKEN }}
-          SECRET: ${{ secrets.SHINY_APP_SECRET }}
-          MASTERNAME: ${{ secrets.MASTER_NAME }}
-        #  -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }}
-        #  -e TOKEN=${{ secrets.SHINY_APP_TOKEN }}
-        #  -e SECRET=${{ secrets.SHINY_APP_SECRET }}
-        #  -e MASTERNAME= ${{ secrets.MASTER_NAME }}
-        #  main
+        run: docker run 
+      #  env:
+      #    SHINY_ACC_NAME: ${{ secrests.SHINY_ACC_NAME }}
+      #    TOKEN: ${{ secrets.SHINY_APP_TOKEN }}
+      #    SECRET: ${{ secrets.SHINY_APP_SECRET }}
+      #    MASTERNAME: ${{ secrets.MASTER_NAME }}
+          -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }}
+          -e TOKEN=${{ secrets.SHINY_APP_TOKEN }}
+          -e SECRET=${{ secrets.SHINY_APP_SECRET }}
+          -e MASTERNAME= ${{ secrets.MASTER_NAME }}
+          main
