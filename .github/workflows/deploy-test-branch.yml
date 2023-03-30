@@ -1,0 +1,20 @@
+name: Github Action test
+
+on: 
+  push:
+    branches:
+      - testing-github-action
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      -uses: actions/checkout@v2
+      -run: docker build -t main .
+      -run: |
+          docker run main
+      with:
+        SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
+        TOKEN=${{secrets.TOKEN}} 
+        SECRET=${{secrets.SECRET}} 
+        MASTERNAME=${{ secrets.MASTER_NAME }} 
