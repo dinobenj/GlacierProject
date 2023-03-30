@@ -13,6 +13,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository so your job can access it
+      name: Checkout
       - uses: actions/checkout@v2
 
       # build the docker image and give it the name main
@@ -25,15 +26,10 @@ jobs:
        # TOKEN=${{ secrets.SHINY_APP_TOKEN }} 
        # SECRET=${{ secrets.SHINY_APP_SECRET }} 
        # MASTERNAME= ${{ secrets.MASTER_NAME }}
-       secrets: |
-          "SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }}"
-          "TOKEN=${{ secrets.SHINY_APP_TOKEN }}"
-          "SECRET=${{ secrets.SHINY_APP_SECRET }}"
-          "MASTERNAME= ${{ secrets.MASTER_NAME }}"
         run: >
           docker run 
-#          -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }}
-#          -e TOKEN=${{ secrets.SHINY_APP_TOKEN }}
-#          -e SECRET=${{ secrets.SHINY_APP_SECRET }}
-#          -e MASTERNAME= ${{ secrets.MASTER_NAME }}
+          -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }}
+          -e TOKEN=${{ secrets.SHINY_APP_TOKEN }}
+          -e SECRET=${{ secrets.SHINY_APP_SECRET }}
+          -e MASTERNAME= ${{ secrets.MASTER_NAME }}
           main
