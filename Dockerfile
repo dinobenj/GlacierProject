@@ -11,7 +11,11 @@ RUN install2.r rsconnect leaflet shiny shinydashboard RColorBrewer jsonlite rgda
 RUN --mount=type=secret,id=SHINY_ACC_NAME \
      --mount=type=secret,id=SHINY_APP_TOKEN \
      --mount=type=secret,id=SHINY_APP_SECRET \
-     --mout=type=secret,id=MASTER_NAME
+     --mout=type=secret,id=MASTER_NAME \
+     export SHINY_ACC_NAME=$(cat /run/secrets/SHINY_ACC_NAME) && \
+     export SHINY_APP_TOKEN=$(cat /run/secrets/SHINY_APP_TOKEN) && \
+     export SHINY_APP_SECRET=$(cat /run/secret/SHINY_APP_SECRET) && \
+     export MASTER_NAME=$(cat /run/secrets/MASTER_NAME) 
 WORKDIR /home/shinyusr
 COPY Deployment .
 
