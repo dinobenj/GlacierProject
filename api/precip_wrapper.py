@@ -12,7 +12,7 @@ source api can be found here https://pmmpublisher.pps.eosdis.nasa.gov/docs. The
 wrapper is used in glacier_api.py to serve plots.
 '''
 
-accum = {
+Accum = {
             "30min": "precip_30mn",
             "3hr": "precip_3hr",
             "1d_3hr": "precip_3hr_1d",
@@ -65,7 +65,17 @@ class Precip:
         # urllib manager
         self._http = urllib3.PoolManager()
         
-    def _get_data_url(self):
+    def _get_data_url(self) -> str:
+        """
+        This function is responsible for getting the download link
+        corresponding to the file type class attribute.
+
+        Returns
+        -------
+        str
+            URL to download from.
+        """
+        
         response = self._send_request()
         json_data = json.loads(response.data.decode("utf-8"))["items"][0]
         data = None
@@ -74,13 +84,22 @@ class Precip:
             data = json_data["image"][0]["url"]
         elif self.file_type is FileType.TIFF:
             data = json_data["action"][1]["using"][1]["url"]
-
-
-        print(json.dumps(json_data, indent=2))
-        print(data)
+        elif self.file_type is FileType.GZIP:
+            data = json_data["action"][1]["using"][0]["url"]
+            
         return data
 
-    def _send_request(self) -> str:
+    def _send_request(self) -> urllib3.response.HTTPResponse:
+        """
+        This function is responsible for building the url and sending a request
+        to the site.
+
+        Returns
+        -------
+        HTTPResponse
+            The function returns an http response from the site. 
+        """
+        
         base = "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch"
         fields = {"q": self.q,
                   "lat": self.lat,
@@ -93,12 +112,12 @@ class Precip:
 
 
 def precip_test():
-    test1 = Precip(accum["30min"],  30,     -100,      1, date.today(), date.today(), FileType.TIFF)
-    test2 = Precip(accum["3hr"],   -129.3432, 33.5,    1, date.today(), date.today(), FileType.TIFF)
-    test3 = Precip(accum["1d_3hr"], 38.2098, -3.309,   2, date.today(), date.today(), FileType.GZIP)
-    test4 = Precip(accum["3d"],     103.399, -150.093, 5, date.today(), date.today(), FileType.PNG)
-    test5 = Precip(accum["30min"],  0,        0,       1, date.today(), date.today(), FileType.TIFF)
-    test6 = Precip(accum["30min"],  180,     -180,     1, date.today(), date.today(), FileType.TIFF)
+    test1 = Precip(Accum["30min"],  30,     -100,      1, date.today(), date.today(), FileType.GZIP)
+    test2 = Precip(Accum["3hr"],   -129.3432, 33.5,    1, date.today(), date.today(), FileType.TIFF)
+    test3 = Precip(Accum["1d_3hr"], 38.2098, -3.309,   2, date.today(), date.today(), FileType.GZIP)
+    test4 = Precip(Accum["3d"],     103.399, -150.093, 5, date.today(), date.today(), FileType.PNG)
+    test5 = Precip(Accum["30min"],  0,        0,       1, date.today(), date.today(), FileType.TIFF)
+    test6 = Precip(Accum["30min"],  180,     -180,     1, date.today(), date.today(), FileType.TIFF)
     print(test1.start_time, test1.end_time)
     test1._get_data_url()
 
