@@ -20,6 +20,7 @@ library(leaflet)
 library(RColorBrewer)
 library(rgl)
 library(bmp)
+library(progress)
 
 
 source("./test_with_all_glaciers.R")#only run for first startup to load data

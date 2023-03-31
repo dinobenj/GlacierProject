@@ -1,0 +1,4 @@
+SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
+TOKEN=${{secrets.SHINY_APP_TOKEN}} 
+SECRET=${{secrets.SHINY_APP_SECRET}} 
+MASTERNAME=${{secrets.MASTERNAME}}
