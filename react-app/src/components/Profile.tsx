@@ -20,8 +20,33 @@ const Profile: React.FC = () => {
                 borderRadius: "20px",
                 backgroundColor: "#001529"
             }}>
-                <Title level={2} style={{ color: "white", marginBottom: '30px' }}>Profile</Title>
-                <Row gutter={[16, 16]}>
+                <Row>
+                    <Col>
+                        <Title level={1} style={{ color: "white" }}>{"Profile:"}</Title>
+                        <Title level={4} style={{ color: "white" }}>{"Username:"}</Title>
+                        <Paragraph strong style={{ color: "white", fontSize: "20px" }}>
+                            {"<name>"}
+                        </Paragraph>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title level={4} style={{ color: "white" }}>{"Email:"}</Title>
+                        <Paragraph strong style={{ color: "white", fontSize: "20px" }}>
+                            {"<email>"}
+                        </Paragraph>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title level={2} style={{ color: "white" }}>{"Change Email:"}</Title>
+                        
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Title level={2} style={{ color: "white" }}>{"Change Password:"}</Title>
+                    </Col>
                 </Row>
             </Col>
         </Row>
