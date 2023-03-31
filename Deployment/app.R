@@ -64,15 +64,15 @@ get_area_chart <- function(glacier_name) {
 display_raster <- function(glacier) {
   #Take the glacier's position and create a box to
   #put the elevation data into
-  southPoint <- glacier$lat - 0.1
-  northPoint <- glacier$lat + 0.1
-  westPoint <- glacier$lng - 0.1
-  eastPoint <- glacier$lng + 0.1
+  southPoint <- glacier$lng - 0.1
+  northPoint <- glacier$lng + 0.1
+  westPoint <- glacier$lat - 0.1
+  eastPoint <- glacier$lat + 0.1
   southwestBound <- data.frame(x = westPoint, y = southPoint)
   northeastBound <- data.frame(x = eastPoint, y = northPoint)
   boundingBox <- rbind(southwestBound, northeastBound)
   elevation_data <- get_elev_raster(location = boundingBox, prj = "EPSG:4326", z = 9)
-  elevation_plot <- plot(elevation_data, main = glacier$id, xlab = "Longitude", ylab = "Latitude")
+  elevation_plot <- plot(elevation_data, main = glacier$id, xlab = "Latitude", ylab = "Longitude")
   return(elevation_plot)
 }
 
@@ -81,7 +81,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(map_data$POLITICAL_UNIT))),
     selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(map_data$NAME)),
-    #selectInput(inputId = "data_select", label = "Select Graph Data", multiple = FALSE, choices = list(plotOutput("mymap"))),
+    selectInput(inputId = "data_select", label = "Select Graph Data", multiple = FALSE, choices = list("Mass Balance", "Area Change", "Precipitation")),
     div(style = "display:inline-block; float:center", actionButton("downloadData", "Click to dowload CSV")),
     div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
   ),
