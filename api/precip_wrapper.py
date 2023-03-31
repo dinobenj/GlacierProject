@@ -78,21 +78,25 @@ class Precip:
 
         try:
             response = self._send_request()
-            json_data = json.loads(response.data.decode("utf-8"))["items"][0]
         except Exception as err:
-            print(f"Error response from site:\n {err}")
+            print(f"Error trying to get url:\n {err}")
             return None
 
-        data = None
+        json_data = json.loads(response.data.decode("utf-8"))["items"]
+        url = None
 
+        if len(json_data) == 0:
+            return None
+        json_data = json_data[0]
+        
         if self.file_type is FileType.PNG:
-            data = json_data["image"][0]["url"]
+            url = json_data["image"][0]["url"]
         elif self.file_type is FileType.TIFF:
-            data = json_data["action"][1]["using"][1]["url"]
+            url = json_data["action"][1]["using"][1]["url"]
         elif self.file_type is FileType.GZIP:
-            data = json_data["action"][1]["using"][0]["url"]
+            url = json_data["action"][1]["using"][0]["url"]
 
-        return data
+        return url
 
     def _send_request(self) -> urllib3.response.HTTPResponse:
         """
@@ -121,12 +125,12 @@ class Precip:
 
 
 def precip_test():
-    test1 = Precip(Accum["30min"],  30,     -100,      1, date.today(), date.today(), FileType.GZIP)
-    test2 = Precip(Accum["3hr"],   -129.3432, 33.5,    1, date.today(), date.today(), FileType.TIFF)
+    test1 = Precip(Accum["30min"],  30,     -100,      1, date.today(), date.today(), FileType.PNG)
+    test2 = Precip(Accum["3hr"],   -29.3432,  33.5,    1, date.today(), date.today(), FileType.TIFF)
     test3 = Precip(Accum["1d_3hr"], 38.2098, -3.309,   2, date.today(), date.today(), FileType.GZIP)
-    test4 = Precip(Accum["3d"],     103.399, -150.093, 5, date.today(), date.today(), FileType.PNG)
+    test4 = Precip(Accum["3d"],     83.399,  -150.093, 5, date.today(), date.today(), FileType.PNG)
     test5 = Precip(Accum["30min"],  0,        0,       1, date.today(), date.today(), FileType.TIFF)
-    test6 = Precip(Accum["30min"],  180,     -180,     1, date.today(), date.today(), FileType.TIFF)
+    test6 = Precip(Accum["30min"], -90,      -180,     1, date.today(), date.today(), FileType.TIFF)
     print(test1.get_data_url())
     print(test2.get_data_url())
     print(test3.get_data_url())
