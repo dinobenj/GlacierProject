@@ -20,7 +20,7 @@ accum = {
             "7d": "precip_7d"
             }
 
-FileType = Enum('File', ['PNG', 'TIFF', 'JSON'])
+FileType = Enum('File', ['PNG', 'TIFF', 'GZIP'])
 
 class Precip:
     '''
@@ -72,6 +72,8 @@ class Precip:
         
         if self.file_type is FileType.PNG:
             data = json_data["image"][0]["url"]
+        elif self.file_type is FileType.TIFF:
+            data = json_data["action"][1]["using"][1]["url"]
 
 
         print(json.dumps(json_data, indent=2))
@@ -91,9 +93,9 @@ class Precip:
 
 
 def precip_test():
-    test1 = Precip(accum["30min"],  30,     -100,      1, date.today(), date.today(), FileType.PNG)
+    test1 = Precip(accum["30min"],  30,     -100,      1, date.today(), date.today(), FileType.TIFF)
     test2 = Precip(accum["3hr"],   -129.3432, 33.5,    1, date.today(), date.today(), FileType.TIFF)
-    test3 = Precip(accum["1d_3hr"], 38.2098, -3.309,   2, date.today(), date.today(), FileType.JSON)
+    test3 = Precip(accum["1d_3hr"], 38.2098, -3.309,   2, date.today(), date.today(), FileType.GZIP)
     test4 = Precip(accum["3d"],     103.399, -150.093, 5, date.today(), date.today(), FileType.PNG)
     test5 = Precip(accum["30min"],  0,        0,       1, date.today(), date.today(), FileType.TIFF)
     test6 = Precip(accum["30min"],  180,     -180,     1, date.today(), date.today(), FileType.TIFF)
