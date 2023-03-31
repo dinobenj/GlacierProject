@@ -36,32 +36,32 @@ class Precip:
                  start_time: Union[date, None],
                  end_time: Union[date, None],
                  file_type: FileType):
-        
+
         # The type of accumulation query
         self.q  = q
 
         # Location data
         self.lat = lat
         self.lon = lon
-        
+
         # Query count limit for api.
         self.limit = limit
-        
+
         # The start time must be at most 60 days from the current day.
         if start_time is None or start_time <= (date.today() - timedelta(days=60)):
             self.start_time = date.today()
         else:
             self.start_time = start_time
-        
+
         # If the end time is at or before the start time, set the end time to be a day after.
         if end_time is None or end_time <= self.start_time:
             self.end_time = self.start_time + timedelta(days=1)
         else:
             self.end_time = end_time
-        
+
         # File type to save
         self.file_type = file_type
-        
+
         # urllib manager
         self._http = urllib3.PoolManager()
         
@@ -75,7 +75,7 @@ class Precip:
         str
             URL to download from.
         """
-        
+
         response = self._send_request()
         json_data = json.loads(response.data.decode("utf-8"))["items"][0]
         data = None
@@ -86,7 +86,7 @@ class Precip:
             data = json_data["action"][1]["using"][1]["url"]
         elif self.file_type is FileType.GZIP:
             data = json_data["action"][1]["using"][0]["url"]
-            
+
         return data
 
     def _send_request(self) -> urllib3.response.HTTPResponse:
@@ -99,7 +99,7 @@ class Precip:
         HTTPResponse
             The function returns an http response from the site. 
         """
-        
+
         base = "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch"
         fields = {"q": self.q,
                   "lat": self.lat,
