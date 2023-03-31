@@ -65,11 +65,18 @@ class Precip:
         # urllib manager
         self._http = urllib3.PoolManager()
         
-    def get_data(self):
-        # r = requests.get()
+    def _get_data_url(self):
         response = self._send_request()
-        json_data = json.loads(response.data.decode("utf-8"))
+        json_data = json.loads(response.data.decode("utf-8"))["items"][0]
+        data = None
+        
+        if self.file_type is FileType.PNG:
+            data = json_data["image"][0]["url"]
+
+
         print(json.dumps(json_data, indent=2))
+        print(data)
+        return data
 
     def _send_request(self) -> str:
         base = "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch"
@@ -91,7 +98,7 @@ def precip_test():
     test5 = Precip(accum["30min"],  0,        0,       1, date.today(), date.today(), FileType.TIFF)
     test6 = Precip(accum["30min"],  180,     -180,     1, date.today(), date.today(), FileType.TIFF)
     print(test1.start_time, test1.end_time)
-    test1.get_data()
+    test1._get_data_url()
 
 if __name__ == "__main__":
     precip_test()
