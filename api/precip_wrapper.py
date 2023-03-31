@@ -65,7 +65,7 @@ class Precip:
         # urllib manager
         self._http = urllib3.PoolManager()
         
-    def _get_data_url(self) -> str:
+    def get_data_url(self) -> str:
         """
         This function is responsible for getting the download link
         corresponding to the file type class attribute.
@@ -76,10 +76,15 @@ class Precip:
             URL to download from.
         """
 
-        response = self._send_request()
-        json_data = json.loads(response.data.decode("utf-8"))["items"][0]
+        try:
+            response = self._send_request()
+            json_data = json.loads(response.data.decode("utf-8"))["items"][0]
+        except Exception as err:
+            print(f"Error response from site:\n {err}")
+            return None
+
         data = None
-        
+
         if self.file_type is FileType.PNG:
             data = json_data["image"][0]["url"]
         elif self.file_type is FileType.TIFF:
@@ -108,6 +113,10 @@ class Precip:
                   "startTime": self.start_time,
                   "endTime": self.end_time}
         response = self._http.request("GET", base, fields=fields)
+
+        if (response.status != 200):
+            raise Exception(f"Error with http get request (status {response.status}):\n" + str(response.data))
+
         return response
 
 
@@ -118,8 +127,13 @@ def precip_test():
     test4 = Precip(Accum["3d"],     103.399, -150.093, 5, date.today(), date.today(), FileType.PNG)
     test5 = Precip(Accum["30min"],  0,        0,       1, date.today(), date.today(), FileType.TIFF)
     test6 = Precip(Accum["30min"],  180,     -180,     1, date.today(), date.today(), FileType.TIFF)
-    print(test1.start_time, test1.end_time)
-    test1._get_data_url()
+    print(test1.get_data_url())
+    print(test2.get_data_url())
+    print(test3.get_data_url())
+    print(test4.get_data_url())
+    print(test5.get_data_url())
+    print(test6.get_data_url())
+
 
 if __name__ == "__main__":
     precip_test()
