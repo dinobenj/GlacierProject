@@ -23,7 +23,7 @@ library(bmp)
 library(progress)
 
 
-#source("./test_with_all_glaciers.R")#only run for first startup to load data
+source("./test_with_all_glaciers.R")#only run for first startup to load data
 
 
 #returns the map data for the given country
@@ -55,7 +55,7 @@ get_area_chart <- function(glacier_name) {
             ylab = "AREA (1000m^2)",
             col = "blue")
   
-  #text(plot_data$YEAR, plot_data$AREA, labels=plot_data$YEAR, font=2)
+  text(plot_data$YEAR, plot_data$AREA, labels=plot_data$YEAR, font=2)
   #print(plot_data)
   return(plot_data)
 }
@@ -140,10 +140,16 @@ server <- function(input, output, session) {
   })
   dwnld_data <- NULL
   output$plotxy <- renderPlot({
-    area <- get_area_chart(input$Input_Glacier_Name)
-    dwnld_data = area
-    write.csv(dwnld_data, "tmp.csv")
-    read.csv("tmp.csv")
+    plot_data <- subset(area_data, NAME == input$Input_Glacier_Name)
+    if(nrow(plot_data) == 0){
+      print("This data frame is empty")
+    }
+    else{
+      area <- get_area_chart(input$Input_Glacier_Name)
+      dwnld_data = area
+      write.csv(dwnld_data, "tmp.csv")
+      read.csv("tmp.csv")
+    }
   })
   
   
