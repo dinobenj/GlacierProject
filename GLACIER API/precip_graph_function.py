@@ -149,4 +149,4 @@ def graph_precip(lat, long):
     plt.show()
 
 
-graph_precip(47.6062, 122.3321)
+graph_precip(29.5160, 103.3347)
