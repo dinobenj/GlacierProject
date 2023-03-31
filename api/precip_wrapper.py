@@ -88,7 +88,7 @@ class Precip:
         if len(json_data) == 0:
             return None
         json_data = json_data[0]
-        
+
         if self.file_type is FileType.PNG:
             url = json_data["image"][0]["url"]
         elif self.file_type is FileType.TIFF:
