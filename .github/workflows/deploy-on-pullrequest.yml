@@ -27,4 +27,4 @@ jobs:
           -e TOKEN=${{secrets.SHINY_APP_TOKEN}} 
           -e SECRET=${{secrets.SHINY_APP_SECRET}} 
           -e MASTERNAME=Testing
-          main
+          pullrequestimage
