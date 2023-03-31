@@ -1,9 +1,9 @@
-import requests
 from datetime import date
 from datetime import timedelta
 from enum import Enum
 from typing import Union
 import urllib3
+import json
 
 ''' 
 This is a wrapper for the NASA Global Precipitation Measurement, which can be
@@ -67,12 +67,11 @@ class Precip:
         
     def get_data(self):
         # r = requests.get()
-        print(self._build_url())
+        response = self._send_request()
+        json_data = json.loads(response.data.decode("utf-8"))
+        print(json.dumps(json_data, indent=2))
 
-    def _send_request(self):
-        pass
-    
-    def _build_url(self) -> str:
+    def _send_request(self) -> str:
         base = "https://pmmpublisher.pps.eosdis.nasa.gov/opensearch"
         fields = {"q": self.q,
                   "lat": self.lat,
@@ -80,8 +79,8 @@ class Precip:
                   "limit": self.limit,
                   "startTime": self.start_time,
                   "endTime": self.end_time}
-        r = self._http.request("GET", base, fields=fields)
-        return r.data
+        response = self._http.request("GET", base, fields=fields)
+        return response
 
 
 def precip_test():
