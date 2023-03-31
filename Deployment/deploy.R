@@ -19,3 +19,6 @@ deployApp(
   ),
   appName = error_on_missing_name("MASTERNAME"),
   appTitle = "shinyapplication")
+
+#Open the website
+browseURL("https://theglacierproject.shinyapps.io/" + "MASTERNAME" + "/")
