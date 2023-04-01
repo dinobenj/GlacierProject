@@ -8,16 +8,19 @@ const Map: React.FC = () => {
 
     return (
         <Row justify="center" align="middle" style={{height: "100vh"}}>
-            <Image
-                preview={false}
-                width={100}
-                src="https://upload.wikimedia.org/wikipedia/commons/6/61/Compass_rose_transparent.png"
-                style={{
-                    display: "inline-flex"
-                }}
-            />
             <Col span={24}>
+                <Image
+                    preview={false}
+                    width={100}
+                    src="https://upload.wikimedia.org/wikipedia/commons/6/61/Compass_rose_transparent.png"
+                    style={{
+                        position: "relative",
+                        top: "160px",
+                        left: "1300px"
+                    }}
+                />
                 <object data={url} type="text/html" id="appObject" aria-label="Glacier Map" style={{height: "100vh", width: "100vw"}}/>
+                
             </Col>
         </Row>
     );
