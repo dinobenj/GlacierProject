@@ -6,6 +6,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from './components/Home';
 import Map from "./components/Map";
 import About from "./components/About";
+import Dashboard from "./components/Dashboard";
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
@@ -25,7 +26,11 @@ const router = createBrowserRouter([
     {
         path: "/about",
         element: <About/>
-    }
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard/>
+    },
 ]);
 
 const root = ReactDOM.createRoot(
