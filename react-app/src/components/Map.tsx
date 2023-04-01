@@ -1,5 +1,5 @@
 import React from "react";
-import {Col, Row} from "antd";
+import {Col, Row, Image} from "antd";
 
 const Map: React.FC = () => {
     const url = "https://theglacierproject.shinyapps.io/Production/"; // Production use
@@ -8,6 +8,14 @@ const Map: React.FC = () => {
 
     return (
         <Row justify="center" align="middle" style={{height: "100vh"}}>
+            <Image
+                preview={false}
+                width={100}
+                src="https://upload.wikimedia.org/wikipedia/commons/6/61/Compass_rose_transparent.png"
+                style={{
+                    display: "inline-flex"
+                }}
+            />
             <Col span={24}>
                 <object data={url} type="text/html" id="appObject" aria-label="Glacier Map" style={{height: "100vh", width: "100vw"}}/>
             </Col>
