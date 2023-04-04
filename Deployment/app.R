@@ -55,6 +55,10 @@ get_area_chart <- function(glacier_name) {
             ylab = "AREA (1000m^2)",
             col = "blue")
   
+  get_mass_chart <- funciton(glacier_name){
+    plot_data <- mass_data
+  }
+  
   text(plot_data$YEAR, plot_data$AREA, labels=plot_data$YEAR, font=2)
   #print(plot_data)
   return(plot_data)
@@ -81,7 +85,7 @@ ui <- dashboardPage(
   dashboardSidebar(
     menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(map_data$POLITICAL_UNIT))),
     selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(map_data$NAME)),
-    selectInput(inputId = "data_select", label = "Select Graph Data", multiple = FALSE, choices = list("Mass Balance", "Area Change", "Precipitation")),
+    selectInput(inputId = "data_select", label = "Select Graph Data", multiple = FALSE, choices = list("Area Change", "Mass Balance", "Precipitation")),
     div(style = "display:inline-block; float:center", actionButton("downloadData", "Click to dowload CSV")),
     div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
   ),
@@ -151,6 +155,14 @@ server <- function(input, output, session) {
       read.csv("tmp.csv")
     }
   })
+  
+  # observeEvent(input$data_select, {
+  #   display_type <- input$data_select
+  #   if(display_type == "Mass Balance"){
+  #     mass_balance <- get_mass_chart(input$Input_Glacier_Name)
+  #     output$plotxy <- render
+  #   }
+  # })
   
   
   
