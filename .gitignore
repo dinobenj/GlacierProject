@@ -5,6 +5,7 @@
 data
 DOI-WGMS-FoG-2021-05
 tmp.csv
+test_with.csv
 
 # History files
 .Rhistory
@@ -45,7 +46,7 @@ vignettes/*.pdf
 *.knit.md
 
 # R Environment Variables
-.Renviron
+#.Renviron
 
 # pkgdown site
 docs/
