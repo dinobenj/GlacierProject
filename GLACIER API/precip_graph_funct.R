@@ -9,6 +9,7 @@ library(countrycode)
 library(sqldf)
 library(arrow)
 library(reticulate)
+library(raster)
 
 # Set working directory
 ##############################################
@@ -26,7 +27,7 @@ data <- read_parquet("./WGMS-FoG-2021-05-D-CHANGE.parquet")
 lon_lat_data <- read_parquet("./WGMS-FoG-2021-05-A-GLACIER.parquet")
 only_location <- lon_lat_data[, c("POLITICAL_UNIT", "WGMS_ID", "NAME", "SPEC_LOCATION", "LATITUDE", "LONGITUDE")]
 
-area_data <- read.csv("./deploy_data/WGMS-FoG-2021-05-B-STATE.csv")
+area_data <- read.csv("./WGMS-FoG-2021-05-B-STATE.csv")
 area_data <- subset(area_data, YEAR != 0)
 
 only_location$LATITUDE <- type.convert(only_location$LATITUDE, as.is = T)
@@ -63,12 +64,6 @@ map_data <- unique(map_data)
 
 # NEW CODE: CALLING GRAPH_PRECIP Python Function --------------------
 
-py_install('requests')
-
-source_python('API_call_import.py')
-
-name <- "JOTUNHEIMEN ID 2628"
-
 graph_from_py <- function(name){
   
   ctr <- 1
@@ -86,6 +81,12 @@ graph_from_py <- function(name){
   graph_precip(lat, long)
 }
 
+py_install('requests')
 
+source_python('precip_graph_function.py')
+
+n <- "JOTUNHEIMEN ID 2628"
+
+graph_from_py(n)
 
 # -------------------------------------------------------------------
