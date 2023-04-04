@@ -16,9 +16,9 @@ jobs:
       # Checks-out your repository so your job can access it
       - uses: actions/checkout@v2
 
-      - name: Cache R packages
-      - uses: r-lib/actions/setup@v2
-      - uses: r-lib/actions/setup-r-dependencies@v2
+      #- name: Cache R packages
+      #- uses: r-lib/actions/setup@v2
+      #- uses: r-lib/actions/setup-r-dependencies@v2
           
       # build the docker image and give it the name main
       - name: Build image
