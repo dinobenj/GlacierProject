@@ -60,3 +60,4 @@ US_data <- subset(gmap_data, gmap_data$POLITICAL_UNIT == "US")
 
 write.csv(US_data, "test_with.csv")
 
+
