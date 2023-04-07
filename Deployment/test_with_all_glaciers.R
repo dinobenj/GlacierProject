@@ -39,6 +39,7 @@ change_data <- sqldf("
       FROM data 
       WHERE AREA_CHANGE != 'NA'
       ")
+#AND NAME in area_data
 sub_data <- subset(change_data)
 sub_data$YEAR <- type.convert(sub_data$YEAR, as.is = T)
 sub_data$AREA_CHANGE <- type.convert(sub_data$AREA_CHANGE, as.is = T)
