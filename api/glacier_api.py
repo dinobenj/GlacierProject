@@ -10,6 +10,17 @@ corresponding info: source time, area, min elevation, max elevation, and mean
 elevation. 
 '''
 
+'''
+TODO: 
+
+1. There still is no decoding of some of the glacier names according to the
+glims documentation. That is one thing that should be added.
+
+2. The precip wrapper is not connect to this api.
+
+3. The http server is still a test server. 
+'''
+
 
 app = Flask(__name__)
 api = Api(app)
@@ -30,8 +41,10 @@ class Glacier(Resource):
 
     def get(self):
         '''
-        URL must be in the form of http://localhost/glacier?name={glacier_name}
-        Returns all data points in the db listed for the glacier.
+        URL must be in the form of http://localhost/glacier. There are two
+        arguments: name and list_all. name={glacier_name} returns all data
+        points in the db listed for the glacier. list_all={true} lists all the
+        glacier names in the database. Only one arg can be used at a time. 
         '''
         args = request.args
         if len(args) > 1:

@@ -14,6 +14,9 @@ if __name__ == "__main__":
     if not choice in {"yes", "y", "ye", ""}:
         quit()
 
+    # print("Enter the name of the database file to create or modify")
+    # db_filename = input().lower()
+    
     # The data base file will be created if it does not already exist.
     con = sqlite3.connect("glacier.db")
     cur = con.cursor()
