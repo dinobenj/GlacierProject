@@ -9,7 +9,7 @@ import json
 This is a wrapper for the NASA Global Precipitation Measurement, which can be
 found here https://gpm.nasa.gov/data/directory. The documentation for the
 source api can be found here https://pmmpublisher.pps.eosdis.nasa.gov/docs. The
-wrapper is used in glacier_api.py to serve plots.
+wrapper is used in glacier_api.py to serve file links/data.
 '''
 
 Accum = {
