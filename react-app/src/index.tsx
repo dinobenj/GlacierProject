@@ -6,10 +6,21 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import Home from './components/Home';
 import Map from "./components/Map";
 import About from "./components/About";
+import Login from "./components/Login";
+import SignUp from "./components/SignUp";
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
 import {Layout} from 'antd';
+import { MongoClient } from 'mongodb'
+
+export type user = {
+    id: number;
+    email: string;
+    password: string;
+}
+
+
 
 const {Content} = Layout;
 
@@ -25,6 +36,14 @@ const router = createBrowserRouter([
     {
         path: "/about",
         element: <About/>
+    },
+    {
+        path: "/login",
+        element: <Login/>
+    },
+    {
+        path: "/signup",
+        element: <SignUp/>
     }
 ]);
 
