@@ -11,10 +11,8 @@ interface UserData {
 
 const Profile: React.FC = () => {
 
-    const initialStateEmail = {
-        email: "",
-        confirmEmail: "",
-    }
+    const username = "JDoe1";
+    const email = "JohnDoe@gmail.com";
 
 
     return (
@@ -29,7 +27,7 @@ const Profile: React.FC = () => {
                         <Title level={1} style={{ color: "white" }}>{"Profile:"}</Title>
                         <Title level={4} style={{ color: "white" }}>{"Username:"}</Title>
                         <Paragraph strong style={{ color: "white", fontSize: "20px" }}>
-                            {" "}
+                            {username}
                         </Paragraph>
                     </Col>
                 </Row>
@@ -37,7 +35,7 @@ const Profile: React.FC = () => {
                     <Col>
                         <Title level={4} style={{ color: "white" }}>{"Email:"}</Title>
                         <Paragraph strong style={{ color: "white", fontSize: "20px" }}>
-                            {" "}
+                            {email}
                         </Paragraph>
                     </Col>
                 </Row>
