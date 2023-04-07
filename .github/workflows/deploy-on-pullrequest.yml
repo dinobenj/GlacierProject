@@ -14,7 +14,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       #-name: Cache R Packages
       #id: cache-r
@@ -25,7 +25,7 @@ jobs:
       #  key: ${{ runner.os }}-${{ hashFiles('**/DESCRIPTION')) }}
           
       # build the docker image and give it the name main
-      #- name: Build image
+      - name: Build image
       run: docker build -t pullrequestimage . 
       # run the docker image supply the secrets from the github secrets store.  
       - name: execute
