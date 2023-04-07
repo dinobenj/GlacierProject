@@ -10,5 +10,8 @@
     "test": "."
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "mongodb": "^5.2.0"
+  }
 }

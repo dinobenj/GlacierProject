@@ -12,6 +12,15 @@ import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
 import {Layout} from 'antd';
+import { MongoClient } from 'mongodb'
+
+export type user = {
+    id: number;
+    email: string;
+    password: string;
+}
+
+
 
 const {Content} = Layout;
 
