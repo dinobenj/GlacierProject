@@ -26,7 +26,7 @@ jobs:
           
       # build the docker image and give it the name main
       - name: Build image
-      run: docker build -t pullrequestimage . 
+        run: docker build -t pullrequestimage . 
       # run the docker image supply the secrets from the github secrets store.  
       - name: execute
         run: >
