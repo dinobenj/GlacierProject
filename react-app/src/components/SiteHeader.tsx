@@ -19,6 +19,9 @@ const SiteHeader: React.FC = () => {
                 <Menu.Item key="about">
                     <a href="/about">About</a>
                 </Menu.Item>
+                <Menu.Item key="citations">
+                    <a href="/citations">Citations</a>
+                </Menu.Item>
                 <Menu.Item key="login" style={{marginLeft: 'auto', marginRight: '0px'}}>
                     <a href="/login">Login</a>
                 </Menu.Item>

@@ -42,6 +42,8 @@ const About: React.FC = () => {
                 </Row>
             </Col>
         </Row>
+
+        
     )
 }
 

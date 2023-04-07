@@ -10,6 +10,7 @@ import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import Dashboard from "./components/Dashboard";
 import Profile from "./components/Profile";
+import CitationsPage from "./components/CitationsPage";
 import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
@@ -30,6 +31,10 @@ const router = createBrowserRouter([
     {
         path: "/about",
         element: <About/>
+    },
+    {
+        path: "/citations",
+        element: <CitationsPage/>
     },
     {
         path: "/login",
