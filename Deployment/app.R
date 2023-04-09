@@ -122,10 +122,9 @@ server <- function(input, output, session) {
     library = "fa"
   )
   
-  output$mymap <- renderLeaflet({
+ output$mymap <- renderLeaflet({
     leaflet() %>%
-      addProviderTiles(providers$Esri.NatGeoWorldMap,
-                       options = providerTileOptions(noWrap = TRUE)
+      addProviderTiles(providers$Esri.NatGeoWorldMap)
       ) %>%
       setView(0, 0, 2) %>%
       
