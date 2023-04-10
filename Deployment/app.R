@@ -55,9 +55,9 @@ get_area_chart <- function(glacier_name) {
             ylab = "AREA (1000m^2)",
             col = "blue")
   
-  get_mass_chart <- funciton(glacier_name){
-    plot_data <- mass_data
-  }
+  #get_mass_chart <- funciton(glacier_name){
+  #  plot_data <- mass_data
+  #}
   
   text(plot_data$YEAR, plot_data$AREA, labels=plot_data$YEAR, font=2)
   #print(plot_data)
