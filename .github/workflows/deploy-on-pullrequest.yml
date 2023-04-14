@@ -16,24 +16,24 @@ jobs:
       # Checks-out your repository so your job can access it
     - uses: actions/checkout@v3
 
-     - name: Cache R Packages
+    - name: Cache R Packages
       #id: cache-r
       #-uses: r-lib/action/setup-r@v2
       #-uses: r-lib/actions/setup-r-dependencies@v2
-       uses: actions/cache@v3
-       with:
-         path: ${{ envR_LIBS_USER }}
-         key: r-${{ hashFiles('DESCRIPTION')) }}
+      uses: actions/cache@v3
+      with:
+        path: ${{ envR_LIBS_USER }}
+        key: r-${{ hashFiles('DESCRIPTION')) }}
           
       # build the docker image and give it the name main
-      - name: Build image
-        run: docker build -t pullrequestimage . 
+    - name: Build image
+      run: docker build -t pullrequestimage . 
       # run the docker image supply the secrets from the github secrets store.  
-      - name: execute
-        run: >
-          docker run 
-          -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
-          -e TOKEN=${{secrets.SHINY_APP_TOKEN}} 
-          -e SECRET=${{secrets.SHINY_APP_SECRET}} 
-          -e MASTERNAME=Testing
-          pullrequestimage
+    - name: execute
+      run: >
+        docker run 
+        -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
+        -e TOKEN=${{secrets.SHINY_APP_TOKEN}} 
+        -e SECRET=${{secrets.SHINY_APP_SECRET}} 
+        -e MASTERNAME=Testing
+        pullrequestimage
