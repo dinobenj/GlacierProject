@@ -46,7 +46,8 @@ class Glacier(Resource):
         self.get_name_arg = "name"
         self.get_id_arg = "id"
         self.get_list_all_arg = "list_all"
-        self.post_arg = "glaciers"
+        self.post_name_arg = "glacier_names"
+        self.post_id_arg = "glacier_ids"
 
     def get(self):
         '''
@@ -105,15 +106,20 @@ class Glacier(Resource):
         '''
         Send a json form with one key called glaciers with a list of glaciers to query.
         Here are some example curl commands:
-        curl -X POST http://localhost/glacier -H "Content-Type: application/json" -d "{\"glaciers\": [\"Gemu Glacier\", \"Grewingk Glacier\"]}"  
-        curl -X POST http://localhost/glacier -H "Content-Type: application/json" -d "{\"glaciers\": [\"Gemu Glacier\"]}"
+
+        1. curl -X POST http://localhost/glacier -H "Content-Type: application/json" -d "{\"glacier_names\": [\"Gemu Glacier\", \"Grewingk Glacier\", \"Dogshead Glacier\"]}"  
+        2. curl -X POST http://localhost/glacier -H "Content-Type: application/json" -d "{\"glacier_names\": [\"Gemu Glacier\"]}"
+        3. curl -X POST http://localhost/glacier -H "Content-Type: application/json" -d "{\"glacier_ids\": [\"G083924E30412N\", \"G209046E59576N\"]}"
+        4. curl -X POST http://localhost/glacier -H "Content-Type: application/json" -d "{\"glacier_ids\": [\"G207974E61361N\"]}"  
+
         If an item in the list is not a glacier in the database, nothing will be shown in the output.
         '''
         data = dict(request.get_json())
-        if len(data) != 1 or not self.post_arg in data.keys():
-            return f"Only one key required with name '{self.post_arg}'.", 400
-        else:
-            glacier_list = data[self.post_arg]
+        if len(data) != 1 or not (bool(self.post_name_arg in data.keys()) ^ bool(self.post_id_arg in data.keys())):
+            return f"Only one key required with name '{self.post_name_arg}' or '{self.post_id_arg}'.", 400
+        elif self.post_name_arg in data.keys():
+            print("here")
+            glacier_list = data[self.post_name_arg]
             return_data = {}
             for glacier in glacier_list:
                 print(glacier)
@@ -126,9 +132,23 @@ class Glacier(Resource):
                         } for entry in data]
                 if len(data) != 0:
                     return_data[glacier] = data
-            
             return jsonify(return_data)
-        
+        elif self.post_id_arg in data.keys():
+            glacier_id_list = data[self.post_id_arg]
+            return_data = {}
+            for glacier_id in glacier_id_list:
+                print(glacier_id)
+                data = cur.execute(f"SELECT source_time, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_id=\"{glacier_id}\"").fetchall()
+                data = [{"source_time": entry[0],
+                        "area": entry[1],
+                        "min_elev": entry[2],
+                        "max_elev": entry[3],
+                        "mean_elev": entry[4]   
+                        } for entry in data]
+                if len(data) != 0:
+                    return_data[glacier_id] = data
+            return jsonify(return_data)
+
 class Precipitation(Resource):
     
     def __init__(self):
