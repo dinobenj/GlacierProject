@@ -44,7 +44,7 @@ class Glacier(Resource):
     
     def __init__(self):
         self.get_name_arg = "name"
-        self.id_arg = 'id'
+        self.get_id_arg = "id"
         self.get_list_all_arg = "list_all"
         self.post_arg = "glaciers"
 
@@ -52,13 +52,14 @@ class Glacier(Resource):
         '''
         URL must be in the form of http://localhost/glacier. There are three
         arguments: name, id, and list_all. 
-        
+
         1. name={glacier_name} returns all data for the glacier with glacier_name.
-        2. id ={glaicer_id} returns all data for the glacier with glacier_id.
+        2. id={glaicer_id} returns all data for the glacier with glacier_id.
         3. list_all={true} returns all glaciers names and ids in the database.
-        
+
         Note that only one of the three args can be used at a time. 
         '''
+        
         args = request.args
         if len(args) > 1:
             return "Too many args", 400
@@ -68,17 +69,35 @@ class Glacier(Resource):
             else:
                 return jsonify({"glaciers": ""})
         elif self.get_name_arg in args.keys():
-            data = cur.execute(f"SELECT source_time, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_name=\"{args[self.get_name_arg]}\"").fetchall()
-            data = [{"source_time": entry[0],
-                     "area": entry[1],
-                     "min_elev": entry[2],
-                     "max_elev": entry[3],
-                     "mean_elev": entry[4]   
+            data = cur.execute(f"SELECT glacier_id, source_time, analysis_time, geo_area, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_name=\"{args[self.get_name_arg]}\"").fetchall()
+            data = [{"glacier_id": entry[0],
+                     "source_time": entry[1],
+                     "analysis_time": entry[2],
+                     "geo_area": entry[3],
+                     "area": entry[4],
+                     "min_elev": entry[5],
+                     "max_elev": entry[6],
+                     "mean_elev": entry[7]   
                     } for entry in data]
             if len(data) == 0:
                 return f"No data for glacier: '{args[self.get_name_arg]}'", 400
             else:
                 return jsonify({f"{args[self.get_name_arg]}": data})
+        elif self.get_id_arg in args.keys():
+            data = cur.execute(f"SELECT glacier_name, source_time, analysis_time, geo_area, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_id=\"{args[self.get_id_arg]}\"").fetchall()
+            data = [{"glacier_name": entry[0],
+                     "source_time": entry[1],
+                     "analysis_time": entry[2],
+                     "geo_area": entry[3],
+                     "area": entry[4],
+                     "min_elev": entry[5],
+                     "max_elev": entry[6],
+                     "mean_elev": entry[7]   
+                    } for entry in data]
+            if len(data) == 0:
+                return f"No data for glacier: '{args[self.get_id_arg]}'", 400
+            else:
+                return jsonify({f"{args[self.get_id_arg]}": data})
         else:
             return "Invalid arg: require only 'name', 'id', or 'list_all' as arguments to URL", 400
 
