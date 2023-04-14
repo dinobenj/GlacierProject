@@ -14,9 +14,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository so your job can access it
-      - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
-      -name: Cache R Packages
+     - name: Cache R Packages
       #id: cache-r
       #-uses: r-lib/action/setup-r@v2
       #-uses: r-lib/actions/setup-r-dependencies@v2
