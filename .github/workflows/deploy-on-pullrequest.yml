@@ -14,6 +14,7 @@ jobs:
     steps:
       # Checks-out your repository so your job can access it
       - uses: actions/checkout@v3
+      - uses: r-lib/actions/setup-r@master
 
       - name: Cache R Packages
         #id: cache-r
@@ -21,7 +22,7 @@ jobs:
         #-uses: r-lib/actions/setup-r-dependencies@v2
         uses: actions/cache@v1
         with:
-          path: ~/dependencies
+          path: ${{ env.R_LIBS_USER }}
           key: r-${{ hashFiles('DESCRIPTION') }}
 
       #- name: Restore cache
