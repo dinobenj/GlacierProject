@@ -44,6 +44,7 @@ round_dataframe <- function(x, digits) {
   return(x)
 }
 
+# Defines size and appearance of glacier's area^2 chart 
 get_area_chart <- function(glacier_name) {
   plot_data <- area_data
   plot_data <- subset(plot_data, NAME == glacier_name)
@@ -55,9 +56,9 @@ get_area_chart <- function(glacier_name) {
             ylab = "AREA (1000m^2)",
             col = "blue")
   
-  get_mass_chart <- funciton(glacier_name){
+ get_mass_chart <- function(glacier_name){
     plot_data <- mass_data
-  }
+ }
   
   text(plot_data$YEAR, plot_data$AREA, labels=plot_data$YEAR, font=2)
   #print(plot_data)
@@ -156,16 +157,20 @@ server <- function(input, output, session) {
     }
   })
   
-  # observeEvent(input$data_select, {
-  #   display_type <- input$data_select
-  #   if(display_type == "Mass Balance"){
-  #     mass_balance <- get_mass_chart(input$Input_Glacier_Name)
-  #     output$plotxy <- render
-  #   }
-  # })
+  # Watches for change in "Select Graph Data" dropdown menu selection
+   #observeEvent(input$data_select, {
+    # display_type <- input$data_select
+     # if(display_type == "Mass Balance"){
+     #   mass_balance <- get_mass_chart(input$Input_Glacier_Name)
+     #   output$plotxy <- render
+     # }
+     #if (display_type == "Precipitation"){
+       
+     #}
+   #})
   
   
-  
+  # Watches for user clicking on a glacier marker on the map
   observeEvent(input$mymap_marker_click, {
     p <- input$mymap_marker_click
     print(p)
