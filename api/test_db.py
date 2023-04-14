@@ -8,8 +8,15 @@ inspect the output to make sure everything looks alright. Takes 1 command line
 arg which is the name of the database.
 '''
 
+db_filename = None
+if len(sys.argv) != 2:
+    print("Usage: test_db.py <db_filename>")
+    quit()
+else:
+    db_filename = sys.argv[1]
 
-con = sqlite3.connect(sys.argv[1], check_same_thread=False)
+
+con = sqlite3.connect(db_filename, check_same_thread=False)
 cur = con.cursor()
 
 print(pd.read_sql_query("SELECT * FROM glaciers", con))
