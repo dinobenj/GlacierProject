@@ -118,17 +118,19 @@ class Glacier(Resource):
         if len(data) != 1 or not (bool(self.post_name_arg in data.keys()) ^ bool(self.post_id_arg in data.keys())):
             return f"Only one key required with name '{self.post_name_arg}' or '{self.post_id_arg}'.", 400
         elif self.post_name_arg in data.keys():
-            print("here")
             glacier_list = data[self.post_name_arg]
             return_data = {}
             for glacier in glacier_list:
                 print(glacier)
-                data = cur.execute(f"SELECT source_time, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_name=\"{glacier}\"").fetchall()
-                data = [{"source_time": entry[0],
-                        "area": entry[1],
-                        "min_elev": entry[2],
-                        "max_elev": entry[3],
-                        "mean_elev": entry[4]   
+                data = cur.execute(f"SELECT glacier_id, source_time, analysis_time, geo_area, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_name=\"{glacier}\"").fetchall()
+                data = [{"glacier_id": entry[0],
+                         "source_time": entry[1],
+                         "analysis_time": entry[2],
+                         "geo_area": entry[3],
+                         "area": entry[4],
+                         "min_elev": entry[5],
+                         "max_elev": entry[6],
+                         "mean_elev": entry[7]   
                         } for entry in data]
                 if len(data) != 0:
                     return_data[glacier] = data
@@ -138,12 +140,15 @@ class Glacier(Resource):
             return_data = {}
             for glacier_id in glacier_id_list:
                 print(glacier_id)
-                data = cur.execute(f"SELECT source_time, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_id=\"{glacier_id}\"").fetchall()
-                data = [{"source_time": entry[0],
-                        "area": entry[1],
-                        "min_elev": entry[2],
-                        "max_elev": entry[3],
-                        "mean_elev": entry[4]   
+                data = cur.execute(f"SELECT glacier_name, source_time, analysis_time, geo_area, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_id=\"{glacier_id}\"").fetchall()
+                data = [{"glacier_name": entry[0],
+                         "source_time": entry[1],
+                         "analysis_time": entry[2],
+                         "geo_area": entry[3],
+                         "area": entry[4],
+                         "min_elev": entry[5],
+                         "max_elev": entry[6],
+                         "mean_elev": entry[7]   
                         } for entry in data]
                 if len(data) != 0:
                     return_data[glacier_id] = data
