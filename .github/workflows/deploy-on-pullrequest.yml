@@ -16,13 +16,14 @@ jobs:
       # Checks-out your repository so your job can access it
       - uses: actions/checkout@v2
 
-      #-name: Cache R Packages
+      -name: Cache R Packages
       #id: cache-r
       #-uses: r-lib/action/setup-r@v2
       #-uses: r-lib/actions/setup-r-dependencies@v2
-      #with:
-      #  path: /tmp/cache
-      #  key: ${{ runner.os }}-${{ hashFiles('**/DESCRIPTION')) }}
+       uses: actions/cache@v3
+       with:
+         path: ${{ envR_LIBS_USER }}
+         key: r-${{ hashFiles('DESCRIPTION')) }}
           
       # build the docker image and give it the name main
       - name: Build image
