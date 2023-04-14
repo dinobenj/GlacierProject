@@ -47,6 +47,7 @@ round_dataframe <- function(x, digits) {
 get_area_chart <- function(glacier_name) {
   plot_data <- area_data
   plot_data <- subset(plot_data, NAME == glacier_name)
+  plot_data <- plot_data[order(plot_data$YEAR),]
   b <- plot(plot_data$YEAR,
             plot_data$AREA,
             type = "o",
@@ -68,10 +69,10 @@ get_area_chart <- function(glacier_name) {
 display_raster <- function(glacier) {
   #Take the glacier's position and create a box to
   #put the elevation data into
-  southPoint <- glacier$lng - 0.1
-  northPoint <- glacier$lng + 0.1
-  westPoint <- glacier$lat - 0.1
-  eastPoint <- glacier$lat + 0.1
+  southPoint <- glacier$lat - 0.1
+  northPoint <- glacier$lat + 0.1
+  westPoint <- glacier$lng - 0.1
+  eastPoint <- glacier$lng + 0.1
   southwestBound <- data.frame(x = westPoint, y = southPoint)
   northeastBound <- data.frame(x = eastPoint, y = northPoint)
   boundingBox <- rbind(southwestBound, northeastBound)
