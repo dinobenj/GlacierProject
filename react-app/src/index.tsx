@@ -12,9 +12,11 @@ import SiteHeader from './components/SiteHeader';
 import SiteFooter from './components/SiteFooter';
 import 'antd/dist/antd.min.css';
 import {Layout} from 'antd';
-import { MongoClient } from 'mongodb'
+import { AuthProvider } from "./provider/AuthProvider";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-export type user = {
+
+export type User = {
     id: number;
     email: string;
     password: string;
