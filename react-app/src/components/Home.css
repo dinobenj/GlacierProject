@@ -1,0 +1,31 @@
+.home-container {
+    height: 100vh;
+  }
+  
+  .home-card {
+    padding: 20px;
+    border-radius: 20px;
+    background-color: rgba(128, 128, 128, 0.3);
+  }
+  
+  .home-title {
+    color: white;
+  }
+  
+  .home-paragraph {
+    color: white;
+    font-size: 20px;
+  }
+  
+  .home-welcome-text {
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .home-button-text {
+    color: white;
+  }
+  
