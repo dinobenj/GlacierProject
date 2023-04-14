@@ -48,13 +48,14 @@ get_area_chart <- function(glacier_name) {
   plot_data <- area_data
   plot_data <- subset(plot_data, NAME == glacier_name)
   plot_data <- plot_data[order(plot_data$YEAR),]
-  b <- plot(plot_data$YEAR,
+  plot(plot_data$YEAR,
             plot_data$AREA,
-            type = "o",
-            main = glacier_name,
+            #type = "o",
+            #main = glacier_name,
             xlab = "Years",
-            ylab = "AREA (1000m^2)",
-            col = "blue")
+            ylab = "AREA (1000m^2)")
+            #col = "blue")
+  lines(plot_data$YEAR, plot_data$AREA, xlim=range(plot_data$YEAR), ylim=range(plot_data$AREA), pch=16)
   
   #get_mass_chart <- funciton(glacier_name){
   #  plot_data <- mass_data
