@@ -47,8 +47,6 @@ if __name__ == "__main__":
 
     # If you want to read from a different glims data base, the file name below must be changed.
     for i, record in enumerate(DBF(glims_file, char_decode_errors="ignore")):
-        
-        if i == 200: break
 
         # Here we iterate through all the records in the glim file.
         # Only the parameters below are stored in the sql db.
@@ -63,10 +61,10 @@ if __name__ == "__main__":
         min_elev = record["min_elev"]
         max_elev = record["max_elev"]
 
-        # Any empty glacier name will be ignored.
-        if glacier_name == "None":
+        # Any empty glacier name and id will be ignored.
+        if glacier_name == "None" and glacier_id == "None":
             continue
-        print(i, glacier_name)
+        print(i, glacier_name, glacier_id)
 
         cur.execute(f"INSERT OR REPLACE INTO glaciers (glacier_id, \
                                                        glacier_name, \

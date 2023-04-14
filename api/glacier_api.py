@@ -1,6 +1,7 @@
 import sqlite3
 from flask import Flask, jsonify, request
 from flask_restful import Resource, Api
+import sys
 
 '''
 This is the API that is connected to the sql database created from the glims
@@ -24,8 +25,16 @@ glims documentation. That is one thing that should be added.
 app = Flask(__name__)
 api = Api(app)
 
+db_filename = None
+
+if len(sys.argv) != 2:
+    print("Usage: glacier_api.py <db_filename>")
+    quit()
+else:
+    db_filename = sys.argv[1]
+
 # The data base we connect to is the one created by create_sql_db.py
-con = sqlite3.connect("glacier.db", check_same_thread=False)
+con = sqlite3.connect(db_filename, check_same_thread=False)
 cur = con.cursor()
 
 class Glacier(Resource):
@@ -34,27 +43,32 @@ class Glacier(Resource):
     '''
     
     def __init__(self):
-        self.name_arg = "name"
-        self.list_all_arg = "list_all"
+        self.get_name_arg = "name"
+        self.id_arg = 'id'
+        self.get_list_all_arg = "list_all"
         self.post_arg = "glaciers"
 
     def get(self):
         '''
-        URL must be in the form of http://localhost/glacier. There are two
-        arguments: name and list_all. name={glacier_name} returns all data
-        points in the db listed for the glacier. list_all={true} lists all the
-        glacier names in the database. Only one arg can be used at a time. 
+        URL must be in the form of http://localhost/glacier. There are three
+        arguments: name, id, and list_all. 
+        
+        1. name={glacier_name} returns all data for the glacier with glacier_name.
+        2. id ={glaicer_id} returns all data for the glacier with glacier_id.
+        3. list_all={true} returns all glaciers names and ids in the database.
+        
+        Note that only one of the three args can be used at a time. 
         '''
         args = request.args
         if len(args) > 1:
             return "Too many args", 400
-        elif self.list_all_arg in args.keys(): # dumps all the glacier names
-            if args[self.list_all_arg] == "true":
-                return jsonify({"glaciers": cur.execute("SELECT glacier_name FROM glaciers").fetchall()})
+        elif self.get_list_all_arg in args.keys(): # dumps all the glacier names
+            if args[self.get_list_all_arg] == "true":
+                return jsonify({"glaciers": cur.execute("SELECT glacier_id, glacier_name FROM glaciers").fetchall()})
             else:
                 return jsonify({"glaciers": ""})
-        elif self.name_arg in args.keys():
-            data = cur.execute(f"SELECT source_time, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_name=\"{args[self.name_arg]}\"").fetchall()
+        elif self.get_name_arg in args.keys():
+            data = cur.execute(f"SELECT source_time, area, min_elev, max_elev, mean_elev FROM glaciers WHERE glacier_name=\"{args[self.get_name_arg]}\"").fetchall()
             data = [{"source_time": entry[0],
                      "area": entry[1],
                      "min_elev": entry[2],
@@ -62,11 +76,11 @@ class Glacier(Resource):
                      "mean_elev": entry[4]   
                     } for entry in data]
             if len(data) == 0:
-                return f"No data for glacier: '{args[self.name_arg]}'", 400
+                return f"No data for glacier: '{args[self.get_name_arg]}'", 400
             else:
-                return jsonify({f"{args[self.name_arg]}": data})
+                return jsonify({f"{args[self.get_name_arg]}": data})
         else:
-            return "Invalid arg: require only 'name' or 'list_all' as arguments to URL", 400
+            return "Invalid arg: require only 'name', 'id', or 'list_all' as arguments to URL", 400
 
     def post(self):
         '''
