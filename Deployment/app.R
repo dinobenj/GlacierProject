@@ -21,6 +21,7 @@ library(RColorBrewer)
 library(rgl)
 library(bmp)
 library(progress)
+library(reticulate)
 
 
 source("./test_with_all_glaciers.R")#only run for first startup to load data
@@ -55,7 +56,7 @@ get_area_chart <- function(glacier_name) {
             ylab = "AREA (1000m^2)",
             col = "blue")
   
-  get_mass_chart <- funciton(glacier_name){
+  get_mass_chart <- function(glacier_name){
     plot_data <- mass_data
   }
   
@@ -86,6 +87,7 @@ ui <- dashboardPage(
     menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(map_data$POLITICAL_UNIT))),
     selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(map_data$NAME)),
     selectInput(inputId = "data_select", label = "Select Graph Data", multiple = FALSE, choices = list("Area Change", "Mass Balance", "Precipitation")),
+    selectInput(inputId = "vis_type", label = "Select Visualization Type", multiple = FALSE, choices = list("Satellite Image", "Elevation Plot")),
     div(style = "display:inline-block; float:center", actionButton("downloadData", "Click to dowload CSV")),
     div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
   ),
@@ -164,6 +166,21 @@ server <- function(input, output, session) {
   #   }
   # })
   
+  # displaying elevation plot OR satellite image
+  observeEvent(input$vis_type, {
+     display_type <- input$vis_type
+     if(display_type == "Elevation Plot"){
+       output$ip <- renderPlot({
+         req(input$mymap_marker_click) #checks req of var to run display raster
+         display_raster(input$mymap_marker_click)
+       })
+     } else {
+       #source_python("sat_img_retreive.py")
+       #get_sat_img(input$mymap_marker_clck$lat, input$mymap_marker_click$lng)
+       output$ip <- "sat_api/MODIS_Terra_CorrectedReflectance_TrueColor.png"
+     }
+  })
+
   
   
   observeEvent(input$mymap_marker_click, {
