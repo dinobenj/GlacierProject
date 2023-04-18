@@ -46,11 +46,11 @@ jobs:
       - uses: actions/checkout@v2
 
       # build the docker image and give it the name main
-#      - name: Build image
-#        run: docker build -t main . 
+      - name: Build image
+        run: docker build -t main . 
       # run the docker image supply the secrets from the github secrets store.  
       - name: execute
-#        run: >
+        run: >
           docker run 
           -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
           -e TOKEN=${{secrets.SHINY_APP_TOKEN}} 
