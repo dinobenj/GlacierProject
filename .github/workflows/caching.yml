@@ -1,3 +1,5 @@
+#https://stackoverflow.com/questions/69365200/github-actions-how-to-cache-dependencies-between-workflow-runs-of-different-bra
+
 name: update-cache
 #When cached from an overhead branch, 
 #sub branches should refer to overhead branch when checking cache hit
@@ -7,7 +9,7 @@ on:
     branches: [main, master]
 
 jobs:
-  build-cache:
+  cache:
     name: Build Cache
     runs-on: ubuntu-latest
 
@@ -31,4 +33,36 @@ jobs:
       #If no cache hit, install dependencies
       name: Install Dependencies
       if: steps.cache.outputs.cache-hit != 'true'
-      #run:
+      uses: r-lib/actions/setup-r-dependencies@v2
+
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository so your job can access it
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@v2
+
+      - name: Cache R Packages
+        #id: cache-r
+        #-uses: r-lib/action/setup-r@v2
+        #-uses: r-lib/actions/setup-r-dependencies@v2
+        uses: actions/cache@v1
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: r-${{ hashFiles('DESCRIPTION') }}
+
+      # build the docker image and give it the name main
+      - name: Build image
+        run: docker build -t main . 
+      # run the docker image supply the secrets from the github secrets store.  
+      - name: execute
+        run: >
+          docker run 
+          -e SHINY_ACC_NAME=${{ secrets.SHINY_ACC_NAME }} 
+          -e TOKEN=${{secrets.SHINY_APP_TOKEN}} 
+          -e SECRET=${{secrets.SHINY_APP_SECRET}} 
+          -e MASTERNAME=${{ secrets.MASTER_NAME }} 
+          main
