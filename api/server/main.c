@@ -13,6 +13,15 @@
 
 int main(int argc, char** argv) {
 
+
+    short port;
+    if (argc != 2) {
+        fprintf(stderr, "Usage: a.out <port>\n");
+        return EXIT_FAILURE;
+    } else {
+        port = atoi(argv[1]);
+    }
+
     struct sockaddr_in sa;
     memset(&sa, 0, sizeof(sa));
     int socket_fd = socket(PF_INET, SOCK_STREAM, IPPROTO_TCP);
@@ -24,7 +33,6 @@ int main(int argc, char** argv) {
     printf("socket fd: %d\n", socket_fd);
     #endif
 
-    short port = 8080;
     sa.sin_family = AF_INET;
     sa.sin_port = htons(port);
     sa.sin_addr.s_addr = htonl(INADDR_ANY);
@@ -42,12 +50,14 @@ int main(int argc, char** argv) {
     }
 
 
+    unsigned int request_count = 0;
+
 
     while (true) {
 
         printf("Waiting for connections...\n");
         int connect_fd = accept(socket_fd, NULL, NULL);
-        printf("Accepted a connection.\n");
+        printf("Accepted a connection. %d\n", connect_fd);
 
         if (connect_fd == -1) {
             fprintf(stderr, "Error: Cannot listen.\n");
@@ -64,10 +74,15 @@ int main(int argc, char** argv) {
         buffer[read_count] = '\0';
         printf("%s\n", buffer);
 
-        write(connect_fd, "test", 4);
+        char write_buffer[BUFFER_SIZE];
+        sprintf(write_buffer, "Request count: %d", request_count++);
+        printf("%s\n", write_buffer);
+        // sleep(1);
+        int write_count = write(connect_fd, write_buffer, strlen(write_buffer));
+        printf("%d bytes written.\n", write_count);
 
 
-        // close(connect_fd);
+        close(connect_fd);
     }
 
 
