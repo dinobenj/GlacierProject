@@ -21,9 +21,22 @@ int main(int argc, char** argv) {
     printf("socket fd: %d\n", socket_fd);
     #endif
 
+    short port = 8080;
     sa.sin_family = AF_INET;
-    sa.sin_port = htons(8080);
+    sa.sin_port = htons(port);
     sa.sin_addr.s_addr = htonl(INADDR_ANY);
+
+    if (bind(socket_fd, (struct sockaddr *)&sa, sizeof(sa)) == -1) {
+        fprintf(stderr, "Error: Cannot bind socket to port %d.\n", port);
+        close(socket_fd);
+        return EXIT_FAILURE;
+    }
+    
+    if (listen(socket_fd, 100) == -1) {
+        fprintf(stderr, "Error: Cannot listen.\n");
+        close(socket_fd);
+        return EXIT_FAILURE;
+    }
 
 
     printf("hello there\n");
