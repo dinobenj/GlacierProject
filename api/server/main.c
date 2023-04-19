@@ -3,9 +3,12 @@
 #include <netinet/in.h>
 #include <arpa/inet.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+
+#define BUFFER_SIZE 2048
 
 
 int main(int argc, char** argv) {
@@ -36,6 +39,35 @@ int main(int argc, char** argv) {
         fprintf(stderr, "Error: Cannot listen.\n");
         close(socket_fd);
         return EXIT_FAILURE;
+    }
+
+
+
+    while (true) {
+
+        printf("Waiting for connections...\n");
+        int connect_fd = accept(socket_fd, NULL, NULL);
+        printf("Accepted a connection.\n");
+
+        if (connect_fd == -1) {
+            fprintf(stderr, "Error: Cannot listen.\n");
+            close(socket_fd);
+        }
+
+        char buffer[BUFFER_SIZE];
+        int read_count = read(connect_fd, buffer, BUFFER_SIZE);
+        if (read_count == -1) {
+            fprintf(stderr, "Error: Could not read from client.\n");
+            close(connect_fd);
+            continue;
+        }
+        buffer[read_count] = '\0';
+        printf("%s\n", buffer);
+
+        write(connect_fd, "test", 4);
+
+
+        // close(connect_fd);
     }
 
 
