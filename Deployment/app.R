@@ -48,22 +48,27 @@ get_area_chart <- function(glacier_name) {
   plot_data <- area_data
   plot_data <- subset(plot_data, NAME == glacier_name)
   plot_data <- plot_data[order(plot_data$YEAR),]
-  plot(plot_data$YEAR,
-            plot_data$AREA,
+  df <- data.frame(area = plot_data$AREA, year = plot_data$YEAR)
+  #plot(plot_data$YEAR,
+            #plot_data$AREA,
             #type = "o",
             #main = glacier_name,
-            xlab = "Years",
-            ylab = "AREA (1000m^2)")
+            #xlab = "Years",
+            #ylab = "AREA (1000m^2)",
             #col = "blue")
-  lines(plot_data$YEAR, plot_data$AREA, xlim=range(plot_data$YEAR), ylim=range(plot_data$AREA), pch=16)
+  #lines(plot_data$YEAR, plot_data$AREA, pch=16)
   
   #get_mass_chart <- funciton(glacier_name){
   #  plot_data <- mass_data
   #}
   
-  text(plot_data$YEAR, plot_data$AREA, labels=plot_data$YEAR, font=2)
+  #text(plot_data$YEAR, plot_data$AREA, labels=plot_data$YEAR, font=2)
   #print(plot_data)
-  return(plot_data)
+  
+  
+  
+  
+  return(df)
 }
 
 
@@ -151,10 +156,16 @@ server <- function(input, output, session) {
       print("This data frame is empty")
     }
     else{
-      area <- get_area_chart(input$Input_Glacier_Name)
+      area <- get_area_chart("TYNDALL") #input$Input_Glacier_Name
+      print(area)
+      b <- ggplot(area$AREA, aes(x ="YEAR", y = "AREA")) +
+        geom_line() +
+        geom_point()
+      plot(b)
       dwnld_data = area
       write.csv(dwnld_data, "tmp.csv")
       read.csv("tmp.csv")
+      
     }
   })
   
