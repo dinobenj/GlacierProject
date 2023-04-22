@@ -114,8 +114,7 @@ server <- function(input, output, session) {
     map_data
   })
   
-  v <- reactiveValues(plot_data = NULL
-                      plot_type = NULL)
+  v <- reactiveValues(plot_data = NULL)
   
   observeEvent(input$Input_Country_Code, {
     map_data <- get_country_map_data(input$Input_Country_Code)
