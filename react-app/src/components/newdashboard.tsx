@@ -49,4 +49,47 @@ const Dashboard: React.FC = () => {
               backgroundColor: "#40E0D0",
               display: "inline",
               height: "250px",
-;
+            }}
+          >
+            <Row justify="center" align="middle">
+              Glacier Two
+            </Row>
+          </Col>
+          <Col
+            span={6}
+            style={{
+              padding: "10px",
+              borderRadius: "20px",
+              backgroundColor: "#40E0D0",
+              display: "inline",
+            }}
+          >
+            <Row justify="center" align="middle">
+              Glacier Three
+            </Row>
+          </Col>
+          <Col
+            span={6}
+            style={{
+              padding: "10px",
+              borderRadius: "20px",
+              backgroundColor: "#40E0D0",
+              display: "inline",
+            }}
+          >
+            <Row justify="center" align="middle">
+              Glacier Four
+            </Row>
+          </Col>
+        </Row>
+        <Row justify="center">
+          <Paragraph style={{ color: "white" }}>
+            Browse through a dashboard of glaciers.
+          </Paragraph>
+        </Row>
+      </Col>
+    </Row>
+  );
+};
+
+export default Dashboard;
