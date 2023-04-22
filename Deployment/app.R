@@ -23,7 +23,7 @@ library(bmp)
 library(progress)
 
 
-source("./test_with_all_glaciers.R")#only run for first startup to load data
+ #source("./test_with_all_glaciers.R")#only run for first startup to load data
 
 
 #returns the map data for the given country
@@ -86,8 +86,8 @@ ui <- dashboardPage(
     menuItem(selectInput(inputId = "Input_Country_Code", label = "Select 2 Letter Country Code", selected = TRUE, multiple = FALSE, choices = sort(map_data$POLITICAL_UNIT))),
     selectInput(inputId = "Input_Glacier_Name", label = "Select Glacier:", multiple = FALSE, choices = sort(map_data$NAME)),
     selectInput(inputId = "data_select", label = "Select Graph Data", multiple = FALSE, choices = list("Area Change", "Mass Balance", "Precipitation")),
-    div(style = "display:inline-block; float:center", actionButton("downloadData", "Click to dowload CSV")),
-    div(style = "display:inline-block; float:center", actionButton("plot_sat","Display raster of selected Glacier"))
+    actionButton("downloadData", "Click to dowload CSV"),
+    actionButton("plot_sat","Display raster of selected Glacier")
   ),
   dashboardBody(
     fluidRow(
@@ -95,7 +95,7 @@ ui <- dashboardPage(
     ),
     fluidRow(
       box(plotOutput("plotxy", click = "plot_click")),
-      box(plotOutput("ip"))
+      box(plotOutput("ip", click = "rast_click"))
     )
     
   )
@@ -113,6 +113,9 @@ server <- function(input, output, session) {
   data <- reactive({
     map_data
   })
+  
+  v <- reactiveValues(plot_data = NULL
+                      plot_type = NULL)
   
   observeEvent(input$Input_Country_Code, {
     map_data <- get_country_map_data(input$Input_Country_Code)
@@ -156,19 +159,10 @@ server <- function(input, output, session) {
     }
   })
   
-  # observeEvent(input$data_select, {
-  #   display_type <- input$data_select
-  #   if(display_type == "Mass Balance"){
-  #     mass_balance <- get_mass_chart(input$Input_Glacier_Name)
-  #     output$plotxy <- render
-  #   }
-  # })
-  
-  
-  
   observeEvent(input$mymap_marker_click, {
     p <- input$mymap_marker_click
     print(p)
+    print(v$data)
     updateSelectInput(session,
                       "Input_Glacier_Name",
                       label = paste("Select Glacier:"),
@@ -177,13 +171,17 @@ server <- function(input, output, session) {
     
   })
   p1 <- eventReactive(input$plot_sat, {
-        a <- display_raster(input$mymap_marker_click)
+        v$data <- input$mymap_marker
+  })
+  observeEvent(input$plot_sat, {
+    v$data = input$mymap_marker_click
   })
   
   output$ip <- renderPlot({
-    req(input$mymap_marker_click) #checks req of var to run display raster
-    display_raster(input$mymap_marker_click)
+    req(v$data) #checks req of var to run display raster
+    display_raster(v$data)
   })
+  
   output$downloadData <- downloadHandler(
     filename = function() {
       paste("data-", Sys.Date(), ".csv", sep = "")
