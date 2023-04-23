@@ -42,10 +42,10 @@ const Citations: React.FC = () => {
                         color: "blue",
                         fontSize: "20px"
                     }}>
-                        https://doi.org/10.5904/wgms-fog-2013-11.
+                        <a href="https://doi.org/10.5904/wgms-fog-2013-11">https://doi.org/10.5904/wgms-fog-2013-11.</a>
                     </Paragraph>
-                </Col>
-            </Row>
+                </Col >
+            </Row >
             <Row>
                 <Col><Paragraph strong style={{
                     color: "white",

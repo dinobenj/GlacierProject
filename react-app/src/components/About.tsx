@@ -1,8 +1,8 @@
 import React from "react";
-import {Col, Row, Typography} from "antd";
+import { Col, Row, Typography } from "antd";
 import MemberIntroduction from "./ MemberIntroduction";
 
-const {Title, Paragraph} = Typography;
+const { Title, Paragraph } = Typography;
 
 const About: React.FC = () => {
     const projectIntroductinTitle = "What is the glacier project?"
@@ -11,7 +11,7 @@ const About: React.FC = () => {
     const teamIntroductionText = "We are students at Rensselaer Polytechnic Institue (RPI) and members of Rensselaer Center for Open Source (RCOS).";
 
     return (
-        <Row justify="center" align="middle" style={{height: "100vh"}}>
+        <Row justify="center" align="middle" style={{ height: "100vh" }}>
             <Col span={15} style={{
                 padding: "20px",
                 borderRadius: "20px",
@@ -19,7 +19,7 @@ const About: React.FC = () => {
             }}>
                 <Row justify="space-around" align="middle">
                     <Col>
-                        <Title style={{color: "white"}}>{projectIntroductinTitle}</Title>
+                        <Title style={{ color: "white" }}>{projectIntroductinTitle}</Title>
                         <Paragraph strong style={{
                             color: "white",
                             fontSize: "20px"
@@ -30,20 +30,27 @@ const About: React.FC = () => {
                 </Row>
                 <Row justify="space-around" align="middle">
                     <Col>
-                        <Title style={{color: "white"}}>{teamIntroductionTitle}</Title>
+                        <Title style={{ color: "white" }}>{teamIntroductionTitle}</Title>
                         <Paragraph strong style={{
                             color: "white",
                             fontSize: "20px"
                         }}>
                             {teamIntroductionText}
                         </Paragraph>
-                        <MemberIntroduction/>
+                        <MemberIntroduction />
                     </Col>
+                </Row>
+                <Row justify="space-around" align="middle">
+                    <a style={{
+                        fontSize: "40px",
+                        color: "blue"
+                        
+                    }} href="/citations">Citations</a>
                 </Row>
             </Col>
         </Row>
 
-        
+
     )
 }
 
