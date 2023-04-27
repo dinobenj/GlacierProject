@@ -23,7 +23,7 @@ library(bmp)
 library(progress)
 
 
-source("./test_with_all_glaciers.R")#only run for first startup to load data
+source("./test_with_all_glaciers.R") #only run for first start-up to load data
 
 
 #returns the map data for the given country
@@ -56,7 +56,7 @@ get_area_chart <- function(glacier_name) {
             ylab = "AREA (1000m^2)",
             col = "blue")
   
- get_mass_chart <- function(glacier_name){
+get_mass_chart <- function(glacier_name){
     plot_data <- mass_data
  }
   
@@ -94,11 +94,14 @@ ui <- dashboardPage(
     fluidRow(
       box(leafletOutput("mymap"), width = 14)
     ),
+    # Row of graphs at the bottom of the page
     fluidRow(
-      box(plotOutput("plotxy", click = "plot_click")),
-      box(plotOutput("ip"))
+      box(solidHeader = TRUE, "Mass Over Time", plotOutput("plotxy", click = "plot_click", height = 250)),
+      tabBox( 
+        tabPanel("Elevation Plot", plotOutput("ip")), 
+        tabPanel("Precipitation", imageOutput("precipImage"))
+      )
     )
-    
   )
 )
 
@@ -143,7 +146,16 @@ server <- function(input, output, session) {
                  layerId = ~NAME
       )
   })
+  
+  # Renders precipitation png
+  output$precipImage <- renderImage({
+    filename <- file.path('../python_sample.png')
+    list(src = filename, contentType = 'image/png', width = 400, height = 300)
+  })
+  
   dwnld_data <- NULL
+  
+  # Renders graph showing mass over time
   output$plotxy <- renderPlot({
     plot_data <- subset(area_data, NAME == input$Input_Glacier_Name)
     if(nrow(plot_data) == 0){
@@ -158,17 +170,16 @@ server <- function(input, output, session) {
   })
   
   # Watches for change in "Select Graph Data" dropdown menu selection
-   #observeEvent(input$data_select, {
-    # display_type <- input$data_select
-     # if(display_type == "Mass Balance"){
-     #   mass_balance <- get_mass_chart(input$Input_Glacier_Name)
-     #   output$plotxy <- render
-     # }
-     #if (display_type == "Precipitation"){
-       
-     #}
-   #})
-  
+   observeEvent(input$data_select, {
+    display_type <- input$data_select
+      #if(display_type == "Mass Balance"){
+      #  mass_balance <- get_mass_chart(input$Input_Glacier_Name)
+      #  output$plotxy <- render
+      #}
+     if (display_type == "Precipitation"){
+       output$precipImage <- render
+     }
+   })
   
   # Watches for user clicking on a glacier marker on the map
   observeEvent(input$mymap_marker_click, {
@@ -185,6 +196,7 @@ server <- function(input, output, session) {
         a <- display_raster(input$mymap_marker_click)
   })
   
+  # Renders RGB elevation plot
   output$ip <- renderPlot({
     req(input$mymap_marker_click) #checks req of var to run display raster
     display_raster(input$mymap_marker_click)
