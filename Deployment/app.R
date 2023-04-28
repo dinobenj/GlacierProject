@@ -175,8 +175,10 @@ server <- function(input, output, session) {
          display_raster(input$mymap_marker_click)
        })
      } else {
-       #source_python("sat_img_retreive.py")
-       #get_sat_img(input$mymap_marker_clck$lat, input$mymap_marker_click$lng)
+       # temporary solution
+       # depends on current directory
+       source_python("sat_img_retreive.py")
+       get_sat_img(input$mymap_marker_clck$lat, input$mymap_marker_click$lng)
        output$ip <- "sat_api/MODIS_Terra_CorrectedReflectance_TrueColor.png"
      }
   })
